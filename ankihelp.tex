@@ -9,8 +9,8 @@
 	pdftitle={Anki 2.0 用户手册},
 	pdfauthor={Tsingber Lee},
 	pdfsubject={Anki},
-	pdfkeywords={anki, LaTeX, CSS, html},
-	pdfproducer={Typset by XeLaTeX} } 
+	pdfkeywords={anki, \LaTeX{}, CSS, html},
+	pdfproducer={Typset by Xe\LaTeX{}} } 
 %\usepackage[hidelinks]{hyperref}
 \usepackage{graphicx}
 \usepackage{xltxtra}
@@ -220,7 +220,7 @@
 	
 	Anki是一个使记忆变得容易的学习软件。因为它是一个自定义多功能的记忆方式，可以大大减少你的学习时间，也可以大大提高 你的学习容量.
 	
-	ANKI会帮助那些在日常生活中需要记忆东西的人们。因为它是“内容-未知”模式，支持图像、音频、视频和科学标记（通过 LaTeX），可能性是无限的。例如:
+	ANKI会帮助那些在日常生活中需要记忆东西的人们。因为它是“内容-未知”模式，支持图像、音频、视频和科学标记（通过 \LaTeX{}），可能性是无限的。例如:
 	
 	\begin{itemize}
 		\itemsep1pt\parskip0pt\parsep0pt
@@ -693,8 +693,8 @@
 	\url{#media}“多媒体” 章节。
 	点击红色圆圈图标的按钮可以使用计算机话筒录制声音并附到笔记。
 	最后一个按钮可以为笔记添加叫做
-	\url{#latex}LaTeX的高级数学标签或编辑基本格式。
-	大多数按钮可以使用快捷键操作。鼠标指针悬停在按钮上会显示快捷键提示。对于LaTeX/HTML菜单， 使用Ctrl+t然后按t、e或m可分别调出三种LaTeX类型，按Ctrl+Shift+x可编辑 HTML。
+	\url{#latex}\LaTeX{}的高级数学标签或编辑基本格式。
+	大多数按钮可以使用快捷键操作。鼠标指针悬停在按钮上会显示快捷键提示。对于\LaTeX{}/HTML菜单， 使用Ctrl+t然后按t、e或m可分别调出三种\LaTeX{}类型，按Ctrl+Shift+x可编辑 HTML。
 	\section{填空}\label{cloze}
 	\textbf{填空}是指在句子中隐藏一个或多个字词的过程。 比如这样一个句子：
 	\begin{shaded}\begin{verbatim}
@@ -1093,7 +1093,7 @@
 	开始本章节前，请先阅读前一章节\hyperref[cardgeneration]{卡片}的生成与删除 。
 	有时需要仅仅为材料中的某些内容生成额外的卡片， 比如为了测试回想一系列单词中最重要的内容的能力。 这可以在笔记中添加一条额外的字段、 并在那些需要生成的卡片添加某些文本（比如“1”）于该字段来实现。 然后在卡片模板， 可以使卡片的生成取决于该字段为非空。 更多关于此的信息请察看下面的条件替换章节。
 	
-	\section{媒体与LaTeX引用}
+	\section{媒体与\LaTeX{}{}引用}
 	Anki不会为媒体引用而扫描模板，因为这样很缓慢。 这对在模板中包含媒体的情况也有影响。
 	
 	
@@ -2382,502 +2382,502 @@
 		\chapter{媒体}
 		
 		Anki用你的一个文件夹下的集合的笔记存储声音和图像。有关文件夹位置的更多信息，请参见\hyperref[files]{文件位置}部分。当你在Anki中添加媒体，用\hyperref[editor]{编辑}器中的曲别针图标或将它粘贴到一个领域，Anki将从它原来的位置进入媒体文件夹复制它。这可以很容易备份您的集合的媒体或移动它到另一台计算机。
-			
-			您可以使用工具$>$检查媒体菜单选项扫描你的笔记和媒体文件夹。它将在未使用任何笔记的媒体文件夹中生成文件报告，但从媒体文件夹中丢失媒体引用的笔记。它不扫描问题或回答模板，这就是为什么你不能在模板中放置媒体引用到字段。如果每一张卡片需要静态图像或声音，它的名字以\_开头（例如，\textbf{“\_dog .jpg”}）告诉Anki在检查媒体时忽略它。如果你使用未使用的媒体检查删除媒体，Anki会移动到你的操作系统的垃圾文件夹，这样如果你不小心删除不应该被删除的媒体，你就可以恢复它。
-			
-			Anki为了支持声音和视频使用一个叫mplayer的程序。支持多种文件格式，但不是所有这些格式将在Ankiweb和移动客户端运作。MP3和MP4视频似乎是最普遍的支持。
-			
-			\chapter{LaTeX支持}
-			
-			LaTeX是一种功能强大的排版系统，它非常适合输入数学公式、化学公式、音乐符号等.。Anki提供了LaTeX一些支持，让你的笔记进入\LaTeX 代码。当你复习卡片，Anki要求\LaTeX 替代并显示生成的图像。
-			
-			\section{安装和假设知识}
-			
-			Anki的LaTeX支持不转换线索：假定你知道如何使用\LaTeX ，和你已经安装了它。如果你没有LaTeX的经验，请查阅互联网上的许多指南之一。如果你有标记的麻烦，请在询问一个LaTeX论坛。
-			
-			安装LaTeX，在Windows使用MiKTeX；在OSX使用MiKTeX，在Linux使用你的发行版的软件包管理器。Dvipng也必须安装。
-			
-			
-			\begin{shaded}
-				在Windows中，MikTek的维护窗口去设置，并确保“在操作中安装丢失的包”设置为“No”，不需要“先问我”。如果仍有问题，一个用户报告显示，Anki作为一个管理员运行直到所有的包获得帮助。
-			\end{shaded}
-			
-			\begin{shaded}
-				在OSX中， LaTeX只在 MacTex 和 BasicTex测试。如果你使用 BasicTex，你需要安装dvipng分开，用下面的命令：
-			\end{shaded}
-			
-			\begin{shaded}\begin{verbatim}
-				sudo tlmgr update --self; sudo tlmgr install dvipng
-				\end{verbatim}\end{shaded}
-			命令可能不在路径上，那么你可能需要提供完整的路径，例如 \verb|/usr/local/texlive/2014basic/bin/x86_64-darwin/tlmgr|。
-			
-			
-			\begin{shaded}
-				如果你不使用上述 \LaTeX 包，你将需要使用“编辑 \LaTeX”附加到指定 \LaTeX 和dvipng完整的路径。
-			\end{shaded}
-			
-			\section{网络/移动的LaTeX}
-			
-			当你复习一张有LaTeX的卡片，Anki将为LaTeX生成图像并将图像放入你集合的媒体文件夹中以备将来使用。如果图像已经存在，网络和移动客户端将显示这些图像，但不能生成自己的图像。
-			
-			你可以在其他客户端学习之前，为了避免复习所有卡片至少一次，Anki可以为你生成大量的图像。要生成所有图像，请到工具>检查媒体。在那之后，同步应上传生成的媒体到Ankiweb和其他客户端。
-			
-			\section{举例}
-			
-			最普遍的方式输入 LaTeX 内容是围绕它[latex][/latex]标签。在\hyperref[editor]{编辑}器部分有一个快捷键。
-			
-			例如，在Anki卡片正面输入以下的内容：
-			
-			\begin{shaded}\begin{verbatim}
-				Does [latex]\begin{math}\sum_{k = 1}^{\infty}\frac{1}{k}\end{math}[/latex] converge?
-				\end{verbatim}\end{shaded}
-			
-			当卡片被观察会产生这个：
-			
-			\includegraphics{figures/convergence-question.png}
-			
-			上面示例中的公式称为\textbf{文本公式，因为它在非数学文本中正确显示。与此相反，下面的示例展示一个显示公式}：
-			
-			\begin{shaded}\begin{verbatim}
-				Does the sum below converge?
-				
-				[latex]\begin{displaymath}\sum_{k = 1}^{\infty}\frac{1}{k}\end{displaymath}[/latex]
-				\end{verbatim}\end{shaded}
-			
-			\includegraphics{figures/convergence-question-2.png}
-			
-			\textbf{文本公式和显示公式}是LaTeX表达式中最常见的类型，因此Anki提供了它们的简化版本。形式表达：
-			
-			\begin{shaded}\begin{verbatim}
-				[latex]\begin{math}...\end{math}[/latex]
-				\end{verbatim}\end{shaded}
-			
-			可以缩短为
-			
-			\begin{shaded}\begin{verbatim}
-				[$]...[/$]
-				\end{verbatim}\end{shaded}
-			
-			形式的表达
-			
-			\begin{shaded}\begin{verbatim}
-				[latex]\begin{displaymath}...\end{displaymath}[/latex]
-				\end{verbatim}\end{shaded}
-			
-			可以缩短为
-			
-			\begin{shaded}\begin{verbatim}
-				[$$]...[/$$]
-				\end{verbatim}\end{shaded}
-			
-			例如，两个 LaTeX片段显示之前是等价的
-			
-			\begin{shaded}\begin{verbatim}
-				Does [$]\sum_{k = 1}^{\infty}\frac{1}{k}[/$] converge?
-				\end{verbatim}\end{shaded}
-			
-			和
-			
-			\begin{shaded}\begin{verbatim}
-				Does the sum below converge?
-				
-				[$$]\sum_{k = 1}^{\infty}\frac{1}{k}[/$$]
-				\end{verbatim}\end{shaded}
-			
-			分别。
-			
-			\section{LaTeX包}
-			
-			Anki允许你定制LaTeX 序言所以你可以导入自定义软件包为化学、音乐等。例如，想象你在网上找到一个加入的例子文件：
-			
-			\begin{shaded}\begin{verbatim}
-				\documentclass[a4paper,12pt]{report}
-				\usepackage{chemtex}
-				\begin{document}
-				
-				\initial
-				\begin{figure}[h]\centering
-				\parbox{.3\textwidth}{\ethene{H}{H$_3$C}{CH$_3$}{Br}}
-				\hfil
-				\parbox{.3\textwidth}{\cbranch{H}{S}{H}{S}{C}{S}{}{S}{H}
-				\xi=-200 \cright{}{Q}{C}{D}{O}{S}{OH}}
-				\hfil
-				\parbox{.3\textwidth}{\hetisix{Q}{Q}{Q}{Q}{Q}{Q}{O}{Q}{O}
-				\xi=-171 \fuseup{Q}{Q}{Q}{Q}{D}{Q}{D}{Q}{D}}
-				\caption{Chemie mit {\tt CHEMTEX}\label{a1}}
-				\end{figure}
-				
-				\end{document}
-				\end{verbatim}\end{shaded}
-			
-			首先，为了安装包遵循包的文档和 MiKTeX/MacTex。要检查包是否工作，你需要将上面的代码放入一个latex 文件并测试你可以从命令行编译它。一旦你确认包是可用的并且可以工作，我们可以用Anki整合它。
-			
-			使用封装的Anki，点击主窗口的“添加”，然后单击“笔记类型选择按钮。单击“管理”按钮，然后选择要使用的笔记类型，然后单击“选项”。LaTeX的头部和尾部会显示。头部会看起来像什么：
-			
-			\begin{shaded}\begin{verbatim}
-				\documentclass[12pt]{article}
-				\special{papersize=3in,5in}
-				\usepackage{amssymb,amsmath}
-				\pagestyle{empty}
-				\setlength{\parindent}{0in}
-				\begin{document}
-				\end{verbatim}\end{shaded}
-			
-			使用加入，你会在前面的例子中添加使用包线路，所以它看起来像：
-			
-			\begin{shaded}\begin{verbatim}
-				\documentclass[12pt]{article}
-				\special{papersize=3in,5in}
-				\usepackage{amssymb,amsmath}
-				\usepackage{chemtex}
-				\pagestyle{empty}
-				\setlength{\parindent}{0in}
-				\begin{document}
-				\end{verbatim}\end{shaded}
-			
-			在那之后，你应该能够包括线路像以下你的Anki卡片：
-			
-			\begin{shaded}\begin{verbatim}
-				[latex]\ethene{H}{H$_3$C}{CH$_3$}{Br}[/latex]
-				\end{verbatim}\end{shaded}
-			
-			\section{LaTeX冲突}
-			
-			在编写数学方程式时，在LaTeX码中弹出{{ and }}并不少见。确保你的LaTeX方程与Anki的替代品领域的不冲突，改变分离器的东西是可能的。
-			例如，如果你有一个模板：
-			
-			\begin{shaded}\begin{verbatim}
-				{{latex field}}
-				\end{verbatim}\end{shaded}
-			
-			把它改成以下将使 LaTeX不太可能发生冲突：
-			
-			\begin{shaded}\begin{verbatim}
-				{{=<% %>=}}
-				<%latex field%>
-				\end{verbatim}\end{shaded}
-			
-			虽然在LaTeX中这个经常发生，在你需要包括卡上的{{ }} ，无论是否使用LaTeX的任何情况下这里提出的解决方案将工作。
-			
-			当使用测验删除，你不能改变双括号用来标记测验删除；相反，你可以在任何双闭括号和不表明最后的测验之间放一个空间，所以
-			
-			\begin{shaded}\begin{verbatim}
-				{{c1::[$]\frac{foo}{\frac{bar}{baz}}[/$] blah blah blah.}}
-				\end{verbatim}\end{shaded}
-			
-			不会工作，但
-			
-			\begin{shaded}\begin{verbatim}
-				{{c1::[$]\frac{foo}{\frac{bar}{baz} }[/$] blah blah blah.}}
-				\end{verbatim}\end{shaded}
-			
-			将会（和 LaTeX忽略空间的数学模式，所以你的方程将呈现相同的）。
-			
-			\section{不安全命令}
-			
-			Anki禁止某些命令像从正在使用的卡片或模板中的 \verb|\input| or \verb|\def|，因为它们可能允许恶意共享记忆库损害你的系统。（为了安全起见，这些命令甚至禁止评论，所以如果你得到这个错误，但是不要认为你已经使用了一个，请仔细检查你的头部，模板和卡片的任何评论。）如果你需要使用这些命令，请将它们添加到系统包并导入包正如上一节中描述的。
-			
-			\chapter{杂录}\label{}
-			
-			\section{菜单快捷方式}
-			在Windows / Linux你可以按住ALT键并按一个突出字母激活特定的菜单。
-			OS X不支持此功能，但它允许你指定快捷方式到特定的菜单项。更多信息请见\url{http://lifehacker.com/343328/create-a-keyboard-shortcut-for-any-menu-action-in-any-program}
-			
-			\section{调试控制台}
-			
-			有时你可能会要求使用调试控制台更改设置或检查某些内容。除非要求在“调试控制台”输入文本，否则你可能不需要这个。高级用户可能喜欢阅读有关插件的更多信息，链接如下。
-			
-			当要求输入文本到“调试控制台”，请启动Anki，并在主窗口中，按Ctrl +：（即控制键和冒号键），或在Mac上，Command+：（命令键和冒号键在同一时间）。当你这样做时，就会弹出一个新窗口。
-			
-			在弹出的窗口中，请粘贴你被要求粘贴在顶部部分的文本。当你这样做，请按Ctrl +Return（Mac上Command+Return），和一些文本应该出现在底部。如果你被要求粘贴结果输出，请从底部区域复制，并将其粘贴到支持部分。
-			
-			如果你按Ctrl + Shift + Ctrl +Return而不是Ctrl+Return，Anki将打印结果而不是做你要求它做的事。如果你有意想不到的错误，请确保你没有按住Shift键。
-			
-			\chapter{插件}\label{}
-			
-			Anki的功能是可以扩展的插件。插件可以提供特定语言的额外支持、对进度的额外控制等功能。  
-			
-			要浏览可用插件的列表，请选择工具>插件>浏览和安装菜单项。你还可以使用工具>插件来检查安装了哪些插件。
-			
-			
-			一些插件有选项或只有通过编辑它们自定义。要编辑插件，到工具>插件> [插件名称] >编辑。请小心，当编辑-特殊字符和空格是很重要的，所以如果你看到：
-			\begin{shaded}\begin{verbatim}
-				line1
-				line2
-				line3
-				\end{verbatim}\end{shaded}
-			
-			
-			和你无意中改变它为以下内容，当Anki重新启动时Anki会抛出一个错误：
-			\begin{shaded}\begin{verbatim}
-				line1
-				line2
-				line3
-				\end{verbatim}\end{shaded}
-			许多插件的作者包括他们在插件中的电子邮件地址，所以如果你需要与作者联系，编辑插件和看文件的顶部可能会有帮助。
-			
-			如果你下载了一个不能正常工作的插件，或者你在编辑一个插件时无意中出错了，你可以使用菜单中的“删除”选项来删除它。
-			
-			要学习如何写自己的插件，请参阅\url{addons.html}插件书写指南。
-			
-			\chapter{贡献}\label{}
-			
-			\section{公开共享记忆库}
-			与公众分享记忆库，\url{#syncing}同步它们到AnkiWeb，然后登录Ankiweb点击“共享”菜单旁边你希望分享的记忆库。
-			
-			如果你以前分享一个记忆库（包括与Anki以前的版本），你可以通过如上点击“分享”更新。请确保在你的帐户上记忆库的名称完全匹配共享记忆库列表显示的名字，否则你将最终会创造一个新的共享记忆库而不是更新旧的。更新共享记忆库不会重置下载计数或比率。你可以删除你使用共享页面上的“删除”按钮上传的共享记忆库。
-			
-			
-			\begin{shaded}
-				更新一个记忆库的时候，Ankiweb如以前预计记忆库应在同一位置。如果你分享一个记忆库时，它被称为“韩语动词”为例，然后将它改名为“韩语：：韩语的动词”重新分享，将无法更新现有的副本。
-			\end{shaded}
-			
-			\section{分享个人记忆库}
-			
-			如果你想与有限的一群人分享记忆库（如一个学习小组或班级）而不是公众，你可以通过在AnkiWeb之外分享它们。
-			
-			要共享一个个人记忆库，到文件菜单，并选择导出。选择一个单一的记忆库（而不是“所有记忆库”），并关闭“包含学习进度信息”。这将产生一个你可以与他人分享的.apkg文件。
-			
-			你可以通过电子邮件给人们分享.apkg文件，把它放在一个网站或共享文件夹，或使用一个免费的文件共享服务像Dropbox或谷歌驱动器然后发送人们一个链接。
-			无论是电脑版和手机客户端只需点击或敲击它可以很容易地导入一个apkg文件。然而Ankiweb没有导入apkg文件的能力，所以你的记忆库的收件人将需要电脑版或移动设备上的Anki。
-			
-			当一个用户导入.apkg文件时，已经存在在他们的集合中的卡片将被忽略，任何新卡片将被添加。只要使用相同的笔记类型，修改后的卡片也会更新。为了防止数据丢失，已在新的apkg文件删除的卡片将不会在用户的集合中删除，所以出于任何原因如果你需要从用户的记忆库删除卡片，你将需要和他们联系一下。
-			
-			\section{共享插件}
-			
-			请参阅上面的插件文档。
-			
-			\section{应用翻译}
-			
-			翻译可以直接从\url{https://translations.launchpad.net/anki/trunk}翻译网站上做。
-			
-			启动台将在你连接的国家的基础上猜测你可以翻译哪种语言。如果你想翻译的语言没有出现，注册一个账号，并在你的个人资料，点击\textbf{！}旁边的首选语言的你想翻译的语言。
-			
-			在文本中有一些特殊的标记需要注意，并且在翻译时要小心：
-			
-			\begin{itemize}
-				\itemsep1pt\parskip0pt\parsep0pt
-				\item 字符串类似的\texttt{卡片: \%d}或 \texttt{错误: \%s}意味着\%d / \%s部分将被替换为其他值。字符在翻译时必须保持一致，所以翻译可能看起来像\texttt{カード: \%d}.
-				\item 这同样适用于文本如\texttt{\%(a)d of \%(b)d}-它将被翻译成 \texttt{\%(a)d von \%(b)d}。如果你需要在你的语言反转A和B，这是好的，只要文本保持不变。
-				\item 菜单项具有\& 指示哪个字符是快捷键，如\texttt{\& File}。在使用罗马文本的语言中，你可以把\& 放在一个不同的字符上面例如\texttt{\& Datei}；其他语言可能有不同的习俗。日本为例包括后来的罗马字符，像\texttt{ファイル (\& F)}
-				\item 一些字符串有复数的支持，以便 "0 cards", "1 card", "5 cards" 可以适当地表示在你的语言。在这些情况下，您需要输入2或3种不同的形式。
-			\end{itemize}
-			
-			有时会不清楚字符串是指什么，你可能想看到上下文。下面要翻译的每一个字符串，你会看到这样的线路：
-			
-			\begin{shaded}\begin{verbatim}
-				Located in ../dtop/aqt/deckbrowser.py:299
-				\end{verbatim}\end{shaded}
-			
-			如果你去掉第一个"..\/dtop"部分，你会留下一些东西，像"aqt/deckbrowser.py:299"。然后你可以访问\url{https://github.com/dae/anki/}，找到相同的文件名，并点击它。该文件将在左边显示行号，并通过匹配的行号，您可能能够更好地了解字符串是指什么。
-			如果在上面的示例中看到字符串的\textbf{形式}，字符串通常会很明显。然而，如果你确实需要了解上下文，事情就更复杂一点了，因为这些文件是从接口描述中自动生成的。请去\url{https://github.com/dae/anki/tree/master/designer}上找到相同的文件名，并单击。在这种情况下，我们不能依赖行号，所以请使用浏览器的查找选项来查找文件中的字符串。被发现的文本周围的线路可以给它的含义提示。
-			
-			如果你找到一个字符串，你不确定如何翻译，或者想和同母语的人开始讨论翻译东西的最好方式，请在Anki论坛启动一个线程。
-			
-			在一个新的Anki发行被自动包含在下一版本之前，做任何翻译至少几个小时。全新的语言需要手动添加，所以如果这适用于你的翻译请与我们联系。如果你想看到你的名字在屏幕上作为一个贡献者，请删除Damian一行。
-			
-			如果你想尝试你的翻译没有等待一个新的版本，你可以从翻译网站导出一个 .mo文件。如果你移动.mo文件到Anki的安装文件夹，用相同的语言代码（在本地文件夹）覆盖现有.mo文件，当下次启动时，Anki将显示新的翻译。
-			
-			\section{翻译手册}\label{translatingmanual}
-			
-			如果你是一个技术的用户，你可能想要翻译手册的\url{https://raw.github.com/dae/ankidocs/master/manual.txt}源文件，并自己用ASCII文件编译它。你也可以在未来使用GitHub跟踪手册更改。
-			
-			如果这听起来复杂，一个更简单的方法是访问此页面，并使用文件$>$保存，手动保存到磁盘。然后，你可以导入到Microsoft Word或类似的软件，并翻译成这样。
-			
-			当你快乐的翻译时，你可以把它放在你的网站上，我可以链接到它，或者我可以在Anki的网站上主持翻译的文件（但如果你打算进行频繁的更新，前者是更好的选择）。如果你愿意，你可以在你完成之前发布它，我们可以在下面的进度列表中链接它。
-			
-			另一种选择是把你的翻译放到一个维基上，让其他用户可以有助于它。有许多网站如\url{http://www.wikia.com}Wikia将允许你轻松地创建自己的免费维基。（英文版曾用维基；我们发现，我们有太多无用的贡献，不得不花太多的时间纠正它们，但你的情况可能不同。）
-			
-			下面的翻译正在进行中：
-			
-			\begin{itemize}
-				\itemsep1pt\parskip0pt\parsep0pt
-				\item Spanish
-				\item Chinese \url{http://ankisrs.net/docs/manual.pl.html}Polish
-			\end{itemize}
-			
-			如果你想帮助这些翻译之一，请在TenderApp联系我们，我们将你与目前正在工作的用户联系。
-			
-			\section{贡献代码}
-			
-			Anki的源代码在 \url{http://github.com/dae}是可用的
-			如果你有错误修正或相信你的改变会使很多人受益，请看一看许可证文件，如果你同意，在Damien的电子邮件或GitHub提交请求。
-			
-			\chapter{常见问题}\label{what-algorithm}
-			
-			\section{我还未学习很久，而现在离下次复习的间隔太大了！}
-			
-			当你每天使用 Anki 时，每张回答正确的卡片都获得了更大的复习间隔。假设每次 \textbf{good}将间隔翻了一倍，下次复习需要陆续等待 5 天，10 天，20 天，40天，如此下去。
-			
-			当人们在没有学习的几个星期或几个月后回到他们的记忆库上时，他们常常惊讶于他们的长度间隔已经成长。这是因为Anki认为实际的时间卡片是看不见的，不只是时间被安排。因此，如果卡片被预定了5天，但你一个月没有学习，下一个间隔将更接近60天超过10天。
-			
-			这是一件好事。如果你在一个月的等待之后成功地记住了一张卡片，那么在更长的等待之后，你会再次记住它。当你在一个延迟后学习时同样的原则也使得SRS在正常使用时有效运用。如果你能在一个月的等待之后很容易地回答它-你就会倒退，那么你在未来的10天内安排一张卡片也没什么意义。
-			
-			重置记忆库是一个更糟糕的解决方案。经过长时间的缺勤后返回到记忆库，你可能忘记了许多卡片，但很可能你没有忘记它们。重置整个记忆库意味着你必须浪费时间学习你已经知道的材料。
-			
-			现在你可能会发现你可以回忆过期的卡片，但不充裕，当它们在的时候没有被复习。为了解决这个问题，Anki对待的延迟不同这取决于你的答案。如果你发现一张卡片容易，最后一个间隔加上全部的延迟相加，然后用来计算下一个间隔。当你回答一般的时候，只有一半的延迟被使用.。当你努力回答时，只有四分之一的延迟被使用。所以，如果一张卡是在5天到期，它的回答迟到了20天，下一次你最终大约是：
-			
-			\begin{itemize}
-				\itemsep1pt\parskip0pt\parsep0pt
-				\item 困难: (5 + 20/4) * 1.2 = 12 天
-				\item  一般: (5 + 20/2) * 2.5 = 37.5 天
-				\item 简单: (5 + 20) * 3.25 = 81.25 天
-			\end{itemize}
-			
-			（这些因素实际上取决于你在记忆库上的表现）
-			
-			如果你发现卡片困难，下一个间隔是相当保守的，是小于最后等待（25天）。如果你发现卡片一般，下一个间隔只有大约50\%高。容易增加间隔像往常一样积极。
-			
-			所以经过一段时间的缺勤后，当你返回Anki时建议你正常学习。但如果你绝对必须重置记忆库，你可以在浏览器选择重置卡片，并使用编辑>重置。
-			
-			\section{我可以做多项选择题吗？}
-			
-			因为一些原因多项选择题是一个很差的复习工具。他们之所以经常在学术环境中使用是因为它们很容易被标记，并且允许学习的人展示他们识别正确答案的能力，即使他们自己不能做出来。
-			
-			此外，好的多项选择题，有精心挑选的“分心”的答案与类似正确答案。计算机可以寻找相似的拼写的词，但它对于更复杂的题是不能够选择好的干扰。
-			
-			如果你正在为一个考试学习，你有一个多项选择题样品考试如下：
-			
-			\begin{shaded}\begin{verbatim}
-				Q: What animal has a really long neck?
-				
-				A: 1. A monkey. 2. A giraffe. 3. A donkey. 4. A snail.
-				\end{verbatim}\end{shaded}
-			
-			那么，问题应该改写在Anki如下：
-			
-			\begin{shaded}\begin{verbatim}
-				Q: What animal has a really long neck?
-				
-				A: A giraffe.
-				\end{verbatim}\end{shaded}
-			
-			或者你可以添加你自己的选择：
-			
-			\begin{shaded}\begin{verbatim}
-				Q: What animal has a really long neck? (dog/cat/giraffe/penguin)
-				
-				A: A giraffe.
-				\end{verbatim}\end{shaded}
-			
-			\section{我可以链接卡片？添加依赖关系？我应该如何处理同义词？}
-			
-			Anki支持一个笔记的卡片之间的链接，但不是在不相关的卡片之间。想象一下你在学习日语，目的是既能识别又能再现日语。你可以输入“ookii”，意思是“大”，并告诉Anki产生两个卡片-ookii→big 和 big→ookii。
-			
-			在上述情况下Anki可以把相关卡片的复习分隔开，让他们不要出现一前一后（在文档的顶部见\url{#siblings}相关卡片链接）。
-			
-			有些人想在任意卡片之间扩展这个链接。他们希望能够告诉Anki“给我展示这张卡片后，给我看那张卡片”，或“不要展示那张卡片，直到我足够了解这张卡片”。这在理论上听起来也许是个好主意，但实际上并不实际。
-			
-			首先，与上面的相关卡片不同，你必须自己定义所有的关系。进入新的笔记到Anki会成为一个复杂的过程，你会通过搜索其余的记忆库和分配新老材料之间的关系。
-			
-			其次，记住Anki是使用一种算法来确定再次显示你的材料的最佳时间。增加卡片显示的限制，使卡片显示比他们预期的更早或更晚，使间隔重复系统不那么有效，导致更多不必要的工作，或忘记卡片。
-			
-			使用Anki的最有效的方法是使你看到每一个笔记独立于其他笔记。如果你能确定它们之间的区别，你就不会再试图加入类似的词语了。同义词很少可以完全互换--它们往往有细微差别，如果一个同义词被另一个同义词替换，句子就变得奇怪了。
-			
-			继续之前日本的例子，想象一下你想学的单词"dekai"，这也大致可以翻译为"big"，但更多的是一种口语化的表达。如果你还想复习两个方向，你可以用英语提示"big (更休闲)"这个词。你的语言学习进展得越快，定义类似单词之间的差异就越是一种负担，这就是为什么要求你制作特定单词的卡片最好留到学习的早期阶段。有了坚实的基础词汇，走向以识别为基础的学习更有意义，因为我们都有一个比我们主动的词汇更大的被动词汇。
-			
-			为了确保较难的材料在容易的材料之后被引入，一些现有的工具是可用的。新的卡片是默认它们被添加到记忆库的顺序，所以只要学习材料或你使用的信息来源是你的水平的适当等级，材料应按容易的顺序出现。
-			
-			\section{我可以给我的笔记任意数量的字段吗？}
-			
-			笔记的设计代表了\textbf{密切}相关的信息，并使它很容易重组出现在卡片上的信息。在语言学习的语境中，笔记是用来表示短语翻译对等、短语翻译阅读三元组等。所有这些关系是1:1 -一个给定的短语只有一个阅读和翻译。（1）
-			
-			由于他们能够将相关信息捆绑在一起，一些人试图用笔记来在他们的记忆库上捆绑不太密切相关的信息。例如，如果他们遇到两个句子的单词 "completely"：
-			
-			
-			\begin{itemize}
-				\itemsep1pt\parskip0pt\parsep0pt
-				\item He was completely confused.
-				\item That was completely uncalled for.
-			\end{itemize}
-			
-			然后，他们把这两个句子放在同一个笔记里，在理论基础上，因为他们有一个词，他们是相关的。但是，如果用户遇到另一个例子句怎么办？
-			
-			\begin{itemize}
-				\itemsep1pt\parskip0pt\parsep0pt
-				\item The book confused her.
-			\end{itemize}
-			
-			那句话与先前的句子都有 "confused" 一词。因此，它应该在"confused"的笔记？还是"completely"的笔记？或者两者都有？
-			
-			与上面提到的短语翻译对等不同的是，如果你说句子是相关的，如果他们分享一个字，那么句子有很多：许多关系。也就是说，句子A可能与句子B和C有关，句子B可能与A、D有关等。因为关系是复杂的和重叠的，笔记不是代表它们的好方法。
-			
-			似乎有两个主要的原因，人们试图用笔记来表示这种关系：
-			
-			\begin{itemize}
-				\itemsep1pt\parskip0pt\parsep0pt
-				\item “因为保持所有的信息在一个地方是整洁的”。这也许是事实，但实际上你并没有省多少空间。如果你想看到包含"completely" 这个单词的所有例句，每个句子都有不同的笔记，你所要做的就是寻找"completely" 。
-				\item “因为我想让Anki分开共享相同单词的卡片复习”。这是有关以前的常见问题解答的问题。定义卡片之间的链接是耗时的，如果它是自动完成的，每一个共享单词的卡片与其他共享单词的卡片分离，这将在计算之间禁止，很可能会导致一个什么都不能显示的情况，因为它都与其他东西有关。是的，这是不理想的两个句子包含同一个字对方显示后是不理想的，但如果你按随机顺序添加新卡片，这样的情况是不可能的，它的缺点是试图阻止这样的情况不值得的。即使这样的解决方案被引入，它也不会阻止你在现实世界中遇到这些词。
-			\end{itemize}
-			
-			（1）不同的人可以用不同的方式翻译同一个短语，不同的方言可以读同一个词不同，但这与讨论不相关。
-			
-			\section{我可以搭建自己的 AnkiWeb 吗？}
-			
-			抱歉，目前我们只提供官方的 AnkiWeb 服务。
-			
-			\section{为什么 Android 版是免费的，而 iOS 版不是？}
-			
-			编写 Anki 桌面版，AnkiWeb 和 Anki 移动版目前是我的全职工作，因此我需要取得收入的途径。既然桌面版和 Web 版已经免费提供给大家，我目前只能依赖销售 iOS App 获得经济收入。
-			
-			AnkiDroid 则是由一群分散在世界各地的志愿者编写完成。鉴于他们的工作建立在我免费提供的桌面版的基础上（并且依赖 AnkiWeb 以保持牌组同步），他们最终决定免费提供 AnkiDroid 给大家。
-			
-			\section{Anki 使用的间隔重复算法是怎样的？}
-			
-			Anki 最初采用的是 SuperMemo 的 SM5 算法。然而 Anki 默认需要在回答卡片之前确定下次复习的间隔，这与 SM5 算法有一些根本性的冲突。目前采用的 SM2 算法与后续的新版算法间的关键区别是：
-			
-			\begin{itemize}
-				\itemsep1pt\parskip0pt\parsep0pt
-				\item SM2 算法基于你在一张卡片上的表现决定下次复习这张卡片的时间
-				\item SM3+ 算法基于你在一张卡片上的表现决定下次复习这张及类似卡片的时间
-			\end{itemize}
-			
-			后者通过综合考虑一组卡片——而不单单是一张卡片——的表现，计算得出更准确的复习间隔。当你的学习较为规律，并且牌组中卡片的难度较为相似时，这类算法的效果更好。然而一旦不一致被引入这个平衡（不同难度的卡片，并非每天在固定时间学习），SM3+ 更容易作出错误的复习间隔时间猜测，从而导致部分卡片出现得过于频繁或荒于复习。
-			
-			
-			除此之外，由于 SM3+ 会动态调整“优化因子”表，选择“困难 (Hard)”有时会得到比“简单 (Easy)”还长的复习间隔。因为 SuperMemo 中隐藏了下次复习时间，所以用户们并不知情。
-			
-			在调研过这几个算法后，Anki 的作者决定使用 SM2 算法。因为 SM3+ 算法在复习间隔估计上些许优化，无法抵消错误估计带来的风险。SM2 算法的结果更加可预测，对终端用户更为直观，而 SM3+ 算法则隐藏了所有的细节并要求用户对其绝对地信任（即使系统可能会犯错）。
-			
-			Anki 的实际算法基于 SM2，但在以下方面略有不同：
-			
-			\begin{itemize}
-				\itemsep1pt\parskip0pt\parsep0pt
-				\item SM2定义1天到6天的初始间隔。用Anki，你完全控制了初始学习步骤的长度。Anki知道你能够记住它之前，有必要看一张新卡片若干次，那些最初的“失败”并不意味着你需要在几天内多次被展示失败的卡片来惩罚你。在学习阶段的表现并不反映在保留阶段的表现。
-				\item Anki使用4个选择回答复习卡片，不是6。只有一个\textbf{失败}的选择，而不是3。这样做的原因是，失败包括少量的总复习，可以充分通过简单地改变积极的答案从而调整卡片的易用性。
-				\item 回答卡片后比预计将计入下一区间的计算，所以你学习卡片得到提升，你回答晚了但仍然记得。
-				\item 像SM2，默认情况下，Anki的失误按钮重置卡片间隔。但用户可以选择使卡片后退一些步骤，而不是完全复位。此外，你可以选择在不同的一天复习失误的成熟卡片，而不是同一天。
-				\item \textbf{容易记住不仅增加了容易因素，而且增加了额外的红利到当前间隔的计算。因此，回答很容易记住}的比标准SM2算法更积极一点。
-				\item 卡片在学习中连续失误不会导致进一步降低卡片的容易程度。标准SM算法的一个常见的抱怨是重复失败的卡片导致卡片在“低间隔地狱”。在Anki中初始采集过程不影响卡片的容易程度。
-			\end{itemize}
-			
-			若想查看 SM2 算法的详细描述，您可以访问
-			\url{http://www.supermemo.com/english/ol/sm2.htm}
-			您还可以查看 Anki 源代码中的 \textbf{sched.py}文件了解排程部分的代码。以下是一个简单的总结
-			（请参阅 \hyperref[deckoptions]{记忆库}选项 小节中提到的用 \textbf{斜体}标出的选项）。
-			
-			如果您选择
-			
-			\begin{description}
-				\itemsep1pt\parskip0pt\parsep0pt
-				\item[再来一次] 该卡片是放在学习模式，减少了20个百分点（即20是从\textbf{容易的值减去，这是单位的百分点），当前的时间间隔乘以新时间间隔}值（当卡片退出再次学习模式这个间隔将被使用）。
-				\item[困难] 该卡的容易性降低15个百分点，当前间隔乘以1.2。
-				\item[一般] 当前间隔乘以当前容易程度。容易程度不变。                  
-				\item[容易] 当前间隔乘以当前多倍容易的\textbf{容易红利}和容易增加15个百分点。                
-			\end{description}
-			
-			对于困难，一般和容易，下一个间隔是额外乘以\textbf{间隔调节器}。做这些计算之前，如果该卡片正在被延迟复习，卡片过期的天数将被添加到当前的间隔。
-			
-			卡片可以采取有一些限制的调度值。容易将不会低于130\%；SuperMemo的研究已经表明，容易在130\%以下往往会导致卡片变成比有用的和恼人的用户到期的更频繁。间隔永远不会超出\textbf{最大间隔}值。最后，所有新的间隔（除再次）将始终至少比以前的间隔长一天。
-			
-			\begin{shaded}
-				当你选择一个容易按钮，Anki也适用于少量的随机的“模糊”防止同时推出卡片，然后从粘在一起并总是会在同一天复习的卡片给出相同的比率。这种模糊并不出现在间隔按钮上，所以如果你注意到你的选择和你的卡片之间的间隔会略有差异，这可能就是原因。
-			\end{shaded}
-			
-			
-			\chapter{资源}\label{}
-			
-			您可以访问 SuperMemo 的网站上获取更多关于间隔重复和记忆的优秀资源：\url{http://www.supermemo.com/}
-			
-			
-		\end{document}
+		
+		您可以使用工具$>$检查媒体菜单选项扫描你的笔记和媒体文件夹。它将在未使用任何笔记的媒体文件夹中生成文件报告，但从媒体文件夹中丢失媒体引用的笔记。它不扫描问题或回答模板，这就是为什么你不能在模板中放置媒体引用到字段。如果每一张卡片需要静态图像或声音，它的名字以\_开头（例如，\textbf{“\_dog .jpg”}）告诉Anki在检查媒体时忽略它。如果你使用未使用的媒体检查删除媒体，Anki会移动到你的操作系统的垃圾文件夹，这样如果你不小心删除不应该被删除的媒体，你就可以恢复它。
+		
+		Anki为了支持声音和视频使用一个叫mplayer的程序。支持多种文件格式，但不是所有这些格式将在Ankiweb和移动客户端运作。MP3和MP4视频似乎是最普遍的支持。
+		
+		\chapter{\LaTeX{}{}支持}
+		
+		\LaTeX{}是一种功能强大的排版系统，它非常适合输入数学公式、化学公式、音乐符号等.。Anki提供了\LaTeX{}一些支持，让你的笔记进入\LaTeX{}代码。当你复习卡片，Anki要求\LaTeX{}替代并显示生成的图像。
+		
+		\section{安装和假设知识}
+		
+		Anki的\LaTeX{}支持不转换线索：假定你知道如何使用\LaTeX{}，和你已经安装了它。如果你没有\LaTeX{}的经验，请查阅互联网上的许多指南之一。如果你有标记的麻烦，请在询问一个\LaTeX{}论坛。
+		
+		安装\LaTeX{}，在Windows使用MiKTeX；在OSX使用MiKTeX，在Linux使用你的发行版的软件包管理器。Dvipng也必须安装。
+		
+		
+		\begin{shaded}
+			在Windows中，MikTek的维护窗口去设置，并确保“在操作中安装丢失的包”设置为“No”，不需要“先问我”。如果仍有问题，一个用户报告显示，Anki作为一个管理员运行直到所有的包获得帮助。
+		\end{shaded}
+		
+		\begin{shaded}
+			在OSX中， \LaTeX{}只在 MacTex 和 BasicTex测试。如果你使用 BasicTex，你需要安装dvipng分开，用下面的命令：
+		\end{shaded}
+		
+		\begin{shaded}\begin{verbatim}
+			sudo tlmgr update --self; sudo tlmgr install dvipng
+			\end{verbatim}\end{shaded}
+		命令可能不在路径上，那么你可能需要提供完整的路径，例如 \verb|/usr/local/texlive/2014basic/bin/x86_64-darwin/tlmgr|。
+		
+		
+		\begin{shaded}
+			如果你不使用上述 \LaTeX{} 包，你将需要使用“编辑 \LaTeX{}”附加到指定 \LaTeX{} 和dvipng完整的路径。
+		\end{shaded}
+		
+		\section{网络/移动的\LaTeX{}}
+		
+		当你复习一张有\LaTeX{}的卡片，Anki将为\LaTeX{}生成图像并将图像放入你集合的媒体文件夹中以备将来使用。如果图像已经存在，网络和移动客户端将显示这些图像，但不能生成自己的图像。
+		
+		你可以在其他客户端学习之前，为了避免复习所有卡片至少一次，Anki可以为你生成大量的图像。要生成所有图像，请到工具>检查媒体。在那之后，同步应上传生成的媒体到Ankiweb和其他客户端。
+		
+		\section{举例}
+		
+		最普遍的方式输入 \LaTeX{} 内容是围绕它[latex][/latex]标签。在\hyperref[editor]{编辑}器部分有一个快捷键。
+		
+		例如，在Anki卡片正面输入以下的内容：
+		
+		\begin{shaded}\begin{verbatim}
+			Does [latex]\begin{math}\sum_{k = 1}^{\infty}\frac{1}{k}\end{math}[/latex] converge?
+			\end{verbatim}\end{shaded}
+		
+		当卡片被观察会产生这个：
+		
+		\includegraphics{figures/convergence-question.png}
+		
+		上面示例中的公式称为\textbf{文本公式，因为它在非数学文本中正确显示。与此相反，下面的示例展示一个显示公式}：
+		
+		\begin{shaded}\begin{verbatim}
+			Does the sum below converge?
+			
+			[latex]\begin{displaymath}\sum_{k = 1}^{\infty}\frac{1}{k}\end{displaymath}[/latex]
+			\end{verbatim}\end{shaded}
+		
+		\includegraphics{figures/convergence-question-2.png}
+		
+		\textbf{文本公式和显示公式}是\LaTeX{}表达式中最常见的类型，因此Anki提供了它们的简化版本。形式表达：
+		
+		\begin{shaded}\begin{verbatim}
+			[latex]\begin{math}...\end{math}[/latex]
+			\end{verbatim}\end{shaded}
+		
+		可以缩短为
+		
+		\begin{shaded}\begin{verbatim}
+			[$]...[/$]
+			\end{verbatim}\end{shaded}
+		
+		形式的表达
+		
+		\begin{shaded}\begin{verbatim}
+			[latex]\begin{displaymath}...\end{displaymath}[/latex]
+			\end{verbatim}\end{shaded}
+		
+		可以缩短为
+		
+		\begin{shaded}\begin{verbatim}
+			[$$]...[/$$]
+			\end{verbatim}\end{shaded}
+		
+		例如，两个 \LaTeX{}片段显示之前是等价的
+		
+		\begin{shaded}\begin{verbatim}
+			Does [$]\sum_{k = 1}^{\infty}\frac{1}{k}[/$] converge?
+			\end{verbatim}\end{shaded}
+		
+		和
+		
+		\begin{shaded}\begin{verbatim}
+			Does the sum below converge?
+			
+			[$$]\sum_{k = 1}^{\infty}\frac{1}{k}[/$$]
+			\end{verbatim}\end{shaded}
+		
+		分别。
+		
+		\section{\LaTeX{}包}
+		
+		Anki允许你定制\LaTeX{} 序言所以你可以导入自定义软件包为化学、音乐等。例如，想象你在网上找到一个加入的例子文件：
+		
+		\begin{shaded}\begin{verbatim}
+			\documentclass[a4paper,12pt]{report}
+			\usepackage{chemtex}
+			\begin{document}
+			
+			\initial
+			\begin{figure}[h]\centering
+			\parbox{.3\textwidth}{\ethene{H}{H$_3$C}{CH$_3$}{Br}}
+			\hfil
+			\parbox{.3\textwidth}{\cbranch{H}{S}{H}{S}{C}{S}{}{S}{H}
+			\xi=-200 \cright{}{Q}{C}{D}{O}{S}{OH}}
+			\hfil
+			\parbox{.3\textwidth}{\hetisix{Q}{Q}{Q}{Q}{Q}{Q}{O}{Q}{O}
+			\xi=-171 \fuseup{Q}{Q}{Q}{Q}{D}{Q}{D}{Q}{D}}
+			\caption{Chemie mit {\tt CHEMTEX}\label{a1}}
+			\end{figure}
+			
+			\end{document}
+			\end{verbatim}\end{shaded}
+		
+		首先，为了安装包遵循包的文档和 MiKTeX/MacTex。要检查包是否工作，你需要将上面的代码放入一个latex 文件并测试你可以从命令行编译它。一旦你确认包是可用的并且可以工作，我们可以用Anki整合它。
+		
+		使用封装的Anki，点击主窗口的“添加”，然后单击“笔记类型选择按钮。单击“管理”按钮，然后选择要使用的笔记类型，然后单击“选项”。\LaTeX{}的头部和尾部会显示。头部会看起来像什么：
+		
+		\begin{shaded}\begin{verbatim}
+			\documentclass[12pt]{article}
+			\special{papersize=3in,5in}
+			\usepackage{amssymb,amsmath}
+			\pagestyle{empty}
+			\setlength{\parindent}{0in}
+			\begin{document}
+			\end{verbatim}\end{shaded}
+		
+		使用加入，你会在前面的例子中添加使用包线路，所以它看起来像：
+		
+		\begin{shaded}\begin{verbatim}
+			\documentclass[12pt]{article}
+			\special{papersize=3in,5in}
+			\usepackage{amssymb,amsmath}
+			\usepackage{chemtex}
+			\pagestyle{empty}
+			\setlength{\parindent}{0in}
+			\begin{document}
+			\end{verbatim}\end{shaded}
+		
+		在那之后，你应该能够包括线路像以下你的Anki卡片：
+		
+		\begin{shaded}\begin{verbatim}
+			[latex]\ethene{H}{H$_3$C}{CH$_3$}{Br}[/latex]
+			\end{verbatim}\end{shaded}
+		
+		\section{\LaTeX{}冲突}
+		
+		在编写数学方程式时，在\LaTeX{}码中弹出{{ and }}并不少见。确保你的\LaTeX{}方程与Anki的替代品领域的不冲突，改变分离器的东西是可能的。
+		例如，如果你有一个模板：
+		
+		\begin{shaded}\begin{verbatim}
+			{{latex field}}
+			\end{verbatim}\end{shaded}
+		
+		把它改成以下将使 \LaTeX{}不太可能发生冲突：
+		
+		\begin{shaded}\begin{verbatim}
+			{{=<% %>=}}
+			<%latex field%>
+			\end{verbatim}\end{shaded}
+		
+		虽然在\LaTeX{}中这个经常发生，在你需要包括卡上的{{ }} ，无论是否使用\LaTeX{}的任何情况下这里提出的解决方案将工作。
+		
+		当使用测验删除，你不能改变双括号用来标记测验删除；相反，你可以在任何双闭括号和不表明最后的测验之间放一个空间，所以
+		
+		\begin{shaded}\begin{verbatim}
+			{{c1::[$]\frac{foo}{\frac{bar}{baz}}[/$] blah blah blah.}}
+			\end{verbatim}\end{shaded}
+		
+		不会工作，但
+		
+		\begin{shaded}\begin{verbatim}
+			{{c1::[$]\frac{foo}{\frac{bar}{baz} }[/$] blah blah blah.}}
+			\end{verbatim}\end{shaded}
+		
+		将会（和 \LaTeX{}忽略空间的数学模式，所以你的方程将呈现相同的）。
+		
+		\section{不安全命令}
+		
+		Anki禁止某些命令像从正在使用的卡片或模板中的 \verb|\input| or \verb|\def|，因为它们可能允许恶意共享记忆库损害你的系统。（为了安全起见，这些命令甚至禁止评论，所以如果你得到这个错误，但是不要认为你已经使用了一个，请仔细检查你的头部，模板和卡片的任何评论。）如果你需要使用这些命令，请将它们添加到系统包并导入包正如上一节中描述的。
+		
+		\chapter{杂录}\label{}
+		
+		\section{菜单快捷方式}
+		在Windows / Linux你可以按住ALT键并按一个突出字母激活特定的菜单。
+		OS X不支持此功能，但它允许你指定快捷方式到特定的菜单项。更多信息请见\url{http://lifehacker.com/343328/create-a-keyboard-shortcut-for-any-menu-action-in-any-program}
+		
+		\section{调试控制台}
+		
+		有时你可能会要求使用调试控制台更改设置或检查某些内容。除非要求在“调试控制台”输入文本，否则你可能不需要这个。高级用户可能喜欢阅读有关插件的更多信息，链接如下。
+		
+		当要求输入文本到“调试控制台”，请启动Anki，并在主窗口中，按Ctrl +：（即控制键和冒号键），或在Mac上，Command+：（命令键和冒号键在同一时间）。当你这样做时，就会弹出一个新窗口。
+		
+		在弹出的窗口中，请粘贴你被要求粘贴在顶部部分的文本。当你这样做，请按Ctrl +Return（Mac上Command+Return），和一些文本应该出现在底部。如果你被要求粘贴结果输出，请从底部区域复制，并将其粘贴到支持部分。
+		
+		如果你按Ctrl + Shift + Ctrl +Return而不是Ctrl+Return，Anki将打印结果而不是做你要求它做的事。如果你有意想不到的错误，请确保你没有按住Shift键。
+		
+		\chapter{插件}\label{}
+		
+		Anki的功能是可以扩展的插件。插件可以提供特定语言的额外支持、对进度的额外控制等功能。  
+		
+		要浏览可用插件的列表，请选择工具>插件>浏览和安装菜单项。你还可以使用工具>插件来检查安装了哪些插件。
+		
+		
+		一些插件有选项或只有通过编辑它们自定义。要编辑插件，到工具>插件> [插件名称] >编辑。请小心，当编辑-特殊字符和空格是很重要的，所以如果你看到：
+		\begin{shaded}\begin{verbatim}
+			line1
+			line2
+			line3
+			\end{verbatim}\end{shaded}
+		
+		
+		和你无意中改变它为以下内容，当Anki重新启动时Anki会抛出一个错误：
+		\begin{shaded}\begin{verbatim}
+			line1
+			line2
+			line3
+			\end{verbatim}\end{shaded}
+		许多插件的作者包括他们在插件中的电子邮件地址，所以如果你需要与作者联系，编辑插件和看文件的顶部可能会有帮助。
+		
+		如果你下载了一个不能正常工作的插件，或者你在编辑一个插件时无意中出错了，你可以使用菜单中的“删除”选项来删除它。
+		
+		要学习如何写自己的插件，请参阅\url{addons.html}插件书写指南。
+		
+		\chapter{贡献}\label{}
+		
+		\section{公开共享记忆库}
+		与公众分享记忆库，\url{#syncing}同步它们到AnkiWeb，然后登录Ankiweb点击“共享”菜单旁边你希望分享的记忆库。
+		
+		如果你以前分享一个记忆库（包括与Anki以前的版本），你可以通过如上点击“分享”更新。请确保在你的帐户上记忆库的名称完全匹配共享记忆库列表显示的名字，否则你将最终会创造一个新的共享记忆库而不是更新旧的。更新共享记忆库不会重置下载计数或比率。你可以删除你使用共享页面上的“删除”按钮上传的共享记忆库。
+		
+		
+		\begin{shaded}
+			更新一个记忆库的时候，Ankiweb如以前预计记忆库应在同一位置。如果你分享一个记忆库时，它被称为“韩语动词”为例，然后将它改名为“韩语：：韩语的动词”重新分享，将无法更新现有的副本。
+		\end{shaded}
+		
+		\section{分享个人记忆库}
+		
+		如果你想与有限的一群人分享记忆库（如一个学习小组或班级）而不是公众，你可以通过在AnkiWeb之外分享它们。
+		
+		要共享一个个人记忆库，到文件菜单，并选择导出。选择一个单一的记忆库（而不是“所有记忆库”），并关闭“包含学习进度信息”。这将产生一个你可以与他人分享的.apkg文件。
+		
+		你可以通过电子邮件给人们分享.apkg文件，把它放在一个网站或共享文件夹，或使用一个免费的文件共享服务像Dropbox或谷歌驱动器然后发送人们一个链接。
+		无论是电脑版和手机客户端只需点击或敲击它可以很容易地导入一个apkg文件。然而Ankiweb没有导入apkg文件的能力，所以你的记忆库的收件人将需要电脑版或移动设备上的Anki。
+		
+		当一个用户导入.apkg文件时，已经存在在他们的集合中的卡片将被忽略，任何新卡片将被添加。只要使用相同的笔记类型，修改后的卡片也会更新。为了防止数据丢失，已在新的apkg文件删除的卡片将不会在用户的集合中删除，所以出于任何原因如果你需要从用户的记忆库删除卡片，你将需要和他们联系一下。
+		
+		\section{共享插件}
+		
+		请参阅上面的插件文档。
+		
+		\section{应用翻译}
+		
+		翻译可以直接从\url{https://translations.launchpad.net/anki/trunk}翻译网站上做。
+		
+		启动台将在你连接的国家的基础上猜测你可以翻译哪种语言。如果你想翻译的语言没有出现，注册一个账号，并在你的个人资料，点击\textbf{！}旁边的首选语言的你想翻译的语言。
+		
+		在文本中有一些特殊的标记需要注意，并且在翻译时要小心：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item 字符串类似的\texttt{卡片: \%d}或 \texttt{错误: \%s}意味着\%d / \%s部分将被替换为其他值。字符在翻译时必须保持一致，所以翻译可能看起来像\texttt{カード: \%d}.
+			\item 这同样适用于文本如\texttt{\%(a)d of \%(b)d}-它将被翻译成 \texttt{\%(a)d von \%(b)d}。如果你需要在你的语言反转A和B，这是好的，只要文本保持不变。
+			\item 菜单项具有\& 指示哪个字符是快捷键，如\texttt{\& File}。在使用罗马文本的语言中，你可以把\& 放在一个不同的字符上面例如\texttt{\& Datei}；其他语言可能有不同的习俗。日本为例包括后来的罗马字符，像\texttt{ファイル (\& F)}
+			\item 一些字符串有复数的支持，以便 "0 cards", "1 card", "5 cards" 可以适当地表示在你的语言。在这些情况下，您需要输入2或3种不同的形式。
+		\end{itemize}
+		
+		有时会不清楚字符串是指什么，你可能想看到上下文。下面要翻译的每一个字符串，你会看到这样的线路：
+		
+		\begin{shaded}\begin{verbatim}
+			Located in ../dtop/aqt/deckbrowser.py:299
+			\end{verbatim}\end{shaded}
+		
+		如果你去掉第一个"..\/dtop"部分，你会留下一些东西，像"aqt/deckbrowser.py:299"。然后你可以访问\url{https://github.com/dae/anki/}，找到相同的文件名，并点击它。该文件将在左边显示行号，并通过匹配的行号，您可能能够更好地了解字符串是指什么。
+		如果在上面的示例中看到字符串的\textbf{形式}，字符串通常会很明显。然而，如果你确实需要了解上下文，事情就更复杂一点了，因为这些文件是从接口描述中自动生成的。请去\url{https://github.com/dae/anki/tree/master/designer}上找到相同的文件名，并单击。在这种情况下，我们不能依赖行号，所以请使用浏览器的查找选项来查找文件中的字符串。被发现的文本周围的线路可以给它的含义提示。
+		
+		如果你找到一个字符串，你不确定如何翻译，或者想和同母语的人开始讨论翻译东西的最好方式，请在Anki论坛启动一个线程。
+		
+		在一个新的Anki发行被自动包含在下一版本之前，做任何翻译至少几个小时。全新的语言需要手动添加，所以如果这适用于你的翻译请与我们联系。如果你想看到你的名字在屏幕上作为一个贡献者，请删除Damian一行。
+		
+		如果你想尝试你的翻译没有等待一个新的版本，你可以从翻译网站导出一个 .mo文件。如果你移动.mo文件到Anki的安装文件夹，用相同的语言代码（在本地文件夹）覆盖现有.mo文件，当下次启动时，Anki将显示新的翻译。
+		
+		\section{翻译手册}\label{translatingmanual}
+		
+		如果你是一个技术的用户，你可能想要翻译手册的\url{https://raw.github.com/dae/ankidocs/master/manual.txt}源文件，并自己用ASCII文件编译它。你也可以在未来使用GitHub跟踪手册更改。
+		
+		如果这听起来复杂，一个更简单的方法是访问此页面，并使用文件$>$保存，手动保存到磁盘。然后，你可以导入到Microsoft Word或类似的软件，并翻译成这样。
+		
+		当你快乐的翻译时，你可以把它放在你的网站上，我可以链接到它，或者我可以在Anki的网站上主持翻译的文件（但如果你打算进行频繁的更新，前者是更好的选择）。如果你愿意，你可以在你完成之前发布它，我们可以在下面的进度列表中链接它。
+		
+		另一种选择是把你的翻译放到一个维基上，让其他用户可以有助于它。有许多网站如\url{http://www.wikia.com}Wikia将允许你轻松地创建自己的免费维基。（英文版曾用维基；我们发现，我们有太多无用的贡献，不得不花太多的时间纠正它们，但你的情况可能不同。）
+		
+		下面的翻译正在进行中：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item Spanish
+			\item Chinese \url{http://ankisrs.net/docs/manual.pl.html}Polish
+		\end{itemize}
+		
+		如果你想帮助这些翻译之一，请在TenderApp联系我们，我们将你与目前正在工作的用户联系。
+		
+		\section{贡献代码}
+		
+		Anki的源代码在 \url{http://github.com/dae}是可用的
+		如果你有错误修正或相信你的改变会使很多人受益，请看一看许可证文件，如果你同意，在Damien的电子邮件或GitHub提交请求。
+		
+		\chapter{常见问题}\label{what-algorithm}
+		
+		\section{我还未学习很久，而现在离下次复习的间隔太大了！}
+		
+		当你每天使用 Anki 时，每张回答正确的卡片都获得了更大的复习间隔。假设每次 \textbf{good}将间隔翻了一倍，下次复习需要陆续等待 5 天，10 天，20 天，40天，如此下去。
+		
+		当人们在没有学习的几个星期或几个月后回到他们的记忆库上时，他们常常惊讶于他们的长度间隔已经成长。这是因为Anki认为实际的时间卡片是看不见的，不只是时间被安排。因此，如果卡片被预定了5天，但你一个月没有学习，下一个间隔将更接近60天超过10天。
+		
+		这是一件好事。如果你在一个月的等待之后成功地记住了一张卡片，那么在更长的等待之后，你会再次记住它。当你在一个延迟后学习时同样的原则也使得SRS在正常使用时有效运用。如果你能在一个月的等待之后很容易地回答它-你就会倒退，那么你在未来的10天内安排一张卡片也没什么意义。
+		
+		重置记忆库是一个更糟糕的解决方案。经过长时间的缺勤后返回到记忆库，你可能忘记了许多卡片，但很可能你没有忘记它们。重置整个记忆库意味着你必须浪费时间学习你已经知道的材料。
+		
+		现在你可能会发现你可以回忆过期的卡片，但不充裕，当它们在的时候没有被复习。为了解决这个问题，Anki对待的延迟不同这取决于你的答案。如果你发现一张卡片容易，最后一个间隔加上全部的延迟相加，然后用来计算下一个间隔。当你回答一般的时候，只有一半的延迟被使用.。当你努力回答时，只有四分之一的延迟被使用。所以，如果一张卡是在5天到期，它的回答迟到了20天，下一次你最终大约是：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item 困难: (5 + 20/4) * 1.2 = 12 天
+			\item  一般: (5 + 20/2) * 2.5 = 37.5 天
+			\item 简单: (5 + 20) * 3.25 = 81.25 天
+		\end{itemize}
+		
+		（这些因素实际上取决于你在记忆库上的表现）
+		
+		如果你发现卡片困难，下一个间隔是相当保守的，是小于最后等待（25天）。如果你发现卡片一般，下一个间隔只有大约50\%高。容易增加间隔像往常一样积极。
+		
+		所以经过一段时间的缺勤后，当你返回Anki时建议你正常学习。但如果你绝对必须重置记忆库，你可以在浏览器选择重置卡片，并使用编辑>重置。
+		
+		\section{我可以做多项选择题吗？}
+		
+		因为一些原因多项选择题是一个很差的复习工具。他们之所以经常在学术环境中使用是因为它们很容易被标记，并且允许学习的人展示他们识别正确答案的能力，即使他们自己不能做出来。
+		
+		此外，好的多项选择题，有精心挑选的“分心”的答案与类似正确答案。计算机可以寻找相似的拼写的词，但它对于更复杂的题是不能够选择好的干扰。
+		
+		如果你正在为一个考试学习，你有一个多项选择题样品考试如下：
+		
+		\begin{shaded}\begin{verbatim}
+			Q: What animal has a really long neck?
+			
+			A: 1. A monkey. 2. A giraffe. 3. A donkey. 4. A snail.
+			\end{verbatim}\end{shaded}
+		
+		那么，问题应该改写在Anki如下：
+		
+		\begin{shaded}\begin{verbatim}
+			Q: What animal has a really long neck?
+			
+			A: A giraffe.
+			\end{verbatim}\end{shaded}
+		
+		或者你可以添加你自己的选择：
+		
+		\begin{shaded}\begin{verbatim}
+			Q: What animal has a really long neck? (dog/cat/giraffe/penguin)
+			
+			A: A giraffe.
+			\end{verbatim}\end{shaded}
+		
+		\section{我可以链接卡片？添加依赖关系？我应该如何处理同义词？}
+		
+		Anki支持一个笔记的卡片之间的链接，但不是在不相关的卡片之间。想象一下你在学习日语，目的是既能识别又能再现日语。你可以输入“ookii”，意思是“大”，并告诉Anki产生两个卡片-ookii→big 和 big→ookii。
+		
+		在上述情况下Anki可以把相关卡片的复习分隔开，让他们不要出现一前一后（在文档的顶部见\url{#siblings}相关卡片链接）。
+		
+		有些人想在任意卡片之间扩展这个链接。他们希望能够告诉Anki“给我展示这张卡片后，给我看那张卡片”，或“不要展示那张卡片，直到我足够了解这张卡片”。这在理论上听起来也许是个好主意，但实际上并不实际。
+		
+		首先，与上面的相关卡片不同，你必须自己定义所有的关系。进入新的笔记到Anki会成为一个复杂的过程，你会通过搜索其余的记忆库和分配新老材料之间的关系。
+		
+		其次，记住Anki是使用一种算法来确定再次显示你的材料的最佳时间。增加卡片显示的限制，使卡片显示比他们预期的更早或更晚，使间隔重复系统不那么有效，导致更多不必要的工作，或忘记卡片。
+		
+		使用Anki的最有效的方法是使你看到每一个笔记独立于其他笔记。如果你能确定它们之间的区别，你就不会再试图加入类似的词语了。同义词很少可以完全互换--它们往往有细微差别，如果一个同义词被另一个同义词替换，句子就变得奇怪了。
+		
+		继续之前日本的例子，想象一下你想学的单词"dekai"，这也大致可以翻译为"big"，但更多的是一种口语化的表达。如果你还想复习两个方向，你可以用英语提示"big (更休闲)"这个词。你的语言学习进展得越快，定义类似单词之间的差异就越是一种负担，这就是为什么要求你制作特定单词的卡片最好留到学习的早期阶段。有了坚实的基础词汇，走向以识别为基础的学习更有意义，因为我们都有一个比我们主动的词汇更大的被动词汇。
+		
+		为了确保较难的材料在容易的材料之后被引入，一些现有的工具是可用的。新的卡片是默认它们被添加到记忆库的顺序，所以只要学习材料或你使用的信息来源是你的水平的适当等级，材料应按容易的顺序出现。
+		
+		\section{我可以给我的笔记任意数量的字段吗？}
+		
+		笔记的设计代表了\textbf{密切}相关的信息，并使它很容易重组出现在卡片上的信息。在语言学习的语境中，笔记是用来表示短语翻译对等、短语翻译阅读三元组等。所有这些关系是1:1 -一个给定的短语只有一个阅读和翻译。（1）
+		
+		由于他们能够将相关信息捆绑在一起，一些人试图用笔记来在他们的记忆库上捆绑不太密切相关的信息。例如，如果他们遇到两个句子的单词 "completely"：
+		
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item He was completely confused.
+			\item That was completely uncalled for.
+		\end{itemize}
+		
+		然后，他们把这两个句子放在同一个笔记里，在理论基础上，因为他们有一个词，他们是相关的。但是，如果用户遇到另一个例子句怎么办？
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item The book confused her.
+		\end{itemize}
+		
+		那句话与先前的句子都有 "confused" 一词。因此，它应该在"confused"的笔记？还是"completely"的笔记？或者两者都有？
+		
+		与上面提到的短语翻译对等不同的是，如果你说句子是相关的，如果他们分享一个字，那么句子有很多：许多关系。也就是说，句子A可能与句子B和C有关，句子B可能与A、D有关等。因为关系是复杂的和重叠的，笔记不是代表它们的好方法。
+		
+		似乎有两个主要的原因，人们试图用笔记来表示这种关系：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item “因为保持所有的信息在一个地方是整洁的”。这也许是事实，但实际上你并没有省多少空间。如果你想看到包含"completely" 这个单词的所有例句，每个句子都有不同的笔记，你所要做的就是寻找"completely" 。
+			\item “因为我想让Anki分开共享相同单词的卡片复习”。这是有关以前的常见问题解答的问题。定义卡片之间的链接是耗时的，如果它是自动完成的，每一个共享单词的卡片与其他共享单词的卡片分离，这将在计算之间禁止，很可能会导致一个什么都不能显示的情况，因为它都与其他东西有关。是的，这是不理想的两个句子包含同一个字对方显示后是不理想的，但如果你按随机顺序添加新卡片，这样的情况是不可能的，它的缺点是试图阻止这样的情况不值得的。即使这样的解决方案被引入，它也不会阻止你在现实世界中遇到这些词。
+		\end{itemize}
+		
+		（1）不同的人可以用不同的方式翻译同一个短语，不同的方言可以读同一个词不同，但这与讨论不相关。
+		
+		\section{我可以搭建自己的 AnkiWeb 吗？}
+		
+		抱歉，目前我们只提供官方的 AnkiWeb 服务。
+		
+		\section{为什么 Android 版是免费的，而 iOS 版不是？}
+		
+		编写 Anki 桌面版，AnkiWeb 和 Anki 移动版目前是我的全职工作，因此我需要取得收入的途径。既然桌面版和 Web 版已经免费提供给大家，我目前只能依赖销售 iOS App 获得经济收入。
+		
+		AnkiDroid 则是由一群分散在世界各地的志愿者编写完成。鉴于他们的工作建立在我免费提供的桌面版的基础上（并且依赖 AnkiWeb 以保持牌组同步），他们最终决定免费提供 AnkiDroid 给大家。
+		
+		\section{Anki 使用的间隔重复算法是怎样的？}
+		
+		Anki 最初采用的是 SuperMemo 的 SM5 算法。然而 Anki 默认需要在回答卡片之前确定下次复习的间隔，这与 SM5 算法有一些根本性的冲突。目前采用的 SM2 算法与后续的新版算法间的关键区别是：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item SM2 算法基于你在一张卡片上的表现决定下次复习这张卡片的时间
+			\item SM3+ 算法基于你在一张卡片上的表现决定下次复习这张及类似卡片的时间
+		\end{itemize}
+		
+		后者通过综合考虑一组卡片——而不单单是一张卡片——的表现，计算得出更准确的复习间隔。当你的学习较为规律，并且牌组中卡片的难度较为相似时，这类算法的效果更好。然而一旦不一致被引入这个平衡（不同难度的卡片，并非每天在固定时间学习），SM3+ 更容易作出错误的复习间隔时间猜测，从而导致部分卡片出现得过于频繁或荒于复习。
+		
+		
+		除此之外，由于 SM3+ 会动态调整“优化因子”表，选择“困难 (Hard)”有时会得到比“简单 (Easy)”还长的复习间隔。因为 SuperMemo 中隐藏了下次复习时间，所以用户们并不知情。
+		
+		在调研过这几个算法后，Anki 的作者决定使用 SM2 算法。因为 SM3+ 算法在复习间隔估计上些许优化，无法抵消错误估计带来的风险。SM2 算法的结果更加可预测，对终端用户更为直观，而 SM3+ 算法则隐藏了所有的细节并要求用户对其绝对地信任（即使系统可能会犯错）。
+		
+		Anki 的实际算法基于 SM2，但在以下方面略有不同：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item SM2定义1天到6天的初始间隔。用Anki，你完全控制了初始学习步骤的长度。Anki知道你能够记住它之前，有必要看一张新卡片若干次，那些最初的“失败”并不意味着你需要在几天内多次被展示失败的卡片来惩罚你。在学习阶段的表现并不反映在保留阶段的表现。
+			\item Anki使用4个选择回答复习卡片，不是6。只有一个\textbf{失败}的选择，而不是3。这样做的原因是，失败包括少量的总复习，可以充分通过简单地改变积极的答案从而调整卡片的易用性。
+			\item 回答卡片后比预计将计入下一区间的计算，所以你学习卡片得到提升，你回答晚了但仍然记得。
+			\item 像SM2，默认情况下，Anki的失误按钮重置卡片间隔。但用户可以选择使卡片后退一些步骤，而不是完全复位。此外，你可以选择在不同的一天复习失误的成熟卡片，而不是同一天。
+			\item \textbf{容易记住不仅增加了容易因素，而且增加了额外的红利到当前间隔的计算。因此，回答很容易记住}的比标准SM2算法更积极一点。
+			\item 卡片在学习中连续失误不会导致进一步降低卡片的容易程度。标准SM算法的一个常见的抱怨是重复失败的卡片导致卡片在“低间隔地狱”。在Anki中初始采集过程不影响卡片的容易程度。
+		\end{itemize}
+		
+		若想查看 SM2 算法的详细描述，您可以访问
+		\url{http://www.supermemo.com/english/ol/sm2.htm}
+		您还可以查看 Anki 源代码中的 \textbf{sched.py}文件了解排程部分的代码。以下是一个简单的总结
+		（请参阅 \hyperref[deckoptions]{记忆库}选项 小节中提到的用 \textbf{斜体}标出的选项）。
+		
+		如果您选择
+		
+		\begin{description}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item[再来一次] 该卡片是放在学习模式，减少了20个百分点（即20是从\textbf{容易的值减去，这是单位的百分点），当前的时间间隔乘以新时间间隔}值（当卡片退出再次学习模式这个间隔将被使用）。
+			\item[困难] 该卡的容易性降低15个百分点，当前间隔乘以1.2。
+			\item[一般] 当前间隔乘以当前容易程度。容易程度不变。                  
+			\item[容易] 当前间隔乘以当前多倍容易的\textbf{容易红利}和容易增加15个百分点。                
+		\end{description}
+		
+		对于困难，一般和容易，下一个间隔是额外乘以\textbf{间隔调节器}。做这些计算之前，如果该卡片正在被延迟复习，卡片过期的天数将被添加到当前的间隔。
+		
+		卡片可以采取有一些限制的调度值。容易将不会低于130\%；SuperMemo的研究已经表明，容易在130\%以下往往会导致卡片变成比有用的和恼人的用户到期的更频繁。间隔永远不会超出\textbf{最大间隔}值。最后，所有新的间隔（除再次）将始终至少比以前的间隔长一天。
+		
+		\begin{shaded}
+			当你选择一个容易按钮，Anki也适用于少量的随机的“模糊”防止同时推出卡片，然后从粘在一起并总是会在同一天复习的卡片给出相同的比率。这种模糊并不出现在间隔按钮上，所以如果你注意到你的选择和你的卡片之间的间隔会略有差异，这可能就是原因。
+		\end{shaded}
+		
+		
+		\chapter{资源}\label{}
+		
+		您可以访问 SuperMemo 的网站上获取更多关于间隔重复和记忆的优秀资源：\url{http://www.supermemo.com/}
+		
+		
+	\end{document}
