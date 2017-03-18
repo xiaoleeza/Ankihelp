@@ -1,0 +1,2878 @@
+\documentclass[a4paper]{book}
+\usepackage{hyperref}
+\hypersetup{colorlinks,
+	linkcolor=red,
+	filecolor=blue,
+	urlcolor=blue,
+	citecolor=green,
+	CJKbookmarks=True,
+	pdftitle={Anki 2.0 用户手册},
+	pdfauthor={Tsingber Lee},
+	pdfsubject={Anki},
+	pdfkeywords={anki, LaTeX, CSS, html},
+	pdfproducer={Typset by XeLaTeX} } 
+%\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{xltxtra}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{indentfirst}
+\usepackage{framed,color}
+\usepackage{caption}
+\usepackage{longtable}
+\captionsetup{font=bf,position=below}
+
+\usepackage{ctable}
+
+\definecolor{shadecolor}{gray}{0.90}
+\usepackage{xeCJK}
+\setCJKmainfont[Mapping=tex-text,BoldFont=SimHei]{SimSun}
+\setCJKsansfont{SimHei}
+\setCJKmonofont[Scale=0.9]{FandolHei}
+\setmainfont{Palatino Linotype}
+\setmonofont{Consolas}
+
+\settowidth{\parindent}{\qquad}
+
+% fancy quotes
+
+\definecolor{quotemark}{gray}{0.7}
+\makeatletter
+\def\fquote{%
+	\@ifnextchar[{\fquote@i}{\fquote@i[]}%]
+}%
+\def\fquote@i[#1]{%
+	\def\tempa{#1}%
+	\@ifnextchar[{\fquote@ii}{\fquote@ii[]}%]
+}%
+\def\fquote@ii[#1]{%
+	\def\tempb{#1}%
+	\@ifnextchar[{\fquote@iii}{\fquote@iii[]}%]
+}%
+\def\fquote@iii[#1]{%
+	\def\tempc{#1}%
+	\vspace{1em}%
+	\noindent%
+	\begin{list}{}{%
+			\setlength{\leftmargin}{0.1\textwidth}%
+			\setlength{\rightmargin}{0.1\textwidth}%
+		}%
+		\item[]%
+		\begin{picture}(0,0)%
+		\put(-15,-5){\makebox(0,0){\scalebox{3}{\textcolor{quotemark}{``}}}}%
+		\end{picture}%
+		\begingroup\itshape}%
+	%%%%********************************************************************
+	\def\endfquote{%
+		\endgroup\par%
+		\makebox[0pt][l]{%
+			\hspace{0.8\textwidth}%
+			\begin{picture}(0,0)(0,0)%
+			\put(15,15){\makebox(0,0){%
+					\scalebox{3}{\color{quotemark}''}}}%
+			\end{picture}}%
+		\ifx\tempa\empty%
+		\else%
+		\ifx\tempc\empty%
+		\hfill\rule{100pt}{0.5pt}\\\mbox{}\hfill\tempa,\ \emph{\tempb}%
+		\else%
+		\hfill\rule{100pt}{0.5pt}\\\mbox{}\hfill\tempa,\ \emph{\tempb},\ \tempc%
+		\fi\fi\par%
+		\vspace{0.5em}%
+	\end{list}%
+}%
+\makeatother
+
+%%==================================================%
+\title{Anki 2.0 用户手册}
+\author{简体中文}
+
+\makeatletter
+\let\savedauthor=\@author
+\let\savedtitle=\@title
+\def\imgwidth{.6\linewidth}
+\def\maxwidth{\ifdim\Gin@nat@width>\imgwidth\imgwidth
+\else\Gin@nat@width\fi}
+\makeatother
+
+\title{\textbf{\savedtitle}}
+\author{\textbf{\savedauthor}\thanks{这些翻译是有志愿者贡献，如果过你也乐意将此手册翻译成其他语言，或是想了解手册翻译的整体进度，请参阅翻译手册部分.}\and \textbf{翻译}\thanks{\ttfamily 余时行
+		zyw6~
+		文剑木然~
+		L
+		45°\hspace{-.1ex}仰角~
+		麥\hspace{-.07ex}Θ\hspace{-.07ex}言之命至~
+		曼小曼
+		anki\hspace{-.07ex}爱好者。}}
+\def\w3cdtfymd{\the\year-\ifnum\month<10 0\fi\the\month-\ifnum\day<10 0\fi\the\day}
+\date{\w3cdtfymd}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\makeatletter
+  \setlength\headheight{12\p@}
+  \setlength\headsep   {.25in}
+  \setlength\topskip   {10\p@}
+  \setlength\footskip{.35in}
+  \setlength\textwidth{400\p@}
+
+  \setlength\@tempdima{\paperheight}
+  \addtolength\@tempdima{-2in}
+  \divide\@tempdima\baselineskip
+  \@tempcnta=\@tempdima
+  \setlength\textheight{\@tempcnta\baselineskip}
+  \addtolength\textheight{\topskip}
+
+  \setlength\@tempdima        {\paperwidth}
+  \addtolength\@tempdima      {-\textwidth}
+  \setlength\oddsidemargin    {\paperwidth}
+  \addtolength\oddsidemargin  {-2.35in}
+  \addtolength\oddsidemargin  {-\textwidth}
+  \setlength\marginparwidth   {0pt}
+  \@settopoint\oddsidemargin
+  \@settopoint\marginparwidth
+  \setlength\evensidemargin  {\paperwidth}
+  \addtolength\evensidemargin{-2.35in}
+  \addtolength\evensidemargin{-\textwidth}
+  \@settopoint\evensidemargin
+
+  \setlength\topmargin{\paperheight}
+  \addtolength\topmargin{-2in}
+  \addtolength\topmargin{-\headheight}
+  \addtolength\topmargin{-\headsep}
+  \addtolength\topmargin{-\textheight}
+  \addtolength\topmargin{-\footskip}     % this might be wrong!
+  \addtolength\topmargin{-.5\topmargin}
+  \@settopoint\topmargin
+\makeatother
+
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[LE,RO]{\footnotesize\textbf\thepage}}
+\pagestyle{plain}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\newcounter{img}[chapter]
+\renewcommand{\theimg}{\thechapter.\arabic{img}}
+\newcommand{\img}[1]{\begin{figure}[ht!]
+	\refstepcounter{img}
+	\label{img:\theimg}
+	\centering\IfFileExists{figures/\theimg.pdf}{\includegraphics[width=\maxwidth]{figures/\theimg.pdf}}{\includegraphics[width=\maxwidth]{figures/\theimg.png}}
+
+	\caption{#1}
+\end{figure}}
+
+\newcounter{tab}[chapter]
+\renewcommand{\thetab}{\thechapter.\arabic{tab}}
+
+\newcommand{\prechap}{第}
+\newcommand{\postchap}{章}
+\newcommand{\presect}{}
+\newcommand{\postsect}{节}
+\renewcommand{\chaptermark}[1]{\markboth{\textbf{\prechap \thechapter \postchap}\hspace*{1ex}#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\textbf{\presect \thesection \postsect}\hspace*{1ex}#1}}
+\newcommand{\chap}[1]{\newpage\thispagestyle{empty}\chapter{#1}\label{chap:\thechapter}}
+\newcommand{\chapref}[1]{\hyperref[chap:#1]{\prechap #1\postchap}}
+\newcommand{\imgref}[1]{\hyperref[img:#1]{<图#1}}
+\newcommand{\tabref}[1]{\hyperref[tab:#1]{表#1}}
+\newcommand{\e}[1]{$ \times 10^{#1}$}
+\renewcommand{\contentsname}{目录}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \huge\bfseries \prechap \thechapter \postchap
+        \par\nobreak
+        \vskip 20\p@
+      \fi
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+\makeatother
+
+\linespread{1.3}
+
+\begin{document}
+\frontmatter
+\maketitle
+\thispagestyle{empty}
+\setcounter{tocdepth}{4}
+\tableofcontents\newpage\thispagestyle{empty}
+
+\mainmatter
+\fancyhf{}
+\fancyhead[LE]{{\small\leftmark}}
+\fancyhead[RO]{{\small\rightmark}}
+\fancyhead[RE,LO]{{\small\savedauthor\hspace*{1ex}\textbf{\savedtitle}}}
+\fancyfoot[LE,RO]{\small\textbf\thepage}
+\pagestyle{fancy}
+
+
+这些翻译是有志愿者贡献，如果过你也乐意将此手册翻译成其他语言，或是想了解手册翻译的整体进度，请参阅\url{#translatingmanual}翻译手册 部分.
+
+\chapter{介绍}\label{}
+
+Anki是一个使记忆变得容易的学习软件。因为它是一个自定义多功能的记忆方式，可以大大减少你的学习时间，也可以大大提高 你的学习容量.
+
+ANKI会帮助那些在日常生活中需要记忆东西的人们。因为它是“内容-未知”模式，支持图像、音频、视频和科学标记（通过 LaTeX），可能性是无限的。例如:
+
+\begin{itemize}
+	\itemsep1pt\parskip0pt\parsep0pt
+	\item 学习一门语言
+	\item 备考医学和法律考试
+	\item 记忆人的名字和面孔
+	\item 温习地理学
+	\item 习长诗
+	\item 甚至练习吉他和弦
+\end{itemize}
+
+Anki背后有两个简单的概念:: \textbf{动召回测试 }和 \textbf{间隔重复}. 它们不被大多数学习者知晓,尽管这方面科学文献已经存在很多年了。了解它们的工作原理会使你更有效的学习.
+
+\section{主动召回测试}
+\textbf{主动召回测试}意味着问了一个问题并试图记住答案。. 与\textbf{被动学习}比 较, 如果我们记住了答案，我们去阅读、看或听的话不用花费时间去思考。研究表明,主动召回测试比被动学习更有效地建立强有力的记忆。有两个原因:
+
+\begin{itemize}
+	\itemsep1pt\parskip0pt\parsep0pt
+	\item 召回的模式\textbf{增强}记忆, 通过持续地增加再次记忆的机会来增强记忆.
+	\item 当我们无法回答一个问题，它告诉我们需要返回到资料再次复习或者重新学习它。
+\end{itemize}
+
+你可能在求学的过程中有过主动召回测试的经历，只是你没有意识到而已。老师会在你阅读文章之后提出一系列的问 题，或者进行每周测验，他们这样做不仅仅是看看你是否理解学习内容，也是在增加你学习的机会，让你在以后能够记 住这些学习内容.
+
+把召回测试应用到你的学习之中的一个好法子是
+
+\textbf{使用卡片}. 传统的纸质卡片，你把问题写在卡片的一侧，答案在另外 一侧，但是没有不停回流这些卡片直到你可以掌握所有的问题。通过召回测试，你便可以比传统的学习更有效率.
+
+\section{不用就会忘记}
+
+我们的大脑是高效的机器,他们迅速抛弃似乎不太有用的信息。可能你不记得两个星期前周一晚餐吃的是什么,因为这些信息通 常并不是有用的。如果你那天去了一个很棒的餐馆,在过去的两个星期一直告诉身边的人那儿是多么的好,这种情况下,你可能 还记得那儿生动的细节。
+
+大脑的“不用就会忘记”政策适用于我们学习的一切。如果你花一个下午记住一些科学术语,然后在两周内不考虑这些学习内 容,你可能会忘记了大部分。事实上,研究表明我们会在48小时内忘记约75%的学习内容。当你需要学习大量的信息的时候 这会变得很沮丧,。
+
+然而,解决方案很简单: \textbf{复习}. 通过回顾学习过而又觉得生疏的内容,我们可以大大减少遗忘。
+
+唯一的问题是传统的复习方法不是很实用。如果您正在使用纸质卡片,并且只有30项复习的内容, 那么你很容易浏览完所有的问题，但随着数量增长到300或3000,立即就变得难以处理.
+
+\section{间隔重复}
+
+1885年，一位德国的心理学家发表了 \textbf{间隔效应}. 他观察到, 和在一个时间段集中进行多次学习相比，如果在时间的推移过程中我们有过分散的复习，那么会更有效地记住事情。自1930年代以来已经有许多利用间隔效应来 提高学习效果的建议,被称为\textbf{记忆}.
+
+一个例子是在1972年,一个叫做塞巴斯蒂安•莱特纳的德国科学家推广纸质卡片记忆法。通过将纸质卡片分装到一系列的盒 子里,把学习通过的和需要再次复习的卡片分开装 ,一眼就可以大致看出这些卡片的掌握情况，什么卡片需要再次进行复习。这相比单一盒子卡片有了很大的进步,目前它已经广泛应用于计算机抽认卡软件。即便如 此，这还是一个相当粗糙的方法,因为它不能给你一个你应该再次复习的确切日期,也不能很好地应对不同难度的学习材料。
+
+过去的30年里最大的发展来自于SuperMemo的作者,一个商业抽认卡程序,实现了记忆。SuperMemo首创的 概念系统,跟踪理想的时间进行材料复习，并且优化了基于用户自身的相关性能。.
+
+SuperMemo记忆系统,每次你回答一个问题,你告诉程序你能够记住它或者你完全忘记了、做了一个小错误、记忆出现 障碍、轻松记忆，等等。程序使用反馈来决定最优时间再次向您出示问题。随着每次成功的回忆，你的记忆也变得越来越坚固， 那么这个问题的复习时间也会被越来越拉长，所以您可能在第一次看到一个问题，之后便在3天之后、15天之后、45天之 后，等等。
+
+这是一个学习的革命,因为它意味着可以用最少的努力去学习东西或者记住东西。SuperMemo的口号总结 说:。 \textbf{记忆,你可以忘记，再忘记}.
+
+\section{为什么选择ANKI?}
+虽然不可否认SuperMemo在记忆领域有着巨大的影响,但是它也存在它的问题。程序因为BUG和难以调试而经常受到 指责，它只在Windows系统运行。这种专有软件，意味着终端用户无法拓展或访问原始数据。尽管很老的版本是免费的， 但对现代使用而言它们的功能非常有限。
+
+Anki解决了这些问题。Anki的免费客户端可用在很多平台上,所以预计一些因为受到限制而苦苦挣扎的学生和教师可以 不用再担心了。它是开源的,有蓬勃发展的插件库提供给最终用户。它的多平台,可运行在Windows、Mac OSX,Linux / FreeBSD,一些移动设备。而且，和SuperMemo相比，它相当容易使用。
+
+在内部,Anki的记忆系统是基于SuperMemo称为SM2旧版本的算法。其后续版本已经成功地挤出一点学习效率, 但却花费了很大的成本去增加系统复杂性,而且在实际使用过程中更容易调度错误。对于不同调度算法更深入的讨论, 看页面的底部\url{#what-algorithm}常见问题部分.
+
+\chapter{基本术语}\label{}
+
+\section{卡片}
+一问一答配对成\textbf{卡片}. 卡片的一面是问题，另外一面是答案。在Anki里卡片并不像常规的那样，你要回答的问题 的答案是默认可见的。例如，如果你学习基础化学，你可能会看到这样一个问题:
+
+\begin{shaded}\begin{verbatim}
+	问题：氧气的化学符号？
+	\end{verbatim}\end{shaded}
+经过考虑之后，决定答案是O，单击显示按钮，显示你的回答：
+\begin{shaded}\begin{verbatim}
+	问题：氧气的化学符号？
+	答案：O
+	\end{verbatim}\end{shaded}
+Anki检查你是正确的，并且也知道了你的记忆情况，会根据你对这个问题的记忆情况选择一个时间让这个问题再次出现。
+
+\section{牌组}
+一副\textbf{牌组}一组卡片。可以替换卡片组成不同的牌组去学习，不需要每一次都学习全部内容。每个牌组可以有不同的设置，如 每天展示多少新卡片，或等多长时间卡片再次出现。
+
+牌组下面有分支，可以形成一个树状结构的牌组体系。Anki用“::”显示不同的层级。一个名为“中国::汉字”的牌组 归属于“汉字”牌组，是“中国”牌组的一个下属分支。如果你搜索“汉字”，就只会显示这个牌组；如果你搜索“中国”，那 么所有的中国牌组包含汉字牌组都会显示出来。
+
+要将某个牌组放入树状结构，你可以将其按照各个层级命名，并以“::”作为分隔。嵌套在另一个牌组下层的牌组（也就是名称中包含至少一个“::”）通常称为子牌组，顶层的牌组有时称为超牌组或父牌组。
+
+Anki 中的牌组起始于一个叫“default”（默认）的牌组，任何脱离其它牌组的卡片都会到这里。如果默认牌组（default）为空，而且你还添加了其它牌组，默认牌组就会被隐藏。你也可以将默认牌组重命名，作为它用。
+
+牌组最好用来放置较大门类的卡片，而不是像“食物相关动词”或者“第一课”这样特定的主题。更多信息，参见\url{#manydecks}正确使用牌组这一节。
+有关牌组如何影响卡片展示的顺序，请参见\url{#displayorder}显示顺序这节。
+
+\section{笔记＆区域}
+
+制作卡片时，我们经常会想为某个知识点制作多个卡片。比如，学法语时你学到“bonjour”表示“你好”，这时你会想制作一张显示“bonjour”并且让你回忆“你好”的卡片，还想制作一张显示“你好”并让你回忆出“bonjour”的卡片。第一张卡片测试辨识外语单词的能力，另一个测试产出能力。
+
+用纸质卡片的时，为了制作这两张卡片，你只能将同样的知识点写下两次。有些计算机卡片程序提供了翻转卡片正反面的功能，这让人生更美好了。这相对纸质的情况有了进步，但是仍然存在两大缺点：
+
+\begin{itemize}
+	\itemsep1pt\parskip0pt\parsep0pt
+	\item 此类程序并不会分别跟踪你的识别与产出，所以卡片通常并不会在最佳时间复现，这意味着更多不必要的遗忘次数和学习时间。
+	\item 只有你希望卡片两边的内容不发生任何改变时，翻转卡片才是有效的。这样在每张卡片上显示一些附加内容就不可能了。
+\end{itemize}
+
+通过把卡片的内容分离成独立的几条信息，Anki 解决了以上问题。你告诉 Anki 每张卡片所需要的信息，Anki 为你自动创建这些卡片，并在未来你编辑之后更新卡片。
+假如我们想学习法语单词，而且我们希望在每张卡片的背面附上页码。我们期望的卡片是这样的：
+
+\begin{shaded}\begin{verbatim}
+	问：Bonjour
+	答：你好
+	页码：12
+	\end{verbatim}\end{shaded}
+
+和：
+\begin{shaded}\begin{verbatim}
+	问：你好
+	答: Bonjour
+	页码：12
+	\end{verbatim}\end{shaded}
+
+这个例子里，存在三条三关的信息：一个法语单词，一个中文释义，一个页码。将它们放在一起，如下：
+
+\begin{shaded}\begin{verbatim}
+	法语：Bonjour
+	中文：你好
+	页码：12
+	\end{verbatim}\end{shaded}
+
+Anki 中这些相关的信息称为\textbf{笔记，每条信息称为字段}。所以我们可以说这里的笔记有三个字段：法语，中文和页码。
+要增加或编辑字段，点击新增和编辑笔记时的“字段”按钮。更多字段相关的信息，参见\url{#fields}定制区域小节。
+
+\section{卡片类型}
+
+要让 Anki 根据笔记创建卡片，我们需要为每类卡片构建蓝图，说明应当在正反面分别放置哪些字段。这样的“蓝图”称为\textbf{卡片类型}；你新增一条笔记，Anki 就会为每个卡片类型创建一张卡片。
+每个卡片类型有两个\textbf{模版}，问题模版和答案模版。以上法语示例中，用于辨识的卡片可能是这样的：
+
+\begin{shaded}\begin{verbatim}
+	问：Boujour答：你好
+	页码：12
+	\end{verbatim}\end{shaded}
+
+问了达到此目标，我们可以把问题模版和答案模版设置成这样的：
+
+\begin{shaded}\begin{verbatim}
+	问：{{法语}}
+	答：{{英语}}<br&gt
+	页码：{{页码}}
+	\end{verbatim}\end{shaded}
+
+通过将字段名放在两对大括号里，我们告诉 Anki 将括号里的内容替换为实际的字段内容。每一张卡片上没有被括号包围的东西。（例如，我们不需要类型”页\#”进入页面字段添加字段–是自动添加到每个卡。）<br\& gt是一个特殊的代码，告诉Anki移动到下一行；更多的细节在\url{#templates}卡片与模板部分。
+
+制作卡片模板方法类似：
+
+\begin{shaded}\begin{verbatim}
+	问：{{法语}}
+	答：{{英语}}<br&gt
+	页码：{{页码}}
+	\end{verbatim}\end{shaded}
+
+一旦创建了卡片类型，每次添加新笔记时，将创建一个基于该卡片类型的卡片。卡片类型让卡片格式的一致性更容易保持，并且大大减少了新增卡片所需的精力。这同时意味着相关联卡片的出现不会过于集中，也让你更正笔误等错误后所有的卡片都会得到更新。
+
+要编辑卡片类型，点击新增和编辑笔记时的“卡片”按钮。更多与卡片类型相关的信息请参见\url{#templates}卡片与模版小节。
+
+\section{笔记类型}
+
+Anki 允许你为不同的材料创建不同的笔记类型。每种笔记类型有自己的一套字段和卡片类型。为你所学的每大类主题创建各自的笔记类型是个好主意。我们可以为上述的法语学习的例子创建笔记类型“法语”。如果想学各国首都名称，同样可以创建对应的笔记类型，为其加上“国家”、“首都”等等字段。
+
+Anki 检查重复项时只会在笔记类型相同的卡片中比较。所以如果你新建了一个首都叫“橙子”的各国首都类型的卡片，下次你学法语里的“橙子”时并不会看到卡片重复的提示。
+创建全新集合后，Anki 会自动添加若干标准笔记类型。这些笔记类型旨在让 Anki 对新手更加友好，但是长久看来，还是推荐你根据所学内容定义自己的卡片类型。标准卡片类型如下所示：
+
+\begin{description}
+	\itemsep1pt\parskip0pt\parsep0pt
+	\item[Basic] 每张卡片有 Front（正面） 和 Back（背面）两个字段。Front 字段输入的文本显示在卡片正面，Back 字段的文本显示在背面。
+	\item[标准（翻转卡片）] 和 Basic 类似，但是会创建两张卡片，一张是 Front 到 Back, 另一张是 Back 到 Front。
+	\item[标准（可选翻转卡片）] 此类型包括一张 Front 到 Back 的卡片，和另一个可选的 Back 到 Front 的卡片。为了实现此功能，它拥有第三个字段“Add Reverse”。在此字段输入任意内容，就会另外创建一张翻转卡片。更多内容请参见\url{#templates}卡片与模板小节。
+	\item[Cloze] 此笔记类型让选择文本并挖空更加简单（例如，“人类在[...]年登月”->“人类在1969年登月”。更多内容，参加\url{#cloze}填空小节。
+\end{description}
+
+新增或修改卡片类型，请使用“工具”->“管理笔记类型”功能。
+
+
+\begin{shaded}
+	笔记与笔记类型可以在整个集合范围内公用，而不是局限于特定的牌组。这意味着特定的牌组内部可以使用多种类型的笔记，某个特定的笔记所生成的多个卡片也可以放到不同牌组中。使用“添加”窗口创建卡片时，你可以选择要使用的卡片类型与牌组，这些选项之间完全互不干扰。 你也能修改\url{#browsermisc}已有卡片的笔记类型。
+\end{shaded}
+	
+	\section{集合}
+	
+	\textbf{集合}是Anki 所存储的材料的总和，包括卡片、笔记、牌组、笔记类型、牌组选项等等。
+	
+	\chapter{添加材料}\label{}
+	
+	\section{下载共享记忆库}
+	
+	Anki入门最简单的方式是下载 他人分享的卡片记忆库：
+	
+	\begin{enumerate}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item 点击记忆库列表底部的“获取记忆库”按钮；
+		\item 当你找到了一个感兴趣的记忆库，点击下载按钮 来下载记忆库包；
+		\item 双击下载的记忆库包将它导入Anki，或者使用 文件$\to$导入。
+	\end{enumerate}
+	
+	请注意，暂时无法将共享记忆库直接添加到 你的AnkiWeb账号。你需要使用桌面版程序来导入它们，然后 同步以将它们上传到AnkiWeb。
+	
+	请参阅 \url{#sharingdecks}共享记忆库 来查看关于与他人分享你的记忆库 的信息。
+	
+	\subsection{自制与预制}
+	
+	创建你自己的记忆库是学习一门复杂学科的最为有效的方式。 诸如语言和科学等学科能简单地理解为 记忆事实，实际上它们需要解释和上下文来学习。 此外，自己输入信息迫使你决定什么是 要点，进而更好地理解。
+	
+	如果你是一名语言学习者，你可能倾向于下载一个长的词表 和它们的翻译。但是，这样学习一门语言就像是 利用记忆科学公式来学习天体物理学。为了更好地学习， 你需要课本、教师，或置身于真实语境中。
+	
+	\begin{shaded}\begin{verbatim}
+		不要学习你不理解的东西。
+		--SuperMemo
+		\end{verbatim}\end{shaded}
+	
+	大多数共享记忆库的作者不只是拿Anki来学习， 还有课本、课堂、电视等。他们从学习材料中挑选感兴趣的要点 并把它们放到Anki。因为他们已经理解了材料，所以他们一般不会在卡片 中添加背景信息或解释。因此，当其他人下载他们的记忆库并且尝试 使用时，会感觉学习起来很困难，因为没有背景信息和 解释。
+	
+	这并不是说共享记忆库就没什么用，对于复杂 学科，它们应该被用来作为外部材料的\textbf{补充}，而不是 \textbf{取代}。如果你正在学习课本ABC，并且他人已分享了 源自ABC的记忆库，那么，下载共享记忆库是一个节省时间的好做法。有些题材 很简单，像省会城市名、智力问答等，它们是一组事实， 你可能不需要外部材料。但是，如果你尝试 抛开外部材料来学习复杂学科，那么你最后可能 会失望。
+	
+	\section{添加卡片和笔记}
+	
+	回想 \url{#basics}基础 中说到的，我们往Anki添加笔记而不是卡片， Anki为我们创建卡片。点击主界面的 \textbf{添加}，会弹出 添加笔记的窗口。
+	
+	窗口左上方显示的是当前笔记类型，如果它 不是“基本”，那么，当你下载共享记忆库后，你可能需要添加一些笔记类型。 下文假定笔记类型选择的是“基本”。
+	
+	窗口右上方显示的是卡片会添加到哪个记忆库。如果你想要 添加卡片到新记忆库，你可以点击记忆库名 然后点击“添加”。
+	
+	在笔记类型的下方，你会看到一些按钮，以及“正面”和“反面”的 区域，正面和反面被称为 \textbf{区域}，并且你可以点击上面的“区域”按钮来 添加、移除或重命名区域。
+	
+	在区域下方是“标签”。标签是 附在笔记上的标签，使得管理或查找笔记更简单。你可以 不加标签，或是加一个或多个标签， 标签用空格隔开。例如，如果你的标签是：
+	
+	\begin{shaded}\begin{verbatim}
+		vocab check_with_tutor
+		\end{verbatim}\end{shaded}
+	
+	那么，你添加的这条笔记将会有两个标签。
+	当你已经往正面和背面添加了文字后，你可以点击“添加” 按钮或按Ctrl+Enter（对于Mac是Command+Enter），来将笔记添加到你的 集合。若如此做，一个卡片也将会被创建，并且添加到 你选择的记忆库。如果想要编辑已添加的卡片，你可以点击 “历史”按钮来在 \url{#browser}浏览器 中寻找最近添加的卡片。
+	
+	Anki检查第一字段的唯一性。因此，如果你在 两张卡片的正面都添加了“苹果”（举个例子），Anki会给出警告。唯一性检查 仅限当前笔记类型，因此，如果你正在学习多种语言，只要你为每种语言使用不同的笔记类型， 当两张卡片的正面相同时也不会被列为重复。
+	
+	Anki不自动检查其它区域的重复 以提升效率，但是浏览器有“查找重复”功能，你可以定期执行它。
+	
+	笔记类型和区域之间还有一些按钮，要了解它们的更多信息， 请参阅
+	\url{#editor}编辑 部分。
+	
+	\subsection{最佳训练Best Practices}
+	
+	不同的人喜欢以不同的方式复习，但是你需要注意一些基本概念。 SuperMemo网站上的 \url{http://www.supermemo.com/articles/20rules.htm}这篇文章 是个极好的介绍。特别是：
+	
+	\begin{itemize}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item \textbf{保持简单}: 卡片越短越容易复习。你 可能会在卡片中放大量信息以防万一，但是复习 会马上变得很痛苦。
+		\item \textbf{不要记没有理解的}: 如果你正在学习一门语言，试着 避免大串词表。学习语言最好的方式是结合 上下文，即在例句中学习单词。比方说， 假设你在学习电脑课程，如果你尝试记忆 缩略词，你会发现很难取得进步。但是， 如果你花时间去理解缩略词背后的概念， 学习缩略词会变得轻松许多。
+	\end{itemize}
+	
+	\section{添加笔记类型}
+	
+	基本笔记类型对于在每面只有一个单词或短语是够用的， 但是，当你发现你需要在正面或背面包含多于 一条的信息时，更好的方式是将这些信息切分到更多的区域中。
+	
+	你可能会问：我只是想要一张卡片，那么为什么我就不能把 音频、图片、提示和解释都放在正面区域中呢？ 如果你喜欢那样做，那就更好了。但这种方法的缺点是所有的信息都粘在一起。 如果你想按提示将你的卡片排序，你将无法做到这一点，因为它与其他内容混合在一起。 你也不可能做的事情比如将音频从前面到后面，除了辛苦的复制和粘贴它每一个音符。
+	
+	通过保持内容在不同的字段，你使它更容易调整你的卡片在未来的布局。
+	
+	创建一个新的笔记类型，选择工具→管理笔记类型。然后点击“添加”，添加一个新的笔记类型。现在你将看到另一个屏幕，为你提供了根据新类型选择笔记类型。 “添加”是指在来自Anki的base上创建一个新类型 。“克隆”意味着将新创建的类型设置在已收集的集合上。例如，如果你创建了一个法语词汇类型，当你创建一个德语词汇类型时可能想克隆。
+	
+	选择好后，您将被要求命名新类型。 你学习的学科材料是个不错的选择，比如“日本”、“琐事”，等等。选择名称后，关闭“笔记类型”窗口，然后返回“添加窗口”。
+	
+	\section{定制区域}
+	
+	为了定制区域，当增加或编辑笔记时，或者当在管理笔记类型窗口下选择笔记类型时，点击“区域”按钮。
+	
+	你可以增加，移除，或重新命名区域通过点击合适的按钮。要更改出现在对话框和增加笔记对话框中的区域的顺序，你可以用改变位置的按钮，它要求你想要的区域有数值位置。所以如果你想要把一个区域变成第一个新区域，输入“1”。
+	
+	
+	\begin{shaded}
+		不要使用\textbf{标签， 类型， 记忆库，卡片，或FrontSide}当作区域名称，因为他们是\url{#specialfields}特殊字段，将不会正确运行。
+	\end{shaded}
+	
+	当增加和编辑卡片时，屏幕底部的选项允许你编辑不同property的区域去使用。这\textbf{不是}回顾时你定制出现在卡片上的内容的地方；对于此，请看\url{#templates}模板。
+	
+	\textbf{编辑字体}是用来定制编辑笔记时使用的字体和尺寸的。如果你想要不重要的信息小点，或者增加难读的外语字体的尺寸，这个很有用。这里做的修改不会影响复习时卡片出现的规律：想要改变，请看\url{#template}模板部分。可是，如果你已经启动了“键入答案”功能，你键入的内容将会用这时定义的字体尺寸。（对于怎样改变键入答案时实际的字体形状，请看\url{#typinganswers}答案检查部分）
+	
+	\textbf{区域分类}让anki展示在浏览器的分类区域栏里的这个区域。用这个你可以通过区域分类卡片。一次只能用一个区域。
+	
+	当检查\textbf{记忆上次输入}时，在增加一条笔记之后anki不会清除这个区域的内容。如果你发现自己在多个笔记输入同样的内容之后，这个会很有用。
+	
+	当你学习的语言，像阿拉伯语或者希伯来语，是右向左显示的时，\textbf{翻转文本指示}就很有用了。这个设置现在只在编辑时使用；为了确保回顾时文本展示正确，你需要调整你的\url{#templates}模板。
+	
+	增加区域之后，你也许想把它们放到你卡片的前面或后面。对于更多关于此的信息，请看\url{#templates}模板部分。              
+	
+	\section{改变牌组/笔记种类}
+	
+	在你添加笔记的时候，你可以点击左上方的“类型”来改变笔记模板。点击右方的“记忆库”改变所在记忆库。添加笔记这个窗口不仅可以让你选择牌组或笔记模板，也可以在此添加新的牌组或者编辑笔记模板。
+	
+	\section{正确使用牌组}
+	牌组被设计成将你的内容分成你想单独学习的大类，如英语、地理等等。 你可能会想创建许多小的牌组，以保持你的内容有条理，如“我的地理书第1章”，或“食品动词”，但这是不推荐的，有以下原因：
+	
+	\begin{itemize}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item 许多小牌组意味着你最终会以可识别的顺序复习卡片。 无论是因为你依次点击每一个牌组（这是缓慢的），或你在一个单一的父级牌组上增加了一些牌组，你最终会看到所有的“第1章”或“食物动词”卡片在一起。 这使得回答卡片更容易，因为你可以从上下文猜测他们，从而导致较弱的记忆。 当你需要回忆单词或Anki外的短语时，你不会有充足的可被证明的相关内容。
+		\item Anki不是设计来处理许多牌组（超过几十个），它会慢下来，当你添加更多的–尤其是如果你在一个移动客户端的研究。一些额外的牌组不会产生明显的差异，但是如果你有许多牌组，延误将开始增加。
+	\end{itemize}
+	
+	使用标签和/或字段来分类内容，替代创建许多小的牌组，这是一个更好的主意。例如替代创建一个“食物动词”，你可以把这些卡片添加到你的主要语言学习牌组，并用“食物”和“动词”来标记卡片。每个卡片可以有多个标签，这意味着你可以做的事情，如寻找所有的动词，或所有与食品有关的词汇，或所有的动词与食品有关。
+	
+	对于那些喜欢保持非常有条理的，您可以添加字段到您的笔记分类的内容，如“书”，“页”等。 Anki支持特定字段的搜索，这意味着你可以做一个“图书搜索：‘我的书’页码：63”马上找到你要找的。
+	
+	Anki的\url{#filtered}定制学习和筛选牌组特点使其特别强大，因为你可以从搜索条件创建临时牌组。这允许您在大多数时间（最佳内存）中将内容混合在一个单独的牌组上，同时也需要在特定的材料上创建临时牌组，例如在测试之前。一般的规则是，如果你总是希望能够单独学习一些内容，它应该是在一个正常的牌组上，如果你只是偶尔需要能够单独学习（测试，有压力时，等），标签/字段和过滤牌组更好。
+	
+	\chapter{学习}\label{}
+	
+	当你找到了喜欢的记忆库或加入了一些笔记到记忆库里，就可以开始学习了。
+	
+	\section{记忆库}
+	
+	在Anki中，你可以选择当前记忆库或任何集合中包含的记忆库来学习。
+	在记忆库界面，你的记忆库会显示在一个列表里。有两栏数字：\textbf{到期}和 \textbf{新建}。
+	
+	\textbf{到期} 是需要复习和当前学习中的卡片数量。\textbf{新建}是指当天要学习的新卡片数量。
+	
+	当你点击某个记忆库，它会变成 \textbf{当前记忆库}，然后Anki会 切换到学习界面。你可以随时回到记忆库列表来改变当前选择的记忆库， 只需要点击主界面上方的“记忆库”按钮即可。 （你也可以使用\url{#studydeck}学习记忆库功能来从键盘选择一个新的记忆库， 或者你可以按下“s”键来学习当前选择的记忆库。）
+	
+	你可以点击记忆库右侧的齿轮按钮来重命名或删除一个记忆库、 改变选项或
+	\url{#exporting}导出记忆库。
+	
+	\section{学习概述}
+	
+	点击记忆库开始学习后，你会看到一个界面显示了你今天需要学习多少张卡片。 这个被称为
+	
+	\textbf{记忆库概览}界面。这些卡片被划分为三种类型：
+	
+	\begin{itemize}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item \textbf{新建}表示这些卡片你下载或输入了，但之前从未学习过。
+		\item \textbf{学习中}表示这些卡片你在近期第一次见过，且仍然需要学习。
+		\item \textbf{待复习}表示这些卡片你之前已经学习过，但现在需要复习以不遗忘它们。
+	\end{itemize}
+	
+	点击\textbf{现在学习}按钮来开始学习。 Anki会不断地向你展示卡片直到当天待展示的卡片已经没有了。
+	
+	学习时，你可以按下键盘上的“s”键来返回记忆库概览界面。
+	
+	\section{问题}
+	
+	一张卡片在展示时，先只显示问题。 然后思考答案，点击
+	\textbf{显示答案}或按下空格键，答案就会显示。 你可能会花些时间去回想答案，但一般来说，如果你不能在10秒内想起来， 那么放弃然后查看答案会比冥思苦想要好。
+	
+	答案显示后，你应该将你想的答案和显示的答案进行对照， 然后告诉Anki你记得怎么样。如果你觉得自己不能准确地比对答案，也可以让Anki
+	\url{#typinganswers}强制你输入答案而不是仅仅将答案给你看。
+	记忆情况评级按钮的数量取决于卡片是否被\textbf{学习或复习}。
+	
+	\section{学习}
+	
+	当学习新卡片或那些你已经遗忘的卡片时，Anki会向你展示卡片一次或多次以帮助你记住它们。 每次被称为一个\textbf{学习步伐}，默认有两个步伐：1分钟和10分钟。 你可以在
+	\url{#deckoptions}记忆库选项改变学习步伐的数量和间隔时间。
+	
+	在学习时有三个评级按钮：
+	
+	\textbf{重来} 将卡片移到第一个步伐。
+	
+	\textbf{一般} 将卡片移到下一个步伐。如果卡片已在最后一个步伐， 卡片被转为复习卡片（它\textbf{已毕业}）。默认情况下，当卡片到学习步伐的最后时，它会在第二天再次显示， 之后会有越来越长的间隔时间（参阅下一部分）。
+	
+	\textbf{简单} 立即将卡片转为复习卡片，即使还剩一些步伐。 默认情况下，卡片会在4天后再次展示，之后会有越来越长的间隔时间。 在重学模式，简单按钮不会显示，它会有和“一般”相同的间隔时间。
+	
+	当卡片第一次显示时，开始步伐一。这意味着，第一次回答卡片\textbf{一般}时， 它会在10分钟内再次展示，而开始的1分钟步伐会被跳过。如果你点击了重来，那么卡片会在1分钟内再次展示。
+	
+	你可以使用键盘上的1、2和3这三个按键来选择一个特定的按钮。 1是
+	\textbf{重来，按下空格键会选择一般}。
+	如果没有其它卡片来向你展示，Anki会再次展示学习卡片，即使它们的延迟还没有结束。 如果你倾向于等待足够的学习延迟，你可以在
+	\url{#preferences}首选项里改变这一行为。
+	
+	\section{复习}
+	
+	当卡片在之前学习过，准备复习时，有四个按钮来评级你的答案：
+	
+	\textbf{重来} 将你的答案视为错误，并且让Anki在以后更频繁地展示该卡片， 这张卡片被称为
+	
+	\textbf{失误}。请参阅\url{#lapses}失误部分来了解更多有关失误复习如何处理的信息。
+	
+	\textbf{困难} 在比上次稍微长些的间隔后展示该卡片， 并且告诉Anki在以后安排该卡片时更加保守。
+	
+	\textbf{一般} 告诉Anki上次的间隔基本合适，卡片难度适中。 默认情况下，卡片会在大约是之前的间隔时间的2 1/2倍的间隔后展示。 因此，如果你在10天前见过该卡片，到下一次会间隔大约25天。
+	
+	\textbf{简单} 告诉Anki你发现间隔时间太短了。 卡片在将来会被安排在比
+	\textbf{一般更久，Anki会在将来安排该卡片时更加大胆，因为简单}迅速增加了间隔， 它只适合最简单的卡片。通常，你应该发现自己回答
+	\textbf{一般}。
+	在学习卡片时，你可以使用键盘上的1-4来选择一个答案，按下空格键会选择\textbf{一般}。
+	
+	\section{待学计数和时间估计}
+	
+	问题显示时，Anki在窗口底部显示三个数字，像12 + 34 + 56。 这些分别代表新卡片数，学习中的卡片数，以及待复习的卡片数。 如果你不想看见这些数字，可以在Anki的首选项里将它们关闭。
+	
+	
+	
+	\begin{shaded}
+		\textbf{复习数量为队列中需要完成所有卡片的数量，而不是卡片}的数量。 如果你为失误卡片设定了多重步伐，当你答错一张卡片时，它会增加到多于一个，因为卡片需要再展示几次。
+	\end{shaded}
+	
+	当显示答案时，Anki会在每个学习评级按钮上显示该卡片下次出现的预估时间。 如果你不想看见这些预估时间，你可以在Anki的
+	\url{#preferences}首选项里禁用掉。
+	
+	
+	\begin{shaded}
+		Anki为复习间隔额外添加了微小的随机变化，以防止一起加入的且相同评级的卡片扎堆。 这个变化不会显示在时间估计，但会在选择了按钮后被应用。
+	\end{shaded}
+	
+	\section{编辑和更多}
+	你可以点击左下方的\textbf{编辑}按钮来编辑当前笔记。 当你完成编辑后，你会返回学习。编辑界面与
+	\url{#addingnotes}添加笔记界面非常类似。
+	在复习界面的右下方是一个标签为\textbf{更多}的按钮。 这个按钮提供了一些你能对当前卡片或笔记进行的其它操作：
+	
+	\begin{description}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item[标签笔记] 为当前笔记添加一个“marked”标签，从而使得它在浏览器里很容易找到。 当你需要在以后对该笔记进行一些操作时，这样做非常有用，比如，当你回家后查找一个单词等。 在复习时，已标记的笔记也会在右上角显示一个小星星。
+		\item[搁置卡片/笔记] 将待复习的卡片或笔记隐藏至次日。 如果你想在这之前取消搁置，你可以点击 \url{#deckoverview}记忆库概览界面的“取消搁置”按钮。 如果你现在还不能回答卡片或你想在以后回顾，这样做很有用。 笔记下的某张卡片学习后，该笔记下的其它卡片（相关新卡片）会\url{#siblings}自动搁置。 如果学习中的卡片被搁置，会在搁置前移入新卡片队列或复习队列。
+		\item[暂停卡片/笔记] 将待复习的卡片或笔记隐藏，直到手动取消暂停（点击浏览器的暂停按钮）。 如果你想一段时间不复习这条笔记，但又不想删除它时，这样做很有用。 如果学习中的卡片被暂停，会在暂停前移入新卡片队列或复习队列。
+		\item[删除笔记] 删除笔记，该笔记下的所有卡片也将被删除。
+		\item[选项] 编辑当前记忆库的首选项。
+		\item[重新播放音频] 如果卡片在正面或背面有音频，再次播放它。
+		\item[录制自己的声音] 从你的麦克风录制来检查你的发音，这个录音是暂时的，当你切换到下一张卡片后就没有了。 如果你想为卡片永久地添加音频，你可以在编辑窗口那样做。
+		\item[重新播放自己的声音] 重新播放你之前录制的声音（一般在显示答案后这样做）。
+	\end{description}
+	
+	\section{显示顺序}
+	
+	学习时，显示的卡片来自选择的记忆库或它包含的记忆库。 因此，如果你选择了记忆库“French”，“French::Vocab” 和 “French::MyTextbook::Lesson 1”也会显示。
+	
+	对于新卡片或复习，Anki获取以字母表顺序排列的记忆库中的卡片。 因此，在上面的例子中，你会先获取来自“French”的卡片，然后是“My Textbook”，接着最后是“Vocab”。 你可以借此控制卡片出现的顺序，将优先级高的卡片置于列表中出现级别高的记忆库里。 电脑在以字母表的顺序排列文本时，字符“-”位于字母之前，字符“~”位于字母之后。 因此，你可以将记忆库命名为“-Vocab”来使它最先出现，将记忆库命名为“~MyTextbook”来强制使其最后出现。
+	
+	新卡片和复习是分开获取的，Anki不会等到两个队列都空时才开始下一个记忆库。 因此，可能新卡片来自的记忆库和复习的记忆库不同，反之亦然。 如果你不想这样，直接点击你想要学习的记忆库而不是它的父级记忆库。
+	
+	因为学习中的卡片有点时间敏感，它们从所有的记忆库里立即获取，然后按应有的顺序显示。
+	
+	为了控制给定记忆库里待复习的卡片的出现顺序，或者将新卡片从顺序改为乱序，请参阅\url{#deckoptions}记忆库选项。 想要更细致的新卡片顺序，你可以在
+	\url{#browser}浏览器里改变顺序。
+	\section{相关卡片和搁置}
+	
+	回想在\url{#basics}基础里提到的，Anki能为你输入的每一项创建超过一张的卡片， 比如一张正面$\to$背面的卡片和一张背面$\to$正面的卡片，或者来自相同文本的两张不同的完形填空。 这些关联的卡片被称为
+	\textbf{相关卡片}。Anki会尽量保证相关卡片不会紧挨着显示，因为那样通常不好。
+	
+	当你回答有相关卡片的卡片时，Anki通过自动\textbf{搁置}它们来防止相关卡片在相同环节显示。 搁置的卡片会隐藏不复习，直到到了隔日，或你手动取消搁置。 在
+	\url{#deckoverview}记忆库概览界面的底部，你可以看到“取消搁置”按钮，点击它即可手动取消搁置。
+	
+	Anki只会搁置新的或待复习的相关卡片。 它不会隐藏学习中的卡片，因为时间对于它们非常重要。 另一方面，当你学习一张学习中的卡片时，任何新建/待复习的相关卡片都会被搁置。
+	
+	如果你想在学习或复习卡片时每天看一条笔记下的多张卡片（前提是该笔记下有多张卡片）， 你可以在
+	\url{#deckoptions}记忆库选项里禁用“搁置相关卡片到隔日”。
+	
+	\section{键盘快捷键}
+	
+	在Anki中最常见的操作的键盘快捷键。 他们中的大多数可以在界面：菜单项列表的快捷键在它们旁边，把鼠标移动到工具按钮通常会在提示框中显示快捷方式。
+	学习时，无论是空格还是回车都会显示答案。当显示答案时，您可以使用空格或回车键选择好按钮。你可以使用1-4键选择一个特定的容易按钮。许多人发现用空格回答大多数卡片是很方便的，当他们忘记的时候，用一只手指放在1上。
+	
+	在“工具”菜单中的“学习记忆库”项目允许您用键盘快速切换到记忆库。你可以用\textbf{/}键触发它 。打开时，它会显示所有的记忆库，并在顶部显示过滤器。当你键入字符，它只会显示与你键入字符相匹配的记忆库。你可以添加分隔多个搜索项的空间，Anki将只显示满足所有条件的牌组。 So “ja 1” or “on1 ja” would both match a deck called
+	“Japanese::Lesson1”.
+	
+	\section{落后}
+	
+	如果你在复习上落后， Anki将优先考虑已等待时间最长的卡片。它采取了已经等待了最长的时间的200张卡并显示他们在一个随机的顺序，直到你每天的审查限制。此顺序确保没有卡将永远等待等待，但这意味着，如果你引入新的卡，他们的复习将不会出现，直到你已经通过你的积压。
+	如果您希望更改过期复习的顺序，您可以通过创建一个\url{#filtered}筛选的记忆库来完成。
+	当你一直在等待一个答案，延迟Anki因素决定下次卡片的显示。请看Anki\url{#whatalgorithm}间隔重复算法的更多信息。
+	
+	
+	\chapter{编辑}\label{}
+	
+	\section{特性}
+	在复习或\url{#browser}浏览的时候\url{#addingnotes}添加、\url{#editmore}编辑笔记会显示编辑器。
+	左上角有两个按钮可分别打开\url{#fields}“区域
+	（字段）” 和
+	\url{#templates}“卡片
+	”窗口。
+	右侧的按钮可设置文字格式：加粗、斜体和下划线与其他文字处理程序中的作用相同。紧接着的两个按钮可以设置上标和下标，在编辑化学式如$H_2O$ ，或简单的数学式如x<sup>2</sup>时会很有用。
+	带红叉图标的按钮可清除当前选定文本的所有格式，包括颜色、加粗等。
+	下一个按钮可改变文本颜色。
+	点击回形针图标按钮可从计算机硬盘选择音频、图像和视频附在笔记。 另外，也可以将媒体文件复制到剪贴板（例如，右击网页中的图像并选择\textbf{复制图像}）然后粘贴到需要添加到的区域（字段）。更多有关多媒体文件的信息请察看
+	\url{#media}“多媒体” 章节。
+	点击红色圆圈图标的按钮可以使用计算机话筒录制声音并附到笔记。
+	最后一个按钮可以为笔记添加叫做
+	\url{#latex}LaTeX的高级数学标签或编辑基本格式。
+	大多数按钮可以使用快捷键操作。鼠标指针悬停在按钮上会显示快捷键提示。对于LaTeX/HTML菜单， 使用Ctrl+t然后按t、e或m可分别调出三种LaTeX类型，按Ctrl+Shift+x可编辑 HTML。
+	\section{填空}
+	\textbf{填空}是指在句子中隐藏一个或多个字词的过程。 比如这样一个句子：
+	\begin{shaded}\begin{verbatim}
+		堪培拉成立于1913年。
+		\end{verbatim}\end{shaded}
+	将“1913”创建为填空，随后句子会变成：
+	\begin{shaded}\begin{verbatim}
+		堪培拉成立于[...]年。
+		\end{verbatim}\end{shaded}
+	有时被以这种方式移除的部分被称为
+	\textbf{遮蔽}。
+	对于需要用到填空的情况，参看\url{http://www.supermemo.com/articles/20rules.htm}此处的第五条规则
+	Anki提供了专门的填空笔记类型，可以方便地创建填空。选择Cloze（填空）笔记类型并在 "Text（文本）"区域（字段）输入文字可创建填空卡片， 然后使用鼠标选定需要隐藏的文本，点击“
+	”按钮，Anki会替换其为：
+	\begin{shaded}\begin{verbatim}
+		堪培拉成立于{{c1::1913}}年。
+		\end{verbatim}\end{shaded}
+	“c1”部分指句子中的填空部分。 用户可以根据需要创建更多的填空部分。例如，如果 选定“堪培拉”并再次点击“
+	”按钮，文本会显示如下：
+	\begin{shaded}\begin{verbatim}
+		{{c2:: 堪培拉}}成立于{{c1::1913}}年。
+		\end{verbatim}\end{shaded}
+	添加上面的笔记，Anki会创建两张卡片。第一张卡片会于正面 显示：
+	
+	\begin{shaded}\begin{verbatim}
+		堪培拉成立于[...]年。
+		\end{verbatim}\end{shaded}
+	而在背面显示完整句子。另一张卡片 则在正面显示：
+	
+	\begin{shaded}\begin{verbatim}
+		[...]成立于1913年。
+		\end{verbatim}\end{shaded}
+	在同一张卡片上也可以省略多个部分。在上面的例子中，如果 将c2改成c1，则只会创建一张同时隐藏“堪培拉” 和“1913”的卡片；如果在创建填空时按住Alt键（Mac上为Option键）， Anki会自动使用相同序号的而不是递增序列。
+	
+	填空类型不需要隐藏完整单词，所以如果在上面的例子中选择 “培拉”而不是“堪培拉”，正面 将显示为“堪[
+	] 成立于1913年。”，可以作为答案提示。
+	也可以将不同文本作为答案提示，如果将原来的句子 替换为：
+	
+	\begin{shaded}\begin{verbatim}
+		堪培拉::城市成立于1913年。
+		\end{verbatim}\end{shaded}
+	然后在选定“堪培拉::城市”后点击“
+	”按钮，Anki会将双冒号（英文标点） 后的文本看作提示，文本改变为：
+	\begin{shaded}\begin{verbatim}
+		{{c1::堪培拉::城市}}成立于1913年。
+		\end{verbatim}\end{shaded}
+	复习时，卡片会显示为：
+	\begin{shaded}\begin{verbatim}
+		[城市]成立于1913年。
+		\end{verbatim}\end{shaded}
+	关于在填空中测试准确拼写能力的信息， 请察看
+	\url{#typinganswers}“输入答案”章节。
+	请注意，Anki不支持嵌套填空。例如， 下面的区域（字段）是无效的：
+	
+	\begin{shaded}\begin{verbatim}
+		{{c1::堪培拉{{c2::成立}}}}于1913年。
+		\end{verbatim}\end{shaded}
+	如果需要创建文本重叠的填空，可以在填空笔记中添加另一个Text（文本）字段，再添加到 \url{#templates}模板里，之后，当创建 笔记时，将文本分别粘贴到不同的区域（字段）中，如：
+	
+	\begin{shaded}\begin{verbatim}
+		Text1 field: {{c1::堪培拉成立}}于1913年
+		
+		Text2 field: {{c2::堪培拉}}成立于1913年
+		\end{verbatim}\end{shaded}
+	填空笔记类型默认的第二条区域（字段）叫做Extra（额外信息）, 会在 每张卡片的背面显示。 它可以用来添加一些有用的笔记或额外信息。
+	
+	Anki将填空看作特殊的笔记类型，不能基于通常 的笔记类型创建。如果需要自定义，请确保原样复制已有的Cloze（填空）类型， 而不是使用其他笔记类型。
+	
+	\section{输入外来字符和音符}
+	Windows，Mac和Linux为输入大多数语言提供了内建的支持。 使我们不必购买不同的键盘。某些知识卡片程序试图通过 提供一组输入每个外来字符的可点击的按钮组或自建的转换工具 来实现该支持。 但这使得输入速度大大降低。有人
+	\url{http://www.glowingfaceman.com/2008/12/french-revolution-day-7.html}写道：
+	
+	\begin{fquote}
+顺便说一句, 如果你正在学习任何一门带有异国字符的外语， 即使仅仅是西班牙语的ñ, 我鼓励你去了解一下怎样高效地输入这些字符。 当我刚开始学习日语时， 我不知道怎样输入日语字符。我只能复制再粘贴以便制作知识卡片或与人交流。 并且如果我想要输入一些原创的东西， 就意味着我要煞费苦心地寻找， 然后复制粘贴每个字符。 我在美国购买的电脑想要获得日语输入法支持就是一种痛苦 （而且这包括因为安装微软的日语输入法， 还需要从朋友那里借Windows XP磁盘）。但这是绝对超值的。
+回想起来， 是我最初开始学习日语的第一步时必须要做的。
+	\end{fquote}
+
+	如果你正在学习一种自右至左书写的语言，还有许多其他问题需要考虑。 更多信息请查看
+	\url{http://dotancohen.com/howto/rtl_right_to_left.html}此页。
+	要了解更多，请在谷歌查询诸如“在Mac上输入日语”或“在Windows上输入德语”，对此有大量可用的 优秀资料。
+	
+	\begin{shaded}
+		Anki基于的该工具包已经解决了一些输入方法的 麻烦，比如在Mac OS X上按住某些键可以选择重音字符。 所幸的是，通常有其他可以正常工作的输入方法 请针对自己的操作系统探索其他选择。
+	\end{shaded}
+	
+	\chapter{卡片与模板}\label{}
+	
+	正如在 \url{#cardtypes}基础类型章节中所提到的，Anki可基于用户添加的笔记， 自动创建卡片（如果还没有阅读过基础类型章节请先阅读此章节， 因为本章节下面的内容假设您已经阅读了此章节 ）。
+	
+当通过点击“卡片
+	”按钮添加或编辑材料， 可以配置Anki要创建的卡片并决定卡片上显示的内容。 窗口的最顶端有一组标签，一个标签对应一个卡片类型。 如果需要为当前的笔记类型添加另一个卡片类型，可以点击右上角的加号按钮。 同样，如果需要删除一个卡片类型， 可以点击标签上的×关闭。
+	
+	左上角为正面模板, 左下角为背面模板。 二者之间为卡片样式区域。
+	
+	在Anki中，模板使用用于网页编码的超文本标记语言（HTML）书写。 样式区域为用于网页样式的层叠样式表（CSS）。
+	
+	右侧为当前选定卡片的正面和背面的预览。 如果在打开添加笔记窗口时， 预览将基于添加笔记窗口中输入的文本。如果在打开编辑笔记窗口时， 预览将基于笔记中的内容。 如果通过工具$\to$管理笔记类型菜单项， Anki会在内容的位置以带括号的形式显示每个区域（字段）名。
+	
+	在窗口底端有一个“更多”按钮可提供卡片的重命名和重新定位功能， 以及以下两个选项：
+	
+	\begin{itemize}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item \textbf{覆盖记忆库（牌组）}选项允许改变当前卡片类型生成的卡片放置的记忆库（牌组）。 默认情况下，卡片被放置在 添加笔记窗口中选择的记忆库（牌组）。如果在此指定记忆库（牌组）， 该卡片类型会放置在用户指定的记忆库（牌组），而不是添加笔记窗口中列出的记忆库（牌组）。 如果需要把卡片分别放入不同的记忆库（牌组）。 （例如当学习一门语言，把默写卡放入一个记忆库（牌组）， 而把辨认卡放入另一个)。 可以再次通过选择覆盖记忆库（牌组）选项检查卡片目前要去那个记忆库（牌组）。
+		\item \textbf{浏览器外观}选项允许为浏览器的正面和背面列的显示设置不同的（也许是简化的） 模板； 更多信息可查看
+		\url{#columntemplates}浏览器外观。
+	\end{itemize}
+	\section{卡片反转}
+	可参考YouTube上的\url{http://www.youtube.com/watch?v=DnbKwHEQ1mA}一段关于反转卡片的视频
+	\url{http://v.youku.com/v_show/id_XODk1NDk3OTY4.html?from=y1.7-1.2}（中文版优酷链接点此）。
+	如果需要同时创建两个问答方向的卡片 （比如同时创建“大きい”$\to$“大”和“大”$\to$“大きい”)时，这有几种方法。 最简单的方法选择内建的“Basic (and reversed card)[基本（且反转卡片）]”笔记类型。 这会生成两张分别使用不同方向的卡片。
+	
+	如果需要仅为某些材料生成反转卡片 （也许用户只是需要花时间学习最重要的材料的反转卡片， 或者某些卡片反转后题目意义不合理）， 可以选择“Basic (optional reversed card)[基本（选择性反转卡片）]”笔记类型。 当只在前两个区域（字段）中输入，该笔记类型识别只生成一个单向的卡片； 如果在“Add Reverse（添加反转）”区域（字段）附加性地输入某些文字（比如一个\textbf{y}）， Anki 同样会生成一张反转卡片，该区域（字段）中的内容不会在卡片上显示。
+	
+	如果稍后决定不需要之前添加的反转卡片， 可通过清除“Add Reverse”区域（字段）中的文本删除之。同样的， 想要添加反转卡片，可以在“Add Reverse（添加反转）”区域（字段）添加文本。 如果没有在一开始使用选择性反转卡片笔记类型，也可以在浏览器中使用编辑 → 改变笔记类型菜单项来修改。
+	
+\begin{shaded}
+	为了防止用户编辑误操作而丢失进度信息， Anki并不会在用户清除“Add Reverse（添加反转）”区域（字段）中的文本时自动删除卡片。 为了完成删除操作，在主窗口中运行工具$\to$空卡片
+	菜单项。
+\end{shaded}
+	
+	如果使用更加复杂的笔记类型（例如，对应三张卡片的笔记） 和希望只在某些条件下生成特定的卡片， 请察看 \url{#conditionalreplacement}条件替换 章节。
+	\section{基础模板}
+	最基本的模板看起来有些像这样：
+	
+	\begin{shaded}\begin{verbatim}
+		{{正面}}
+		\end{verbatim}\end{shaded}
+	
+	把文本放入大括号内，Anki就会查找该文本名称的区域（字段） ，并将其替换为该区域（字段）的实际内容。 可以添加尽可能多的区域（字段）。
+	
+	\begin{shaded}
+		字段名区分大小写。如果字段名为\textbf{Front， 写成 {{front}}}将无法正常使用。
+	\end{shaded}
+	
+	模板并不限于区域（字段）的列表。 模板也可以包含任意文本。例如，在学习各国首都并且已经创建了一个包含“国家”区域（字段）的笔记类型， 可以创建像这样的正面模板：
+	
+	\begin{shaded}\begin{verbatim}
+		{{国家}}的首都叫什么?
+		\end{verbatim}\end{shaded}
+	默认的背面模板看起来有些像这样：
+	\begin{shaded}\begin{verbatim}
+		{{FrontSide}}
+		
+		<hr id=answer>
+		
+		{{背面}}
+		\end{verbatim}\end{shaded}
+	代码的意思是：“显示正面的文本，然后划一条分割线， 再然后显示“背面”区域（字段）”。
+	
+	\verb|id=answer|的部分告诉Anki问题和答案之间的分界所在。 这使得在较长的卡片中， Anki可以在用户按下
+	\textbf{显示答案}按钮后自动滚动到答案开头（尤其是在屏幕较小的移动设备上非常有用）。 如果不想在答案开头有水平线， 可以用其他HTML元素比如段落或div来替代。
+	\section{答案检查}
+	可参考YouTube上的 \url{http://www.youtube.com/watch?v=5tYObQ3ocrw}关于此特性的视频\url{http://v.youku.com/v_show/id_XODk1NDk5ODQw.html?from=y1.7-1.2}(中文版)
+	如果需要输入答案并让Anki对比自己输入的答案和正确答案， 可以通过修改模板实现。 想像一下正面和背面的模板如：
+	
+	\begin{shaded}\begin{verbatim}
+		{{母语词}}
+		\end{verbatim}\end{shaded}
+	\begin{shaded}\begin{verbatim}
+		{{FrontSide}}
+		
+		<hr id=answer>
+		
+		{{外语词}}
+		\end{verbatim}\end{shaded}
+	为了输入外语词，并检查是否正确， 需要修改正面模板以便看起来像这样：
+	
+	\begin{shaded}\begin{verbatim}
+		{{母语词}}
+		{{type:外语词}}
+		\end{verbatim}\end{shaded}
+	请注意在需要对比的区域（字段）开头加上了\textbf{type:}。 因为卡片背面模板已经有了FrontSide字段，答案输入框在背面同样也会出现。 （如果卡片背面模板没有FrontSide字段， 还需要在背面模板添加输入指令。）
+	
+	复习时，Anki会显示一个输入答案的文本框， 在敲击回车或点击显示答案按钮后，Anki会显示用户输入的答案正确与错误之处。 文本框字体大小为该区域（字段）的字体大小 （编辑卡片时可通过点击“区域...”按钮修改）。
+	
+	该特性并不会改变如何回答卡片的问题， 所以这仍然决定于用户是否记住。
+	
+	
+	
+	\begin{shaded}
+		一张卡片只能使用一个拼写对比。 如果将上述文本多次添加并不会起作用， 它也只支持单行文字，所以不能与包含多行文字的区域（字段）比较。
+	\end{shaded}
+	
+	Anki使用等宽字体进行答案比较以便“provided” 和 “correct”这样的词的各部分能对齐。 如果需要改变字体， 可以将以下文本放在样式区的末尾：
+	
+	\begin{shaded}\begin{verbatim}
+		code#typeans { font-family: "myfontname"; }
+		\end{verbatim}\end{shaded}
+	高级用户可以通过css类
+	\textbf{typeGood，typeBad和typeMissed}改变默认输入答案的颜色。 在输入时只有电脑版Anki支持这些类。
+	也可以在填空卡片中使用直接输入答案的功能。 为此需要在卡片的正面和背面都添加{{type:cloze:Text}}， 背面模板看起来是这样的:
+	
+	\begin{shaded}\begin{verbatim}
+		{{cloze:Text}}
+		{{type:cloze:Text}}
+		{{Extra}}
+		\end{verbatim}\end{shaded}
+	请注意由于填空类型模板不使用FrontSide字段， 这必须在填空笔记类型同时添加。
+	
+	如果（填空卡片中）有多个区域被省略，（在输入答案时）可在文本框中将答案用逗号（英文标点）分隔。
+	
+	
+	
+	\begin{shaded}
+		在浏览器的 \url{#currentnote-preview}“预览”对话框中答案输入文本框不会出现。 而在复习或在卡片类型窗口预览时则会显示。
+	\end{shaded}
+	
+	\section{换行}
+	模板语言需要特殊的命令创建新行。 例如，如果在模板中书写如下：
+	
+	\begin{shaded}\begin{verbatim}
+		壹
+		贰
+		\end{verbatim}\end{shaded}
+	预览时，实际显示：
+	\begin{shaded}\begin{verbatim}
+		壹 贰
+		\end{verbatim}\end{shaded}
+	为了另起一行，需要在行末添加一个代码 <br> ，像这样:
+	\begin{shaded}\begin{verbatim}
+		壹<br>
+		贰
+		\end{verbatim}\end{shaded}
+	br代码代表"(line) br(eak)[断行]".
+	同样应用于区域（字段）。要显示两个各占一行的区域（字段）， 可以使用：
+	
+	\begin{shaded}\begin{verbatim}
+		{{字段1}}<br>
+		{{字段2}}
+		\end{verbatim}\end{shaded}
+	\section{卡片样式}
+	可参考YouTube上的\url{http://www.youtube.com/watch?v=F1j1Zx0mXME}关于设置卡片样式的视频\url{http://v.youku.com/v_show/id_XODk1NDk4NzY4.html?from=y1.7-1.2}(中文版)。
+	在正面和背面模板之间为卡片样式区域。 在这里可以改变卡片的背景颜色、默认字体和文本对齐等等。
+	
+	可用的标准选项有：
+	\begin{description}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item[font-family（字体类型）] 用在卡片上的字体名。 如果使用的字体名称中有空格，像"MS Unicode"，就需要使用双引号（英文标点）将字体名括起来，就像前面的例子。 也可以在一张卡片中使用多个字体； 关于此，请看下文。
+		\item[font-size（字体大小）] 以像素为单位的字体的尺寸。修改时请确保在后面有写px。
+		\item[text-align（文本对齐）] 文本是否应按中心对齐、左对齐或右对齐。
+		\item[color（字体颜色）] 文本的颜色使用简单的颜色名如\textbf{blue（蓝色），lightyellow（浅黄）}等等会起作用， 也可以通过HTML颜色代码使用任意颜色。 更多信息请查看\url{http://htmlcolorcodes.org/}此页。
+		\item[background-color （背景色）] 卡片背景的颜色。
+	\end{description}
+	
+	样式区可以填入任何CSS代码——高级用户可能希望进行， 例如，像添加背景图片或渐变色。 如果需要知道如何获得特定的格式， 请在网上查询如何使用CSS的信息， 因为网上有很多可用的文档信息。
+	
+	样式在所有卡片间是共享的， 这意味着，调整样式会影响该笔记类型的所有卡片。当然，也可以对特定卡片指定样式。 下面的例子会对除了第一张外的所有卡片使用黄色背景:
+	
+	\begin{shaded}\begin{verbatim}
+		.card { background-color: yellow; }
+		.card1 { background-color: blue; }
+		\end{verbatim}\end{shaded}
+	需要注意的另一点是，Anki默认会收缩图片以适应屏幕。 可以在样式区末尾添加下面的文本改变这一点：
+	
+	\begin{shaded}\begin{verbatim}
+		img { max-width: none; max-height: none; }
+		\end{verbatim}\end{shaded}
+	
+	当你试着改变图片样式，会发现出现在被标记卡片的星星也会受到影响 （例如，变得离谱的大）, 可以用下面的文本锁定：
+	
+	\begin{shaded}\begin{verbatim}
+		img#star { ... }
+		\end{verbatim}\end{shaded}
+	
+	\section{区域（字段）样式}
+	默认样式会应用于整张卡片。 也可以使卡片的某些区域（字段）或部分使用不同的字体、颜色等等。 这在学习外语时尤其重要， 因为Anki有时不使用合适的字体无法正确显示字符。
+	
+	比方说，现在有一个“表达” 区域（字段）, 需要它使用OSX泰文字体“Ayuthaya”。想象一下，模板已经是这样：
+	
+	\begin{shaded}\begin{verbatim}
+		什么是{{表达}}？
+		
+		{{Notes}}
+		\end{verbatim}\end{shaded}
+	
+	我们需要做的是用HTML代码将需要设置的文本包起来 在文本前面添加以下内容：
+	
+	\begin{shaded}\begin{verbatim}
+		<div class=我的样式1>
+		\end{verbatim}\end{shaded}
+	
+	以此结尾：
+	
+	\begin{shaded}\begin{verbatim}
+		</div>
+		\end{verbatim}\end{shaded}
+	
+	通过像上面那样把文本括起来， 就等于告诉Anki使用名为“我的样式1”的自定义样式设置被包起来的文本，稍后创建“我的样式1”。
+	
+	因此如果希望整个“什么是？”表达式使用泰文字体， 可以：
+	
+	\begin{shaded}\begin{verbatim}
+		<div class=我的样式1>什么是{{表达}}？</div>
+		
+		{{Notes}}
+		\end{verbatim}\end{shaded}
+	而如果只需要表达区域（字段）本身使用泰文字体， 可以：
+	
+	\begin{shaded}\begin{verbatim}
+		什么是 <div class=我的样式1>{{表达}}</div>?
+		
+		{{Notes}}
+		\end{verbatim}\end{shaded}
+	模板编辑完成后，转到模板之间的样式区。 编辑前，应该是像这样的：
+	
+	\begin{shaded}\begin{verbatim}
+		.card {
+		font-family: arial;
+		font-size: 20px;
+		text-align: center;
+		color: black;
+		background-color: white;
+		}
+		\end{verbatim}\end{shaded}
+	在末尾添加自己的新样式，看起来是这样：
+	\begin{shaded}\begin{verbatim}
+		.card {
+		font-family: arial;
+		font-size: 20px;
+		text-align: center;
+		color: black;
+		background-color: white;
+		}
+		
+		.我的样式1 {
+		font-family: ayuthaya;
+		}
+		\end{verbatim}\end{shaded}
+	在样式定义中可以包含任何想要的格式。 如果还想要增加字体大小，可以将“我的样式1”修改成像这样：
+	
+	\begin{shaded}\begin{verbatim}
+		.我的样式1 {
+		font-family: ayuthaya;
+		font-size: 30px;
+		}
+		\end{verbatim}\end{shaded}
+	还可以为自己的记忆库（牌组）嵌入自定义的字体， 这样就不需要在自己的电脑或移动设备上另外安装。 更多信息请查看
+	\url{#installingfonts}字体安装章节。
+	关于可以在此使用的样式选项，请查看\url{#cardstyling}卡片样式章节。
+	
+	\section{提示区域（字段）}
+	允许在卡片背面的开头添加一个隐藏的区域（字段），直到明确需要时，可使其显示。 可称其为
+	\textbf{提示区域（字段）}。 在添加提示前，请您牢记，在Anki中使问题越容易回答， 在现实生活中遇到问题越不可能回忆起来。 在继续前请阅读
+	\url{http://www.supermemo.com/articles/20rules.htm}中的\textbf{最少信息原则}。
+	允许在卡片背面的开头添加一个隐藏的区域（字段），直到明确需要时，可使其显示。可称其为提示区域（字段）。在添加提示前，请您牢记，在Anki中回答问题越容易，在现实生活中遇到问题回忆起来也越容易。在请继续前请阅读\url{http://www.supermemo.com/articles/20rules.htm}中的最少信息原则
+	
+	此段中the less 与后文的最少信息原则似有矛盾 by zyw6
+	
+	首先，如果没有准备好，需要添加一个存放提示的区域（字段）。 如果不确定怎么做，请先察看
+	\url{#fields}区域（字段）章节。
+	假设您已经创建了一个叫<b>我的字段的区域（字段）， 可以通过在模板中添加下面的代码让Anki将其包含在卡片中但默认隐藏：
+	
+	\begin{shaded}\begin{verbatim}
+		{{hint:我的字段}}
+		\end{verbatim}\end{shaded}
+	这样会现实一个链接标签“显示提示（实际为“显示我的字段”--译注）”； 当点击它时，该区域（字段）的内容会显示在卡片上。 （如果
+	<b>我的字段为空，什么也不会显示）
+	如果显示了问题的提示然后显示答案， 提示会重新隐藏。 如果想要在答案显示后提示继续显示， 需要从背面模板中移除{{FrontSide}}，然后手动添加要出现的区域（字段）
+	
+	\begin{shaded}
+		现在还不能将提示用于音频--因为无论是否点击提示链接，音频都会播放。
+	\end{shaded}
+	
+	\section{特殊字段}
+	有一些特殊区域（字段）可以用于模板之中：
+	\begin{shaded}\begin{verbatim}
+		笔记标签: {{Tags}}
+		
+		笔记类型: {{Type}}
+		
+		所属记忆库（牌组）: {{Deck}}
+		
+		卡片类型（卡片模板中的标签名--译注）("正向"等等): {{Card}}
+		
+		正面模板的内容（仅在背面模板有效）： {{FrontSide}}
+		\end{verbatim}\end{shaded}
+	FrontSide字段不会包含卡片正面的音频。 如果需要卡片的正反两面都有同一段音频， 就需要同样在卡片背面手动添加音频区域（字段）。
+	
+	和其他区域（字段）一样，特殊字段的名称也是区分大小写的。
+	\section{卡片的生成与删除}
+	Anki不会创建空白正面的卡片。 因此如果“我的字段”为空，并且一张卡片的正面模板中只包含这个区域（字段）， 那么它就不会被创建。
+	
+	如果因为所有卡片的正面可能为空而无法创建， 添加笔记窗口就会警告， 并且不允许添加该条笔记直到达到卡片生成的条件。
+	
+	当编辑一条之前添加的笔记时， 之前为空但编辑后添加了内容不再为空， Anki会自动创建额外的一张或几张卡片。 但是编辑时使得原先非空的笔记变为空白，Anki不会立即删除它， 以防导致意外数据丢失。要删除空卡片，在主窗口使用工具$\to$空白卡片...菜单项。 之后会显示一个空卡片列表并可以选择删除它们。
+	
+	由于卡片生成的方式，不能手动删除单个卡片 （他们只会在下次编辑笔记时，被再创建）。 相反，应该使得关联条件替换区域（字段）为空，然后使用空卡片选项。 （如果没有设定好的区域（字段）控制卡片生成， 请察看
+	\url{#reversingcards}卡片反转 和 \url{#selectivegeneration}选择性卡片生成。）如果需要对多条笔记批量执行， 可以在浏览器中使用
+	\url{#findreplace}查找和替换 功能。
+	Anki在卡片生成时不会考虑特殊字段或非字段文本。 因此如果正面模板如下， 在“国家”字段为空的情况下，不会生成卡片:
+	
+	\begin{shaded}\begin{verbatim}
+		{{国家}}在地图上的那个地方？
+		\end{verbatim}\end{shaded}
+	\section{选择性卡片生成}
+	开始本章节前，请先阅读前一章节\url{#cardgeneration}卡片的生成与删除 。
+	有时需要仅仅为材料中的某些内容生成额外的卡片， 比如为了测试回想一系列单词中最重要的内容的能力。 这可以在笔记中添加一条额外的字段、 并在那些需要生成的卡片添加某些文本（比如“1”）于该字段来实现。 然后在卡片模板， 可以使卡片的生成取决于该字段为非空。 更多关于此的信息请察看下面的条件替换章节。
+	
+	\section{媒体与LaTeX引用}
+	Anki不会为媒体引用而扫描模板，因为这样很缓慢。 这对在模板中包含媒体的情况也有影响。
+	
+	
+	\subsection{静态引用声音/图像}
+	如果希望在所有卡片上包含相同的图像或声音 （例如每张卡片上方的公司标志）：
+	
+\begin{enumerate}
+	\itemsep1pt\parskip0pt\parsep0pt
+\item 重命名文件使其以下划线开头，如“\_logo.jpg”。 下划线提示Anki该文件被模板使用并在分享记忆库（牌组）时同时导出。
+	
+	\item 在卡片正面或背面模板添加该媒体文件的引用，如：
+\end{enumerate}
+	\begin{shaded}\begin{verbatim}
+		<img src="_logo.jpg">
+		\end{verbatim}\end{shaded}
+	
+	\subsection{区域（字段）引用}
+	不允许媒体引用区域（字段）。 因为它们在复习时不一定显示，而且在检查未使用的媒体、导入/导出等情况均会失效。 无效的例子如下：
+	
+	\begin{shaded}\begin{verbatim}
+		<img src="{{Expression}}.jpg">
+		
+		[sound:{{Word}}]
+		
+		[latex]{{Field 1}}[/latex]
+		\end{verbatim}\end{shaded}
+	反之，应该在区域（字段）中包含媒体引用。 更多信息请察看 \url{#importing}导入 章节。
+	\section{条件替换}
+	卡片上的某个字段为空或非空可决定卡片是否包含某些文本、字段或HTML。 例如：
+	
+	\begin{shaded}\begin{verbatim}
+		文本始终显示。
+		
+		{{#字段名}}
+		本条文本只在字段名字段非空时显示。
+		{{/字段名}}
+		
+		{{^字段名}}
+		本条文本只在字段名字段为空时显示。
+		{{/字段名}}
+		\end{verbatim}\end{shaded}
+	实际的例子是仅在（标签）字段非空时显示标签：
+	\begin{shaded}\begin{verbatim}
+		{{#Tags}}标签：{{Tags}}{{/Tags}}
+		\end{verbatim}\end{shaded}
+	或者需要在卡片背面有额外的笔记的情况下， 卡片正面一个特定字段改用蓝色显示，（也许有笔记的事实可以提示用户应该花多一点时间思考答案）。可以设置样式如下：
+	
+	\begin{shaded}\begin{verbatim}
+		{{#笔记}}<span style="color:blue;">{{/笔记}}
+		{{要设定格式的字段}}
+		{{#笔记}}</span>{{/笔记}}
+		\end{verbatim}\end{shaded}
+	也可以使用条件替换来控制卡片的生成。 因为Anki不会 \url{#cardgeneration}生成 含有空白正面的卡片， 考虑一个在正面有两个区域（字段）的卡片:
+	
+	\begin{shaded}\begin{verbatim}
+		{{表达}}
+		{{笔记}}
+		\end{verbatim}\end{shaded}
+	一般的，无论<b>表达字段还是<b>笔记字段含有文本， 卡片都会生成（前提不是排序域字段--译注）。如果只想在
+	<b>表达字段非空时生成卡片， 可以修改模板如下：
+	\begin{shaded}\begin{verbatim}
+		{{#表达}}
+		{{表达}}
+		{{笔记}}
+		{{/表达}}
+		\end{verbatim}\end{shaded}
+	如果想要两个字段同时非空可以使用条件替换：
+	
+	\begin{shaded}\begin{verbatim}
+		{{#表达}}
+		{{#笔记}}
+		{{表达}}
+		{{笔记}}
+		{{/笔记}}
+		{{/表达}}
+		\end{verbatim}\end{shaded}
+	请记住，正如 \url{#cardgeneration}卡片生成 章节所提到的，只有当把条件替换代码放在卡片
+	\textbf{正面才有效；如果在背面这样做， 就会得到一张空白背面的卡片。同样的，因为这是通过检查正面字段是否为空来执行的，确保将 整个}正面包含在条件替换代码中就显得很重要；例如，下面的例子就如预料中不会起作用：
+	\begin{shaded}\begin{verbatim}
+		{{#表达}}
+		{{表达}}
+		{{/表达}}
+		{{笔记}}
+		\end{verbatim}\end{shaded}
+	默认情况（不使用条件替换代码--译注）可视为“或”条件—— 第一条字段或第二条字段非空时将生成卡片，其他以此类推。 上面的例子可视为“与”条件—— 第一条和第二条字段都非空时将生成卡片，其他以此类推。
+	
+	警告：Anki当前不能混合使用“与”和“或”条件。 因此下面“需要
+	<b>表达和<b>笔记或<b>第三字段非空”的模板为无效的：
+	\begin{shaded}\begin{verbatim}
+		{{#表达}}
+		{{#笔记}}
+		{{表达}}
+		{{笔记}}
+		{{/笔记}}
+		{{/表达}}
+		
+		{{第三字段}}
+		\end{verbatim}\end{shaded}
+	另一个警告是否定的表达不能控制卡片生成。 这是指用{{\^字段}}把模板包起来不会达到预期的效果。
+	
+	\section{填空模板}
+	请先察看 \url{#cloze}填空 章节以为背景知识。
+	填空笔记类型作用与常规笔记类型不同。 不同于可自定义的多种卡片类型， 它是一个被一个笔记的所有填空共享的单一类型。
+	
+	正如上面的卡片生成章节中提到的， 常规卡片的生成取决于正面的一个或多个区域（字段）非空。 填空笔记类型的生成则不同：
+	
+	\begin{itemize}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item Anki在正面模板查找一个或多个填空替换， 如 {{cloze:字段名}}.
+		\item 然后在字段名区域（字段）中查找所有填空引用，如 {{c1::文本}}.
+		\item 对每一个单独的序号会产生一张卡片。
+	\end{itemize}
+	条件替换提供了特殊字段可以检查正在呈现哪张卡片。 例如，如果要在第一个填空题显示“提示1”区域（字段）， 在第二个填空题显示“提示2”区域（字段）， 可使用如下模板：
+	
+	\begin{shaded}\begin{verbatim}
+		{{cloze:Text}}
+		
+		{{#c1}}
+		{{提示1}}
+		{{/c1}}
+		
+		{{#c2}}
+		{{提示2}}
+		{{/c2}}
+		\end{verbatim}\end{shaded}
+	\section{其他HTML代码}
+	模板可包含任意HTML代码， 这意味着所有可能用于互联网网页的布局也可以用于卡片中。 类似表格、表单、图像、外链等均可支持。 以表格为例，可以改变布局， 使卡片的正反面以左右形式取代原来的上下布局显示。
+	
+	覆盖所有的HTML特性超出了本手册的范围， 但如果想了解更多， 网上有大量优秀的HTML入门指南可供参考。
+	
+	\section{词典链接}
+	还可以使用区域（字段）替换创建词典链接。 假如用户正在学习一门语言并且最喜欢的在线词典允许使用类似下面的网页URL查询文本：
+	
+	\begin{shaded}\begin{verbatim}
+		http://example.com/search?q=要查的词
+		\end{verbatim}\end{shaded}
+	可以在模板中添加下面的代码来自动生成链接：
+	\begin{shaded}\begin{verbatim}
+		{{表达}}
+		
+		<a href="http://example.com/search?q={{表达}}">在词典中查询</a>
+		\end{verbatim}\end{shaded}
+	上面的模板允许在复习时通过点击链接来查询每个笔记的表达， 但是有个警告， 请看下一章节。
+	
+	\section{HTML剥离}
+	区域（字段）像模板一样使用HTML。 像上面例子中的词典链接，如果
+	<b>表达字段中包含的是无格式的“要查的词”， 则在HTML中会保持相同：“要查的词”。 但是当区域（字段）中包含格式，则会引入多余的HTML代码。例如“要查的词”为黑体， 实际的HTML是"<b>要查的词</b>".
+	这对于类似词典链接的东西就出现一个问题。 在上面的例子中，词典链接会最终保持这样:
+	
+	\begin{shaded}\begin{verbatim}
+		<a href="http://example.com/search?q=<b>要查的词</b>">在词典中查询</a>
+		\end{verbatim}\end{shaded}
+	链接中多余的字符可能会使词典网站混淆实际要查的词， 从而可能无法得到任何匹配项。
+	
+	为解决此问题，Anki提供了当区域（字段）替换后从其中剥离格式的功能。 如果给字段名称加一个“text:”的前缀， Anki就不会包含任何格式信息。 所以即使带有格式的文本也可以运行的词典链接将是这样的：
+	
+	\begin{shaded}\begin{verbatim}
+		<a href="http://example.com/search?q={{text:表达}}">在词典中查询</a>
+		\end{verbatim}\end{shaded}
+	\section{浏览器外观}
+	如果卡片模板非常复杂， 在 \url{#cardlist}卡片列表 中的问题与答案（也被称为正面和背面）列可能难以阅读。 “浏览器外观” 选项允许定义一个仅用于浏览器的定制模板，这样可以只将重要的区域（字段） 包含进来并且如果需要还可以改变顺序。语法与标准卡片模板中相同。
+	
+	\section{RTL（自右至左的）文本}
+	如果您正在学习一门自右至左阅读的语言， 就需要像这样调节模板：
+	
+	\begin{shaded}\begin{verbatim}
+		<div dir=rtl>{{FieldThatHasRTLTextInIt}}</div>
+		\end{verbatim}\end{shaded}
+	如果您直接链接到此，请从头阅读本节以了解更多信息。
+	
+	\section{特定平台CSS}
+	Anki定义某些允许为不同平台而定义样式的特殊CSS类。 下面的例子演示了怎样根据复习的设备改变字体：
+	
+	\begin{shaded}\begin{verbatim}
+		.win .jp { font-family: "MS Mincho"; }
+		.mac .jp { font-family: "Hiragino Mincho Pro"; }
+		.linux .jp { font-family: "Kochi Mincho"; }
+		.mobile .jp { font-family: "Hiragino Mincho ProN"; }
+		\end{verbatim}\end{shaded}
+	添加到模板
+	\begin{shaded}\begin{verbatim}
+		<div class=jp>{{Field}}</div>
+		\end{verbatim}\end{shaded}
+	对于不同iOS设备可以使用 \textbf{.iphone}和 \textbf{.ipad}来区分。
+	当使用AnkiWeb，在浏览器中还可以使用如\textbf{.gecko 、\textbf{.opera} 和 .ie}的属性选择特定的浏览器。 前往 \url{http://rafael.adm.br/css_browser_selector/} 可察看选项的完整清单。
+	
+	\section{字体安装}
+	
+	如果在工作地点或学校等不允许安装新字体的电脑上使用Anki时， 或者在移动设备上使用Anki时， 可以直接把字体添加到Anki。
+	
+	要向Anki添加，字体必须为全真字体（TrueType字体）。 全真字体后缀名为.ttf，比如"Arial.ttf"。 一旦找到全真字体，需要把它添加到媒体文件夹：
+	
+	\begin{enumerate}
+		\item 重命名文件，在开头添加下划线， 变成如“\_arial.ttf”。添加下划线可以提示Anki该文件将用于模板， 就不会在检查未使用的媒体时被删除。
+		\item 在计算机文件浏览器，进入“我的文档”文件夹， 找到里面的Anki文件夹，再找到名为“用户1”的文件夹 （如果重命名或添加过用户配置文件，则为自定义用户配置名）。
+		\item 在此文件夹中，应该会找到名为collection.media的文件夹。 将重命名后的文件拖入该文件夹。
+	\end{enumerate}
+	
+	之后，需要更新模板：
+	\begin{enumerate}
+		\item 点击主窗口顶部的 \textbf{添加} 按钮， 然后选择左上角的按钮选择需要修改的笔记类型。
+		\item 点击 \textbf{卡片...}按钮。
+		\item 在样式区的底部，添加下面的文本 （在最后一个"\}"字符后)， 将"\verb|_arial.ttf|"替换为复制到媒体文件夹的文件的名称：
+\end{enumerate}
+
+\begin{shaded}\begin{verbatim}
+	@font-face { font-family: myfont; src: url('_arial.ttf'); }
+	\end{verbatim}\end{shaded}
+
+
+\begin{shaded}
+	只修改"arial"部分而不是"myfont"部分。
+\end{shaded}
+
+此后，可以修改整个卡片的字体， 或用于单个字段。要改变整个卡片的字体， 只需要定位到.card部分的font-family:行，并且改变字体到"myfont". 仅改变某些字段的字体，请察看上面 \url{#fieldstyling}字段样式 的说明。
+
+
+\begin{shaded}
+	请确保文件名准确匹配。 如果文件叫arial.TTF，而在模板中写为arial.ttf，则不会生效。
+\end{shaded}
+
+\subsection{Mac中的字体}
+
+当前嵌入式字体无法用于OS X中。 自定义字体仍然可以使用，但需要全系统安装。
+
+要在系统中安装字体，请察看\url{http://support.apple.com/kb/HT2435?viewlocale=en_US\& locale=en_US}
+可以设定Anki在Mac电脑上使用系统字体， 其他地方使用嵌入字体。
+
+在正面或背面模板， 使用下面的代码把需要设定样式的字段括起来，并把“字段名”替换为在用的字段名称。
+
+\begin{shaded}\begin{verbatim}
+	vl <span class="mystyle">{{字段名}}</span>
+	\end{verbatim}\end{shaded}
+
+在样式区，除了上面描述的行的字体， 再添加下面的代码：
+
+\begin{shaded}\begin{verbatim}
+	.mystyle { font-family: myfont; }
+	.mac .mystyle { font-family: Helvetica; }
+	\end{verbatim}\end{shaded}
+
+用安装在系统中的字体名称替换“Helvetica”。 保持“myfont”不变，因为它引用了嵌入的字体。
+
+\section{Javascript}
+
+因为Anki卡片就像网页， 所以可以通过在模板中内联脚本标签在卡片中嵌入Javascript。 因为是高级特性，无法保证任何特定Javascript有效， 在无法工作时也不能提供任何协助。 如有疑问，最好避免。
+
+每个Anki客户端可能不同地实现卡片的显示， 所以需要通过各平台来测试其运行。 许多客户端通过保持一个长期运行的网页并动态更新其部分作为对卡片的检验， 所以Javascript需要更新文档的区段而不是像document.write函数那样运行。
+
+像window.alert的功能也是不可用的。 Anki会将javascript错误写入终端，所以如果运行在Mac或Windows电脑上， 需要手动捕捉错误并写入文档以便察看。 由于没有可用的调试器， 所以为了找出问题， 需要中断代码直到发现引起问题的部分。
+
+（译注：CSS类允许使用UTF-8字符，即可支持UTF-8中文，本章中部分CSS类为便于阅读译为中文，但网上文章不建议使用中文命名CSS类。 ）
+
+\chapter{配置文件与偏好设置}\label{}
+
+\section{配置文件}
+
+当多人需要在一台电脑上使用Anki时， 可以为每个用户设置一个单独的配置文件。 每个用户的配置文件包含自己的记忆库（牌组）集合和程序设置。 通过进入文件菜单并选择“切换本地帐户”可设置个人用户配置。
+
+\begin{shaded}
+	配置文件的目的是能为不同用户所使用， 而每个AnkiWeb账户在同步时则只能保留一个配置文件。 如果只为分割自己的内容，应该使用单独的记忆库（牌组）而不是使用单独的配置文件， 除非是为了进行试验而修改设定、 同时又不想将这些改变同步到其他设备。
+\end{shaded}
+
+进入Anki的偏好设置窗口（工具$\to$首选项...菜单项或按Ctrl+p可调出--译注）可为自己的配置文件指定密码。 但用户的记忆库（牌组）集合并未加密， 其他人如果找到硬盘上的文件仍然可以篡改这些文件。 密码保护的主要目的是为了在班级环境中提高学生篡改其他人的记忆库（牌组）和设置的难度。
+
+\section{偏好设置}
+在Windows/Linux下的工具菜单或Mac下的Anki菜单可进入偏好设置。 如果有多个配置文件， 任何改变只会应用于当前配置文件。
+
+\textbf{基础（标签页）}
+\textbf{剥离HTML（粘贴文字时去除HTML标签）} 选项告诉Anki粘贴文字到编辑器时是否去除格式。 默认情况下，Anki会去除粘贴文本的格式信息， 以便用户可以改用卡片模板中的代码对文本进行格式化。 如果用户更喜欢保留格式（这样就可以粘贴加粗的文本，以此类推）， 可以取消此选项
+
+Anki默认以JPG格式粘贴剪贴板上的图像，以节省磁盘空间。 可以使用
+\textbf{粘贴剪贴板图像为PNG（把剪贴板图像保存为PNG）}选项以改粘贴为PNG图像。 PNG图像支持透明背景和无损， 但常会导致更大的文件体积。
+第一个下拉列表框控制添加时笔记类型和记忆库（牌组）的交互关系。 默认的“添加时，默认为当前记忆库（牌组）”意味着Anki可保存最近使用的笔记类型到任何记忆库（牌组）， 下次需要时可以重新选择记忆库（牌组） （此外，在任何地方选择
+<b>添加后会从当前选定记忆库（牌组）开始）。 另一个选项“根据笔记类型改变记忆库（牌组）” 则为各笔记类型保存最近使用的记忆库（牌组）（当选择
+<b>添加会打开添加窗口到最近使用的笔记类型）。 当用户为每个记忆库（牌组）总是使用单一的笔记类型时， 这样也许更加方便。
+第二个下拉选择框控制新卡片何时出现： 与复习卡片混合、之前或之后出现。
+
+\textbf{下一天开始}选项控制Anki何时开始显示下一天的卡片。 默认设置的凌晨4点保证了用户如果在午夜前后学习， 不会在一个学习周期看到相当于两天的量的卡片。 如果用户熬夜到很晚或起得非常早， 也许就需要调整该选项为相当于自己平常睡眠的时间。
+
+\textbf{提前学习的上限}选项告诉Anki当记忆库（牌组）中除了正在学习的卡片外没有其他的可学习的内容时如何处理。 默认设置的20分钟告诉Anki在没有其他内容时应将在20分钟内要出现的卡片提前显示。 如果设置为0分钟， Anki会始终等待， 并显示“恭喜！你目前已经完成了这个记忆库”直到剩下的卡片进入设定的复习时间。
+
+时间框是一种可以通过将一项长时间的活动（比如30分钟的学习周期）分割为小块时间来帮助用户集中精力的手段。 如果设定
+\textbf{时间框时间限制} 为非零时间， Anki会周期性地显示在规定时间内用户努力学习了多少张卡片。
+
+\chapter{记忆库（牌组）选项}\label{}
+
+在主窗口中选择一个记忆库（牌组）, 然后点击屏幕底部的
+\textbf{选项}按钮可进入记忆库（牌组）选项（Anki2.0.31为点击记忆库右侧的齿轮图标，然后在出现的菜单中选择选项--译注）
+
+Anki允许不同记忆库（牌组）共享选项设置， 可以方便地迅速就可以为多个记忆库（牌组）更新设置。 为此，选项被集合为
+\textbf{选项组}。默认情况，所有新创建的记忆库（牌组）都使用相同的选项组， 而从早期版本的Anki中导入的记忆库（牌组）则有单独的选项组。 如果想要仅改变一个记忆库（牌组）的设置， 点击（选项窗口）右上角的齿轮图标可以添加一个新的选项组。
+
+请只去修改那些您已经完全理解的选项， 因为不当的调整可能导致Anki的作用降低效率。
+
+\begin{shaded}
+	记忆库（牌组）选项没有追溯性。例如，改变控制卡片回想失败后的延迟的选项时， 在改变选项之前回想失败的卡片会仍然使用原先的延后信息， 而不是修改后的。
+\end{shaded}
+
+\section{新卡片}
+\textbf{步伐（步长）} 选项控制重复学习次数和两次学习间的间隔。 请查看 \url{#learning}学习 章节简要了解学习步伐如何运行。
+
+如果需要，超过一天（1440分钟）的学习步伐也是支持的， 可以在新卡片成为复习卡片前定义如10分钟、一天、三天然后最终为7天的复习进度。
+
+\begin{shaded}
+	如果已经完成当前学习内容，Anki默认会提前20分钟显示要学的卡片。 提前学习的时间量可在\url{#preferences}首选项... 设置。 需要留意的是，在这种情况下，记忆库（牌组）界面和学习界面中到期卡片的计数会有所不同。 记忆库（牌组）界面不会将计划外的卡片算入， 但学习界面中正相反（计入的为“正在进行的课程”--译注）。如此计算是为了方便用户分辨那些记忆库（牌组）更需要引起重视。
+\end{shaded}
+
+\begin{shaded}
+	Anki对短步长和跨越一天的步长的处理方式是不同的。 短步长的卡片会在比如复习时比其他正在等待的卡片优先在延迟时间结束后立即显示。 这样是为了尽可能快的复习用户要求的卡片。 相比而言， 跨越一天的卡片则是按每天基础安排进度。 当第二天进行学习时， 日常学习的卡片不会首先显示，因为那会使开始的复习周期非常困难。 相反，在复习完成后卡片会显示。 它们会因为内部处理的方式被计入复习而不是学习。
+\end{shaded}
+
+\textbf{顺序} 选项控制Anki按顺序还是随机向记忆库（牌组）添加新卡片。 改变这个选项，Anki会重排使用当前的选项组的记忆库（牌组）。 关于随机顺序模式的警告： 当复习许多新卡片然后又添加其他新卡片， 新添加的材料比之前剩余的卡片出现的概率更高。 要纠正这一点，可以改为顺序模式然后再恢复设置可强制重排。
+
+\begin{shaded}
+	当你选择随机顺序时，Anki会将你的笔记随机打乱，保持给定笔记中的卡片紧密在一起。他们的卡片类型出现的顺序在给定的笔记中显示，以致兄弟姐妹被一致介绍-否则你可能会在一个状态，其中一些笔记的所有卡片被介绍和其他
+\end{shaded}
+\textbf{每天的新卡片数量（新卡片/天）}告诉Anki每天打开程序时用户希望引入多少张新卡片。 未运行程序的日子不会导致卡片累积。 该限额会应用于当前牌组和子牌组。这意味着如果“法语”牌组的日限额为20张卡片而 “法语::第一课”和“法语::第二课”日限额都是15张卡片， 那么第一课会显示15张卡片而第二课只显示5张卡片。
+
+\begin{shaded}
+	学习新卡片会临时增加每天需要复习的数量， 因为在学习间隔能够明显延长之前， 新学习的材料需要重复一定次数。 如果用户每天稳定地学习20张新卡片， 可以粗略地预期到的是，每天的复习量约为200张卡片。 每天引入较少的新卡片可以降低复习的需求量，或者可以在复习负担降低前关闭显示新卡片。 不止一名Anki用户在最初使用该程序的几天里兴奋地学习了上百张新卡片后， 然后就被复习量所渐渐压垮。
+\end{shaded}
+
+\textbf{毕业间隔} 是指在没有剩余学习步伐的卡片中回答\textbf{一般}后到卡片再次出现的时间间隔。
+
+\textbf{简单间隔} 是指在学习卡片时回答\textbf{简单}后到卡片再次在复习模式中首次出现的时间间隔。
+
+\textbf{开始简化} 控制卡片开始出现时的难度。 它设置于卡片初次生成。默认为250\%， 这意味着，当用户完成卡片学习时回答“一般”， 之后的复习间隔按大约2.5倍增长 （例如最近的复习间隔为10天，下次复习间隔为25天）。Based upon how you 根据用户在后来的复习中对卡片知识的回答，难度可能会比初始时降低或增加。
+
+关闭\textbf{隐藏相关...（搁置相关新卡片到隔日）}选项会阻止Anki\url{#siblings}隐藏相关卡片， 而Anki会尽量避免在同一个学习周期中显示相关卡片。 而启用该选项，每天的新卡片数量（新卡片/天）选项需要设置得足够大以能够包含多条笔记的卡片。
+
+\section{复习}
+\textbf{最大复习数/天}选项允许设置每天显示的复习卡片的数量上限。 当达到数量限制时，即使有等待复习的卡片，Anki也不会再显示任何复习卡片。 如果用户持续学习， 该设置可以帮助用户缓和到期卡片数量的偶然性达到高峰， 以免发生一周不用后回到Anki中被吓一大跳的情况。 当复习卡片因此选项而被隐藏时， 在（学习结束后的）祝贺页面中会出现一条如果有余力可建议考虑调高上限的提示。
+
+\textbf{简单奖励}选项允许设置在一张卡片回答
+\textbf{一般和简单}后的复习间隔的差额。例如，默认的值130\%, 回答简单后的复习间隔是回答一般的1.3倍。
+\textbf{间隔修饰符}选项允许对Anki生成的复习间隔应用一个乘数因子。 默认的100\%对其无影响； 例如设置为80\%，复习间隔会缩短到一般情况下的80\% （这样10天的间隔会变成8天）。 因此可以使用乘数调整Anki给出的卡片出现频率， 保持学习时间或相反。
+
+一般的用户应该会发现对于中等难度的材料， 在复习时能够记起90\%的熟练卡片。 通过打开一个记忆库（牌组）的图表/统计并查看回答按钮统计表，可以了解自己的表现， 图表中的最右侧的正确率代表滞留的熟练卡片。 如果用户学习的时间不长， 可能还没有熟练卡片。 因为新卡片和不熟悉卡片相当不同， 建议直到有了合理的成熟复习卡片数量后再得出保留率的结论。
+
+SuperMemo网站建议使用适当的乘数以得到期望的卡片保留率。 他们总结公式如下：
+
+\begin{shaded}\begin{verbatim}
+	log(期望保留%) / log(当前保留%)
+	\end{verbatim}\end{shaded}
+例如当前保留率为85\%，然后要求提高到90\%。 可以算出乘数为：
+
+\begin{shaded}\begin{verbatim}
+	log(90%) / log(85%) = 0.65
+	\end{verbatim}\end{shaded}
+也可以使用谷歌搜索\url{https://www.google.com/search?q=log(90%25)+%2F+log(85%25)}来计算该数值（国内还是用这个\url{https://www.baidu.com/s?wd=log(90%25)+%2F+log(85%25)}计算吧--译注）
+	输入计算结果65\%到间隔修饰符选项中， 就会发现停留的时间更接近期望。
+	
+	但需要另外注意的是学习次数和滞留时间的平衡并非线性的： 可以发现提高滞留率5个百分点， 学习的频率就提高35\%。 如果学习的材料非常重要，也许值得付出额外的努力—— 这是需要用户自行决定。 如果仅仅担心会遗忘太多东西， 也许会发现在初始学习阶段投入更多时间或使用记忆方法可以事半功倍。
+	
+	最后需要注意的是Anki强制新间隔以1天为初始并逐渐延长， 以防用户复习时总是要面对同样的间隔下反复出现的内容。 如果目标是每天复习一次，重复数天， 可以设置更多的学习模式步伐而不是调整乘数。
+	
+	\textbf{最大间隔}选项允许给Anki再次显示卡片的等待时间设置一个上限。 默认为100年；如果用户希望为更高的滞留时间增加额外学习时间， 可以降低为一个较小的数字。
+	
+	关闭\textbf{隐藏相关（搁置相关复习到隔日）}选项会阻止Anki\url{#siblings}隐藏同源卡片，而不是Anki试图避免在同一个学习周期内直接一个接一个地显示相关卡片。
+	
+	\begin{shaded}
+		复习卡片总是随机顺序显示的。如果你希望以不同的顺序看到他们，你可以使用\url{#filtered}筛选牌组。更具体地说，Anki通过抓存在于数据库中的50张卡片随机复习，每批都是随机，然后把它们放在一起。这意味着，有一个稍微偏向老卡是先显示的，但它防止出现在一个可预测顺序的个别卡。
+	\end{shaded}
+	\section{失误}
+	当你忘记复习卡片，被告知已经\textbf{失误}。对失效复习的默认行为是重置时间间隔为1（即，让它明天到期），并在10分钟内把它放在学习队列的复习中。这种行为可以在下面列出的选项定制。
+	
+	如果你离开步骤的地方，Anki将不会把卡片返回到学习队列中，它将通过下面的设置，把它作为一个复习点确定新的时间间隔。
+	
+	\begin{shaded}
+		当你复习卡片回答“重来”，新的时间间隔就被确定，而不是当卡片完成学习步骤后确定。因为这个原因，学习期间“一般”和“简单”不会再次改变复习间隔时间，他们只会控制你走的哪一步。如果只有一个步骤（默认），“容易”按钮将被隐藏，因为它会完成和“一般”按钮同样的事情。如果你有2个或更多的步骤，“容易”不隐藏，在你完成他们所有的步骤之前，允许你从队列中获得卡片。
+	\end{shaded}
+	
+	\textbf{新的间隔}控制Anki应该对以前的间隔减少多少。如果卡片有100天的间隔，默认为0\%将减少间隔为0（但是看下一个选项）。如果你设置此选项为20\%，该卡片将其间隔减少到20天。
+	
+	\textbf{最小间隔}允许你对上述选项设置最低限制。默认设置失误应该在一天后被复习。间隔必须是一天或更多。
+	
+	The leech options control the way Anki handles leeches. Please see the leech section for more information.
+	\section{一般}
+	Anki监视你回答每个问题需要多长时间，以便显示你每天学习多长时间。这个时间不影响进度安排。如果你用的时间超过60秒，它假定你已经离开你的电脑或已经分心，并限制记录的时间为60秒，这样你就不会结束了不准确的统计。\textbf{忽略回答时间}选项允许您调整截止阈值。最小截止时间为30秒。
+	
+	如果\textbf{定时显示答案}被选中, Anki将在每个卡片的学习区域显示当前时间。
+	
+	默认情况下，Anki会自动播放音频的正面和背面的卡片。如果你取消\textbf{自动播放音频}，它不能播放音频直到你点击重播音频按钮。
+	
+	\textbf{当显示答案，重播问题和答案的音频}的选项控制你选择重播音频而答案显示时所发生的事情。请注意，它不能控制显示答案时发生的事情；请查看\url{#specialfields}这部分。
+	\section{描述}
+	本节允许你编辑记忆库描述，它将在学习复习中显示。下载共享牌组时描述被自动设置。如果在学习复习区域你不再想看到它，你可以删除描述中的所有文本。
+	
+	你也可以在描述中使用HTML,这在任何笔记作品中都应该是有效的。
+	
+	
+	\chapter{AnkiWeb和同步}
+	
+	Ankiweb是一种服务，可以让你在多个设备同步你的集合，和在线学习。请在操作以下步骤之前注册一个\url{https://ankiweb.net/}免费帐号。
+	\section{配置}
+	点击“同步”按钮（主屏幕右上角）或按下\textbf{Y}键，开始跨设备同步集合。程序会弹出窗口，要求输入注册时创建的账号及密码。
+	
+	首次同步集合时，Anki 会无法合并 AnkiWeb上的和本地的内容，你需要选择保留某一边的内容。首次配置结束后，除了一些例外，多个设备上的改动都能被合并。
+	
+	
+	\begin{shaded}
+		如果一台机器上有多人使用 Anki，且都创建了各自的用户，则每个用户都需要相应地创建自己的 AnkiWeb 帐号以同步内容。用一个 AnkiWeb 帐号同步多个用户的内容，将会导致数据丢失。
+	\end{shaded}
+	
+	\section{自动同步}
+	启用同步之后，集合在每次打开和关闭时将会自动同步。如果倾向于手动同步，可在首选项里关闭自动同步。
+	\section{媒体文件}
+	Anki同步的内容包括笔记里用到的音频和图片。Anki能检测媒体文件夹里媒体文件的增减，但是并不会察觉到你对已有媒体文件所做的编辑。要让编辑得以同步，你必须添加或删除某些媒体文件。
+	
+	
+	\begin{shaded}
+		建议在NTFS文件格式的U盘上运行Anki，否则运行在FAT32文件格式上，Anki不一定能检查出多媒体文件修改并同步。
+	\end{shaded}
+	
+	\section{冲突}
+	卡片的复习与编辑操作可以合并，所以你在两台设备上各自的复习和编辑操作都会在同步后得以保留。如果同一卡片在两台设备上都复习过，两个复习操作都会在记录在复习历史中，并且卡片会保持最近一次复习的状态。
+	
+	有些改动 Anki 无法合并。这些主要跟笔记的格式有关：例如新增字段或删除卡片模版。你实施无法合并的操作时，Anki 会予以警告，并且给出取消此操作的选项。如果你选择继续，下次同步时，Anki 会询问你是保留本地的拷贝还是保留 AnkiWeb 上的拷贝。有些改动 Anki 无法合并。这些主要跟笔记的格式有关：例如新增字段或删除卡片模版。你实施无法合并的操作时，Anki 会予以警告，并且给出取消此操作的选项。如果你选择继续，下次同步时，Anki 会询问你是保留本地的拷贝还是保留 AnkiWeb 上的拷贝。
+	
+	如果需要强制全部上传或下载（可能在某个终端意外删除记忆库（牌组），因此需要从别处恢复，并非将这个终端没有这个牌组（记忆库）的集合同步到其他地方），在工具>偏好设置>网络，勾选“下次同步时，强制单向同步”，再同步，就可以选择与哪个终端同步。
+	
+	\section{代理}
+	
+	Anki 通过加密的HTTP链接同步。如果你需要以代理来访问互联网，Anki 将自动使用系统代理（Windows 或 OS X），或者遵照环境变量 HTTP\_PROXY 的设定（其它平台）。
+	
+	请注意 Anki 不支持基于.pac或.wpad文件的高级代理设置。
+	
+	要覆盖 Windows 或 OS X 的系统代理，需要定义一个指向代理服务器的环境变量 HTTP\_PROXY。如下所示：
+	
+	\begin{shaded}\begin{verbatim}
+		http://user:pass@proxy.company.com:8080
+		\end{verbatim}\end{shaded}
+	
+	如果用户名或密码包含字符@（如 \url{mailto:user@workdomain.com}，请将其改为 \%40，例如：
+	
+	\begin{shaded}\begin{verbatim}
+		http://user%40workdomain.com:pass@proxy.company.com:8080
+		\end{verbatim}\end{shaded}
+	关于 Windows 上的环境变量设置，参见：
+	
+	\url{http://www.itechtalk.com/thread3595.html}
+	
+	Mac 用户请参见：
+	
+	\url{http://stackoverflow.com/questions/135688/setting-environment-variables-in-os-x}
+	
+	
+	\begin{shaded}
+		实现 Anki 所用的工具包目前并不能提取系统设置里的代理用户名和密码。这意味着如果你所用的代理需要认证，同步将失败。这时，你需要用上面提到的环境变量来定义代理的详细情况，或者用个人同步服务器转发流量，此个人服务器会连接至需要认证的上级代理。
+	\end{shaded}
+	
+	
+	\chapter{浏览器}\label{}
+	
+	浏览器（与网页浏览器无关如Mozilla Firefox）允许你通过搜索你的卡片和笔记然后进行编辑。它是通过点击\textbf{浏览器主窗口或按键盘的b键打开。由三部分组成：左边的侧边栏，右上的卡片列表，和右下的当前笔记}。通过将鼠标定位在两个部分之间，可以单击并拖动以展开一部分并收缩另一部分。
+	\section{侧边栏}
+	左边的侧边栏允许快速访问常用的搜索条件。各种搜索条件如下所列，连同所有的记忆库名字和标签名字。点击一个项目将会搜索出来。
+	你可以按住Ctrl键（Mac命令）并单击使点击项添加到当前的搜索条件，而不是开始一个新的搜索。如果你想展示学习卡片，还比如德语的记忆库上，你可以点击“学习”，然后按Ctrl +单击“德语”。
+	你可以按住shift来创建或搜索替代一个搜索条件（例如，你可以点击一个记忆库，然后按shift点击另一个在同一个视图的任意记忆库来显示卡片）。
+	你可以按住Alt键（Mac选项）反向搜索（在前面加一个\textbf{-）（例如，显示没有}一定标签的当前记忆库的所有卡片）。
+	若要移除任何记忆库中未使用的标签，请使用“工具”>主窗口的检查数据库。
+	\section{搜索}
+	上面的卡片列表是一个搜索框。你可以在那里键入各种各样的东西来搜索卡片。
+	
+	\subsection{简单搜索}
+	
+	当你在搜索框中键入一些文本，Anki找到匹配的笔记并显示它们的卡片。Anki搜索在笔记中的所有字段，但不搜索标签（参见本节后面的如何搜索标签）。一些例子：
+	
+	\begin{description}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item[dog] 搜索"dog"，将会匹配像“doggy”和“underdog”这类卡片。
+		\item[dog cat] 发现“dog”和“cat”的笔记，如“a dog and cat”。
+		\item[dog or cat] 发现有“dog”或“cat”的笔记
+		\item[dog（cat或mouse）] 发现dog和cat，或dog和mouse的笔记。
+	\end{description}
+	
+	\begin{description}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item[-cat] 发现笔记没有“cat”这个词
+		\item[-cat -mouse] 发现笔记既不是“cat”也不是“mouse”。
+		\item[-(cat或mouse)] 与上述相同。
+		\item["a dog"] 发现笔记对“a dog”有精确地短语。
+		\item[-"a dog"] 发现笔记对“a dog”没有精确地短语。
+		\item[d\_g] 发现d，$<$a letter$>$, g,像dog, dig, dug等等的笔记。
+		\item[d*g] 发现d, $<$zero or more letters$>$, g, 像dg, dog, dung等等的笔记。
+	\end{description}
+	从上面要注意的事情：
+	
+	\begin{itemize}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item 搜索条件用空格隔开。
+		\item 当多个搜索条件被提供，Anki寻找匹配所有条件的笔记。
+		\item 如果你只需要匹配一个条件你可以使用“or”。
+		\item 你可以在条件前面加一个负号寻找笔记，那是不匹配的。
+		\item 如果你想搜索一些包含空格或括号的东西，用引号括起来。
+		\item 你可以组合搜索条件，将它们放在括号中，正如\textbf{dog（cat or mouse）}的例子。结合OR和AND搜索将成为重要的方法-例如，用圆括号，它将匹配任何\textbf{dog cat}或者\textbf{dog mouse，而没有匹配任何dog and cat或mouse}。
+		\item  Anki是唯一能够搜索你已经配置的\url{#fields}字段排序的格式。例如，如果将“示例”添加到某个字段中，则在搜索“示例”时不匹配，除非该字段是排序字段。
+	\end{itemize}
+	
+	\subsection{限制到一个字段}
+	
+	你也可以让Anki只匹配包含一些文本的特殊字段。不同于上面的搜索，在字段搜索默认要求\textbf{精确匹配}。
+	
+	\begin{description}
+		\itemsep1pt\parskip0pt\parsep0pt
+		\item[front:dog] 寻找一个精确的"dog"的面向字段的笔记。这个字段会显示"a dog"不匹配。
+		\item[front:*dog*] 寻找一个包含"dog"的某处的面向字段的笔记。
+		\item[front:] 寻找一个空的面向字段的笔记。
+		\item[-front:] 寻找一个非空的面向字段的笔记。
+		\item[front:*] 寻找一个面向字段的笔记，显示空或没有。 
+		\end{description}       
+		
+		\subsection{标签，牌组，卡片，笔记}
+		\begin{description}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item[标签:animal ] 寻找"animal"的标签的笔记。
+			\item[标签:none] 寻找没有标签的笔记。
+			\item[标签:ani*] 寻找从"ani"开头的标签笔记。
+			\item[记忆库:法语] 在法语记忆库或法语：：词汇下的记忆库中寻找卡片。
+			\item[记忆库:法语 -记忆库:法语::*] 在法语而不在法语：：词汇下的记忆库中寻找卡片。
+			\item[记忆库:"法语词汇"] 当一个记忆库有空间时搜索。
+			\item["记忆库:法语词汇"] 也可以
+			\item[记忆库:过滤] 只过滤记忆库
+			\item[-记忆库:过滤] 只过滤正常记忆库
+			\item[卡片:转发] 搜索转发卡片
+			\item[卡片:1] 搜索卡片模板数量-例如，从一个笔记寻找第二个完形填空删除，你会用卡片：2。
+			\item[笔记:基础] 从一个基础笔记类型寻找卡片。          
+\end{description}			
+			\subsection{卡片类型}
+			
+			\begin{description}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item[is:due] 复习卡片和等待学习的学习卡片
+				\item[is:新的] 新卡片
+				\item[is:学习] 正在学习中的卡片
+				\item[is:复习] 复习（both due and not due）和失误卡片
+				\item[is:暂停的] 已手动暂停的卡片
+				\item[is:buried] 已被隐藏的卡片，无论是\url{#automatically}兄弟姐妹还是手工。
+			\end{description}
+			失误卡片可以被分为几类卡片，将它们结合起来得到更精确的结果是有用的：
+			\begin{description}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item[is:学习 is:复习] 失误或是正等待重新学习的卡片
+				\item[-is:学习 is:复习] 复习不包括失误的卡片
+				\item[is:学习 -is:复习] 第一次学习的卡片 
+			\end{description}
+			
+			\subsection{卡片特性s}
+			\begin{description}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item[prop:ivl>=10] 间隔为10天或以上的卡片
+				\item[prop:due=1] 卡片明天到期
+				\item[prop:due=-1] 昨天到期的卡片还没有回答
+				\item[prop:due>-1 prop:due<1] 昨天和明天之间的卡片
+				\item[prop:reps<10] 已回答少于10次的卡片
+				\item[prop:lapses>3] 已经进入学习3次以上的卡片
+				\item[prop:ease!=2.5] 卡片比默认容易或更难                 
+			\end{description}
+			请注意，由于只有匹配复习卡片和学习卡片的时间间隔为一天或更多：卡片在学习的小间隔，如10分钟不包括在内。
+			
+			
+			\subsection{最近添加}
+			\begin{description}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item[added:1] 今天添加的卡片
+				\item[added:7] 上星期添加的卡片                 
+			\end{description}
+			检查是针对卡片创建时间，而不是笔记创建时间，所以卡片内生成的时间框架将被包括即使他们的笔记是添加了很久以前。
+			
+			\subsection{最近回答}
+			\begin{description}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item[rated:1] 今天回答的卡片
+				\item[rated:1:2] 今天回答的有难度（2）的卡片
+				\item[rated:7:1] 在过去7 天里再次回答（1）的卡片
+				\item[rated:31:4] 在上个月容易回答（1）的卡片                 
+			\end{description}
+			对于速度，等级搜索仅限于31天。
+			
+			\subsection{笔记和卡片ID}
+			\begin{description}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item[标识:1000000000000] 所有卡片的笔记都有给定的笔记ID。
+				\item[cid:1000000000000] 具有给定卡片ID的卡片                 
+			\end{description}
+			在浏览器中的\url{#stats}卡片信息对话框中可以看到笔记和卡片ID。在进行附加开发或与数据库紧密合作时，这些搜索可能也会有所帮助。
+			\section{卡片列表}
+			卡片列表显示当前搜索匹配的卡片。
+			列的配置：右键点击（或Ctrl +单击Mac）一个选择你想看到的列。你可以拖动列来排序。单击列将按该列排序；再次单击以颠倒排序顺序。并不是所有的列都可以排序。
+			
+			
+			\begin{shaded}
+				不同类型的卡片的到期列行为不同。新卡片显示一个数字，而不是到期日，这表明新卡片的顺序将被提出。卡片（RE）的学习和复习都将显示到期日，但排序时，他们首先按类型分组，然后按日期排序。
+			\end{shaded}
+			
+			
+			
+			\begin{shaded}
+				“编辑”和“改变”列听起来一样，但监测不同的东西。“编辑”监测最后一次更改的\textbf{笔记（例如，当一个字段的内容被编辑），而“改变”监测最后一次更改的卡片}（例如，当你复习卡片和回顾历史和间隔更新）。
+			\end{shaded}
+			
+			当你点击一张卡片，它的笔记将显示在底部部分。如果你拖动鼠标或按住Ctrl或命令选择多张卡片，编辑将暂时隐藏。各种操作（如改变笔记）可以同时操作多张卡片。
+			背景颜色会根据卡片而改变。标记卡片是紫色的背景。暂停的卡片是黄色的背景。有关标记和暂停卡片的更多信息，请参阅\url{#editmore}编辑和更多。
+			可用列中的一个称为\textbf{排序字段}。它允许你选择一个来自用于排序的每个笔记类型的字段。你可以通过单击当前备笔记中的“字段”来更改排序字段。
+			问题和答案栏显示你在复习时会看到的问题和答案，除了答案列将删除明确的问题部分。你也可以在卡片类型编辑器中选择\url{#columntemplates}自定义格式，而不是显示在复习过程中会看到的内容。
+			\section{当前笔记}
+			右下方区域显示当前选定的卡的笔记。有关卡片和笔记的更多信息，请参阅\url{#basics}基本术语。有关格式化按钮的更多信息，请参见\url{#editor}编辑。
+			通过点击搜索框旁边的“预览”按钮，可以预览当前选中的卡片的外观。注意，这将不会显示任何类型的答案字段在你的卡片上，这使得它更容易快速预览卡片。
+			\section{工具栏}
+			在浏览器窗口的顶部是工具栏。
+			\textbf{信息}显示有关当前选定的卡片的各种信息，包括其复习历史。有关更多信息，请参见\url{#stats}统计部分。
+			\textbf{标记 和 暂停}被记录在\url{#editmore}编辑和更多。
+			\textbf{改变记忆库}允许你移动卡片到不同的记忆库。卡片可以被放置在不同的记忆库中，所以如果你想在笔记中移动所有的卡片，你应该首先使用编辑>选择笔记。
+			\textbf{添加标签和删除标签}允许你从大量笔记中添加或删除标签。要从左侧列表中删除未使用的标签，请使用工具>从主窗口检查数据库。
+			\textbf{删除}所选卡片及其笔记。由于个别卡片由\url{#templates}模板控制，所以无法删除单独的卡。
+			\section{查找和替换}
+			此选项（编辑>查找和替换）允许你替换所选卡片中的文本。正则表达式选项允许你执行复杂替换。例如，在卡片上给出以下文本：
+			\begin{shaded}\begin{verbatim}
+				<img src="pic.jpg">
+				\end{verbatim}\end{shaded}
+			寻找:
+			\begin{shaded}\begin{verbatim}
+				<img src="(.+)">
+				\end{verbatim}\end{shaded}
+			用正则表达式替换:
+			\begin{shaded}\begin{verbatim}
+				\1
+				\end{verbatim}\end{shaded}
+			将卡片改变为:
+			\begin{shaded}\begin{verbatim}
+				pic.jpg
+				\end{verbatim}\end{shaded}
+			对正则表达式的全面讨论超出了本文档的范围。有许多教程可在网络上查看。请参阅Anki使用的特定格式\url{http://docs.python.org/library/re.html}
+			\section{发现重复}
+			您可以使用编辑>查找重复选项来搜索具有相同内容的笔记。当你打开窗口，Anki会看你所有的笔记类型，列出所有可能的字段。如果你要在“返回”字段中查找重复项，则从列表中选择它，然后单击“搜索”。
+			
+			与手动添加卡片时发生的检查不同，重复查找功能不限于单个笔记类型。这意味着默认情况下，它将搜索所有你提供的字段的笔记类型。
+			\textbf{可选限制}文本框允许你在Anki重复寻找的地方缩小文本框。如果你只想寻找“法语词汇”和“法语动词“笔记类型，你将进入：
+			
+			\begin{shaded}\begin{verbatim}
+				记忆库：“法语词汇”或记忆库：“法语动词”
+				\end{verbatim}\end{shaded}
+			
+			或者你可能只想在一个特定的记忆库上重复寻找，所以你可以使用：
+			
+			\begin{shaded}\begin{verbatim}
+				记忆库:“我的记忆库”
+				\end{verbatim}\end{shaded}
+			
+			搜索语法与在浏览器中搜索时使用的语法相同。请参阅\url{#searching}搜索部分获取更多信息。
+			
+			您可以单击“搜索结果”列表中的其中一个链接来显示该集合中的重复笔记。如果搜索带来了大量的重复，你可能希望点击标签重复按钮，它会标记所有匹配的重复的笔记。然后，你可以在浏览器搜索此标签和从同一屏幕中处理他们。
+			
+			\section{其他菜单项}
+			在“编辑”菜单中的其他项目：
+			
+			\textbf{重置}允许你移动卡片到新卡片队列的末尾，或重置他们到指定日期的复习卡片。第二个选项是有用的，如果你已经导入已经学到的材料，你想它开始具有较高的初始间隔。例如，选择60和90将给所有导入卡片的初始间隔为2至3个月。
+			
+			当重置时卡片的修改历史记录不清零：重置改变卡片的当前状态，而不是它的历史记录。如果要隐藏历史记录，则需要将笔记导出为文本文件，然后删除笔记，然后再次导入文本文件，创建新笔记。
+			
+			\textbf{重置允许你更改新卡片将出现的顺序。您可以启用适当的列找到现有的位置，如在上文卡片列表部分所述。如果在多个卡片被选中时运行重新定位命令，它将在每一张卡片上加入递增的数字。默认情况下，每个卡片的数量增加一个，但这可以通过改变“步骤”设置调整。现有的卡片选项的移位位置}允许你插入当前现有的卡片之间，推动目前现有的卡片分开。例如，如果你有五张牌，你想移动3，4和5之间的1和2，选择这个设置将导致卡片最终在顺序为1，3，4，5，2。相比之下，如果你关闭这个选项，2和3将得到相同的位置号码（谁先来谁就是第一，它将是随机的）。
+			
+			\textbf{改变笔记类型}允许你将选定的笔记从一种类型转换为另一种类型。例如，假设你有一个俄罗斯语笔记类型和一个计算机笔记类型，你意外地添加了一些计算机相关的文字到俄罗斯语笔记。你可以使用此选项来修复错误。卡片的安排不会受到影响。
+			
+			\textbf{选择笔记}获得当前选定的卡片，找到他们的笔记，然后选择这些笔记的所有卡片。如果你的笔记只有一个卡片，这就什么都不是。
+			
+			\textbf{Go}菜单存在提供跳转到浏览器的各个部分，以及向上和向下的卡片列表的快捷键。
+			
+			\chapter{过滤记忆库\& 死记硬背}\label{}
+			
+			当你在Anki定期学习记忆库，只有数量有限的卡片显示：Anki认为你会忘记，并限制每天的新卡片。这通常是有用的，因为它确保你不花更多没必要的时间学习。但有时它可能是有用的步骤以外的这些正常的限制，如当你需要复习考试，专注于特定的材料，等等。让这成为可能，Anki提供了一种不同的记忆库称为\textbf{过滤记忆库}。
+			
+			过滤记忆库提供了很多可能性。它们可以用于预览卡片，在考试前背诵卡片，学习特定的标签，抓住一个特定的排序顺序的积累，提前复习，结束一天的失败的卡片，和更多。
+			
+			\section{自定义学习}
+			
+			最简单的方法来创建一个过滤记忆库与自定义学习按钮，当你点击记忆库时，它出现在屏幕底部。它为一些常见任务提供了方便的预设，像复习你那一天失败的卡片。它将创建一个过滤记忆库称为“自定义学习时间”，并自动为你打开它。
+			
+			如果现有的“自定义学习时间”的记忆库存在，它在一个新的记忆库创建之前将被清空。如果您想保留自定义学习记忆库，您可以从记忆库列表为它重命名。
+			
+			以下是每个选项的总结：
+			
+			\begin{description}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item[增加今天的新卡片限制] 添加更多的新卡片到你目前正在学习的记忆库。注意，不像其他选项，这\textbf{不会}创建一个新的过滤记忆库，它修改现有的记忆库。
+				\item[增加今天的复习卡片限制] 如果不是今天的复习限制，今天所有的复习都显示，这个选项让你显示更多的。像新的卡片选项，修改现有的记忆库。
+				\item[复习忘记的卡片] 你再次回答的所有卡片（1）显示在你指定的天数内。
+				\item[复习前面] 显示即将到期的卡片（你指定的天数）。在你离开之前，通过显示你的旧卡片对学习是有用的，但是它不会帮助你学习你近期学过的卡片。请参阅下面\url{#reviewingahead}复习前面的更多信息。
+				\item[预览新卡片] 显示你最近添加的卡片
+				\item[卡片状态或标签的学习] 从当前记忆库选择一定数量的卡片进行学习。您可以只选择新卡片，到期卡片，或所有卡片；然后点击“选择标签”，您也可以限制选定的卡片标签。如果你想看到记忆库所有的卡片（例如，在大考试之前学习），你可以设置卡片的数量超过卡片在记忆库的数量。               
+			\end{description}
+			
+			\section{主记忆库}
+			
+			当一张卡片移到一个过滤的记忆库时，它保留了一个链接到它以前的记忆库。以前的记忆库被称为卡片的\textbf{主记忆库}。
+			
+			在过滤记忆库被学习后，卡片自动返回到它们的主记忆库。这可以根据你的设置在一个单次复习，或多次多次后。
+			
+			它也有可能立即将所有的卡片返回到它们的主记忆库：
+			
+			\begin{itemize}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item 在在学习复习中的“空”按钮将已过滤的记忆库上的所有卡片移回其主记忆库，但不删除空的过滤记忆库。这可能是有用的，如果你想再次填写它（使用重建按钮）。
+				\item 删除已筛选的记忆库与“空”按钮做相同的事情，但也从记忆库列表中删除空记忆库。删除过滤记忆库时没有卡片被删除。
+			\end{itemize}
+			
+			
+			\begin{shaded}
+				在当前的实现中，如果在卡片仍处于学习状态时清空或删除已筛选的记忆库，它们将被还原为新卡片。
+			\end{shaded}
+			
+			\section{手动创建}
+			高级用户可以任意搜索字符串创建过滤的记忆库，而不是依靠设置。若要手动创建筛选记忆库，请从“工具”菜单中选择“创建筛选记忆库”。
+			
+			当你点击创建按钮时，Anki找到你指定的匹配设置的卡片，并暂时将它们从现有的记忆库到新的学习的过滤记忆库。
+			
+			如果你希望使用相同的过滤器再次取得卡片（例如，如果你想每天有一个特定的标签学习所有的卡片）你可以使用在记忆库的概述屏幕的底部的重建按钮。
+			
+			Anki会聚集\textbf{搜索}区域控制的卡片。所有可能在浏览器中进行的搜索也都有可能为过滤记忆库，比如限制标签，发现忘记了一定次数的卡片等等。请参阅手册的\url{#searching}搜索部分了解更多关于不同可能性的信息。
+			
+			\textbf{限制}选项控制多少卡片将聚集到记忆库上。您选择控制的顺序和顺序卡片都聚集在一起，它们将被按顺序复习。如果你选择“最大失误”和例如20的限制，然后Anki会只显示20个最大失误的卡片。
+			
+			出于效率原因，如果你背诵超过1000张卡片的记忆库，由于记忆库列表和学习屏幕，只有1000张卡片将被显示出来。
+			
+			\section{顺序}
+			
+			“选择卡片”选项控制卡片将出现的顺序。如果你选择卡片的最大数量低于符合筛选条件的卡片的数量，Anki会在这个排序列表的结尾排除卡片。
+			
+			\begin{description}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item[古老的首次发现] 显示你没有在复习中看到的最长时间的卡片。
+				\item[随机] 将符合筛选条件的所有卡片的顺序随机化（使用没有固定的顺序。）
+				\item[增加间隔时间] 显示间隔最小的卡片。
+				\item[缩短时间间隔] 显示间隔最大的卡片。
+				\item[最大失误] 显示你有多次失误的卡片。
+				\item[添加顺序] 显示你第一次添加的卡片（最早创建日期）。
+				\item[到期顺序] 显示最早到期的卡片。
+				\item[最近看到] 显示你最近复习看到的卡片。
+				\item[相对上次最迟] 显示与当前时间间隔最迟的卡片（例如，在一个当前间隔为5年的卡片逾期一周显示之前一张当前间隔为5天的卡片，逾期2天显示）。这是有用的，如果你有大量积累，可能需要一段时间才能通过，并希望复习你最危险第一忘记的卡片。\end{description}
+			\section{步骤\& 返回}
+			请参阅有关\url{#learning}学习提醒如何按步骤操作。
+			
+			默认情况下，Anki会使用一个卡片的主记忆库的步骤。如果一张新卡片在学习时通常会被复习两次，你在一个过滤的记忆库上学习时，同样的事情也会发生。
+			
+			当（重新）学习完成时卡片会返回到它们的主记忆库。因此如果你有3个学习步骤，在三个按钮“一般”或一个单独的按钮“简单”上面一个新的卡片将会返回到它的主记忆库。
+			
+			\textbf{自定义步骤}选项允许你覆盖主记忆库的步骤，并且提供你自己的步骤。提供的步骤适用于正在学习的卡片，失误卡片的复习，复习时间的提前。
+			
+			\section{计数}
+			
+			在已筛选的记忆库上，已经到期的复习的计数将显示为正常值。由于由于底层实施的操作，学习卡片和非适当的复习被计数在新的卡片计数。
+			
+			\section{到期复习}
+			
+			如果被过滤的记忆库包括要复习的卡片，它们将显示它们将在原来的记忆库-在屏幕的底部出现的复习卡片计数，并且有四个选择提示记得的如何。一个正确的答案后，该卡片将被移回其主记忆库，其下一个延迟调整使用主记忆库的设置。如果你忘记了卡片，它会根据在主记忆库的学习步骤定义显示。
+			
+			\section{复习前面}
+			
+			如果你搜索卡片包括未到期的，Anki将提前显示复习。
+			
+			Anki使用一种特殊的算法对这些复习，考虑如何让你提前复习。如果卡片几乎要显示，你已经及时复习它们，它们将得到一个新的延迟类似于它们将收到的。它们被计划后如果卡片被复习后不久，它们的新延迟将类似于它们以前的延迟。这个计算工作在按比例增减。
+			
+			
+			\begin{shaded}
+				因为在计划后不久复习卡片对计划的影响很小（例如，如果提前复习，一张明天到期的一天间隔时间的卡片将保留在明天到期），“提前复习”自定义学习设置不\textbf{适合重复使用}。在失误前如果使用要通过一周的时间保值，成熟的卡片将被改期到未来，新的卡片将保持小的时间间隔，因为你不知道它们被重新安排是否对它们好。如果你第二天再提前复习，你最终会做的就是再次经历那些相同的新卡片，这对你没什么好处。
+			\end{shaded}
+			
+			提前复习包含在新的卡片计数而不是复习数，并将根据一些在主记忆库定义显示的学习步骤显示（除非你已经提供了自定义的步骤）。这意味着，如果你已经在主记忆库定制了一些学习步骤，未到期的卡片可以显示不止一次。
+			
+			如果你有多个步骤，Anki只会在决定下一个延迟考虑的第一个回答，就像学习正常的记忆库，“一般”和“容易”的差别只在步骤变化并没有导致延迟。
+			
+			\section{重置}
+			
+			默认情况下，Anki将返回基于你在过滤记忆库表现的改变安排的卡片到它们的主记忆库。如果你禁止\textbf{更改基于我的回答}选项的卡片，Anki将返回卡片到当它们移动到过滤记忆库的相同的状况。这对快速翻转材料非常有用的。
+			
+			如果你禁止重置，当按下“一般”和“容易”按钮它们上面将显示没有时间，导致卡片按原安排返回它们的主记忆库。
+			
+			请注意新卡片返回到新卡片队列的结尾而不是它的开始。
+			
+			\section{追补}
+			
+			当你落后于你的复习，过滤记忆库有助于追赶。一个Anki用户描述他们使用过滤记忆库追赶的方法如下：
+			
+			我这样做是为了在过滤的记忆库下面积累800张卡片。为我工作的很好。
+			
+			\begin{fquote}
+				\begin{itemize}
+					\itemsep1pt\parskip0pt\parsep0pt
+					\item 刚刚到期的过滤: "is:due prop:due$>-7$"
+					\item 过期的过滤: "is:due prop:due$<=-7$"
+				\end{itemize}
+				
+				刚刚到期的记忆库将包含过去一周到期的卡片。这是你应该每天学习的记忆库，因为它得到的卡片是定期到期的。有了这个你就可以没有任何压力的去学习。
+				
+				过期的记忆库将包含你的积累，你没有及时学习的卡片。你可以像学习新卡片一样学习它们。他们回到定期卡片，所以过期的数量永远不会增长，只要你保持你的刚刚到期的记忆库的检查。
+				
+				需要多长时间取决于你每天学习多少张过期的卡片，除了定期到期的卡片。当你觉得喜欢它可以通过引擎搜索，或者你可以每天为你喜欢的新卡做一个特定的数字。由你决定。
+			\end{fquote}
+			
+			\chapter{依附词}\label{}
+			
+			依附词是你一直忘记的卡片。因为它们需要多次复习，它们占用了比其他的卡片更多的时间。
+			
+			Anki可以帮助你识别依附词。每次复习卡片\textbf{失误}，计数器会增加。当计数器达到8，注意将依附词标起来，这个卡片被暂停。它的阈值，和是否暂停或不，可以在\url{#deckoptions}记忆库选项调整。
+			
+			Anki将持续发出依附词警告，定期作为困难卡片。警告间隔是最初的依附词阈值的一半。那就是说，如果你有Anki配置警告达到8个失误，未来的警告将发生一次4个失误。（12,16等）            一旦依附词被发现，这里有一些方法可以处理它。
+			
+			\section{等待}
+			一些依附词所造成的\textbf{影响}。例如，一个英语学习者最近可能学会了“失望”和“消失”这个词。当它们看起来相似，学习者试图回答时可能会发现自己混淆了两个。在这种情况下，专注于一个想法往往是富有成效的。当这个想法牢牢地扎根在你的脑海中，你可以回到学习的另一个想法。所以在这种情况下，你可能要离开一个关键词并暂停直到你很好的学会另一个，然后在浏览器中播放。
+			
+			\section{删除}
+			
+			另一种方式来管理依附词是删除它们。考虑一下你正在挣扎的材料是否足够重要，觉得它值得。通过选择性删除困难和模糊不清的项目，你可以投入更多的时间学习其他材料，学习变得更加有趣。
+			
+			\section{编辑}
+			
+			另一种方式是改变被呈现信息的方法。也许你创造的卡片上有太多的信息，或者你试图记住一些东西而不完全理解它。有时花一些时间改变可以帮助卡片描述的方式。这也是一个很好的时间来思考做一个记忆标志来帮助你记忆。
+			
+			\chapter{导入}\label{}
+			
+			Anki能够导入文本文件、由导出功能生成的记忆库包文件、 Mnemosyne 2.0.db文件以及SuperMemo.xml。要导入文件， 可以点击文件菜单下的“导入”选项。
+			
+			\section{导入文本文件}
+			
+			任何包含有被逗号、分号、制表符分隔开的字段的\textbf{纯文本}都可以被导入, 只要满足以下条件即可。
+			
+			\begin{itemize}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item 文件须为纯文本文件（我的文件.txt），其它格式诸如 我的文件.xls、 我的文件.rtf、我的文件.doc 都必须先另存为纯文本文件。
+				\item 文件必须是UTF-8格式（详情参考下面）.
+				
+				Anki通过查看文件的第一行（无注释）来决定字段的数量。 文件的任何有不同数量的 字段的行都将被忽略。
+				\item 第一行还规定了分隔符：如果Anki在第一行发现了 \textbf{;}， 它会将分号作为分隔符；如果发现了逗号，则会将逗号作为分隔符， 以此类推。
+			\end{itemize}
+			
+			文本文件的字段能被映射为你的笔记的任何字段，包括 标签字段。在导入时，你可以选择文本文件的字段和 你的笔记的哪个字段对应。
+			
+			当你导入一个文本文件时，你可以选择将卡片放在哪个记忆库里。 注意，如果你为一个或更多模板设置了记忆库覆盖选项， 卡片会置入那个记忆库而不是你选择的这个。
+			
+			这是一个合法文件的例子：
+			\begin{shaded}\begin{verbatim}
+				foo bar; bar baz; baz quux
+				apple; banana; grape
+				\end{verbatim}\end{shaded}
+			有两种办法在字段包含新行：
+			
+			将字段内容置于引号间来转义多行:
+			
+			\begin{shaded}\begin{verbatim}
+				hello; "this is
+				a two line answer"
+				two; this is a one line one
+				\end{verbatim}\end{shaded}
+			
+			\textbf{使用HTML新行}:
+			
+			\begin{shaded}\begin{verbatim}
+				hello; this is<br>a two line answer
+				two; this is a one line one
+				\end{verbatim}\end{shaded}
+			
+			你需要在导入对话框勾选“允许在字段中使用HTML” 来使得HTML新行有效。
+			
+			\begin{shaded}
+				如果你使用多行完形填空，转义多行可能不能正常工作。 在这种情况下，请使用HTML新行。
+			\end{shaded}
+			
+			你也可以在其它字段包含标签，并且在导入对话框选择它作为 标签域:
+			
+			\begin{shaded}\begin{verbatim}
+				first field; second field; tags
+				\end{verbatim}\end{shaded}
+			
+			这是个忽略第一行的合法文件的例子 (\#):
+			
+			\begin{shaded}\begin{verbatim}
+				# this is a comment and is ignored
+				foo bar; bar baz; baz quux
+				field1; field2; field3
+				\end{verbatim}\end{shaded}
+			
+			\section{电子表格与UTF-8}
+			
+			如果你的文件里有非拉丁符号，比如变音符号、日文等等， Anki希望文件以
+			\textbf{UTF-8 编码}保存。最便捷的做法是 使用免费的LibreOffice电子表格软件而不是Excel来 编辑你的文件，因为它很容易支持UTF-8，并且也能正确地导出多行内容， 不像Excel。如果你执意使用Excel，请看
+			\url{https://docs.google.com/document/d/12YE_FS6A9ANLTESJNtPP116ti4nNmCBghyoJBRtno_k/edit?usp=sharing}这
+			篇帖子 来获取更多信息。
+			用LibreOffice，为了将你的电子表格保存为Anki能读取的文件，选择 文件>另存为，然后在文件类型选择CSV。接受默认选项后， LibreOffice会将文件保存为能随后导入 Anki的格式。
+			
+			\section{HTML}
+			Anki能处理从文本文件导入的作为HTML（被用作网页的语言）的文本。 这意味着带有加粗、斜体或其它格式的文本能被 导出为文本文件并再次导入。如果你希望包含HTML 格式，你可以在导入时勾选“允许在字段中使用HTML”、 当你尝试导入包含尖括号或其它HTML语法的内容时， 你可能希望将这项关闭。
+			
+			如果你希望使用HTML来格式化你的文件，但是又希望包含尖括号， 你可以用另一种方式来写：
+			
+			\begin{itemize}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item 对于 "<", 用 "\&lt;"
+				\item 对于 ">", 用 "\&gt;"
+			\end{itemize}
+			\section{导入媒体}
+			如果你希望从文本文件导入时包含音频、图片，那么将媒体 文件复制到 \url{#files}collection.media 文件夹。 不要放在媒体文件夹的子目录下，
+			否则某些功能将不能正常工作。 
+			
+			当你将文件复制好后， 像下面这样改变你的文本文件的一个字段。
+			
+			\begin{shaded}\begin{verbatim}
+				<img src="myimage.jpg">
+				\end{verbatim}\end{shaded}
+			或
+			\begin{shaded}\begin{verbatim}
+				[sound:myaudio.mp3]
+				\end{verbatim}\end{shaded}
+			
+			或者，你可以使用查找 \& 替换功能来一次性更新所有字段。 如果每个字段包含像"myaudio"这样的文本，然后你希望让它播放一段音频， 你可以搜索(.*)然后替换为"\verb|[sound:\1.mp3]|"， 需要勾选 \textbf{以正则表达式输入}选项。
+			
+			
+			\begin{shaded}
+				当导入包含了这些引用的文本文件时，你需要确保 勾选了“允许在字段中使用HTML”选项。
+			\end{shaded}
+			
+			你可能尝试在模板中像这样做：
+			\begin{shaded}\begin{verbatim}
+				<img src="{{field name}}">
+				\end{verbatim}\end{shaded}
+			
+			Anki不支持这种方式，有两个原因：检索已用媒体 很费时，因为每张卡片都需要渲染；而且这样的功能 对于使用共享记忆库的人来说不够明了。请使用查找 \& 替换技术。
+			
+			\subsection{媒体批量导入}
+			另一种一次性导入大量媒体的方式是使用
+			\url{https://ankiweb.net/shared/info/1531997860}media import插件，这个插件 会自动为你选择的一个文件下的所有文件创建笔记，文件名作为正面（去掉文件后缀，因此，如果你有一个文件叫 apple.jpg，正面会叫 \textbf{apple}），并且图片或音频作为背面。如果 你想用别的方式布置媒体和文件名，你可以在卡片创建后
+			\url{#browsermisc}改变笔记类型。
+			\section{添加标签}
+			
+			如果你想为你导入的每一行添加 \textbf{tag1 和 tag2}标签，在文本文件的 第一行添加如下内容：
+			
+			\begin{shaded}\begin{verbatim}
+				tags:tag1 tag2
+				\end{verbatim}\end{shaded}
+			
+			\section{重复与更新}
+			
+			当导入文本文件时，Anki使用第一字段来判断笔记是否 唯一。默认情况下，如果你导入的文件的第一字段 在你的集合中已经存在同样第一字段的笔记并且 与你导入的笔记类型相同时，已存在的笔记的其它字段 会基于导入文件的内容进行更新。导入窗口有个下拉框 允许你改变这一行为，你可以完全忽略重复， 或者将它们导入为新笔记而不更新已有的。
+			
+			\begin{shaded}
+				查找重复是针对你的 \textbf{整个集合}，而不只是当前记忆库。 如果当Anki提示笔记没有被改变而你又 希望它们被导入，请检查笔记是否在你集合的某个地方 已经存在。
+			\end{shaded}
+			
+			如果你选择更新，并且你导入的笔记的旧版本 已经在你的集合中，它们会被更新并置于它们当前的记忆库中， 而不是被移动到你在导入对话框设置的记忆库 里。
+			
+			想了解更多有关.apkg文件重复处理的信息，请参阅 下面的
+			\url{#apkg-export}记忆库包 部分。
+			
+			\chapter{导出}\label{}
+			
+			导出允许你保存你的集合的一部分作为一个文本文件或打包它的记忆库。要导出，请单击“文件”菜单并选择\textbf{“导出”}。
+			\section{导出文本}
+			
+			如果你选择“纯文本格式的笔记”，它会写笔记的内容到一个文本文件。每个字段都被一个标签隔开。如果你编辑的文件不要修改第一个字段，以后你可以导入文件到Anki和Anki将在你编辑的基础上更新您的笔记，只要你重新导入相同的笔记类型。
+			
+			如果你发现自己也需要编辑第一个字段，则需要更改笔记类型的格式，以便第一字段是ID号，而不是实际文本。（你可以安装“添加笔记ID”插件使之更容易）。
+			
+			当你导入文本后未来保存格式，文本和嵌入到文本的HTML格式被导出。
+			\section{导出打包记忆库}
+			
+			一个\textbf{打包记忆库}由卡片、笔记、笔记类型和任何声音或图像捆绑到一个文件以.apkg结束。你可以使用打包的记忆库在卡片和人之间转移，或备份部分的集合。打包的记忆库被压缩，所以它将小于你的配置文件文件夹中的文件的总和。
+			
+			这有两种不同的打包记忆库
+			
+			\subsection{集合打包}
+			当你导出包含安排的所有记忆库时，这被称为\textbf{集合包}。Anki会复制你的整个集合到一个称为“collection.apkg”，并放在桌面。集合打包是用来备份你的收集或通过iTunes同步到Anki移动端。
+			
+			当这个文件导入后，Anki将删除集合中的所有现有的卡片，并在collection.apkg文件的项目替换集合。在设备之间来回复制你的收集是有用的。
+			
+			
+			\begin{shaded}
+				当你导入一个collection.apkg，集合现有的媒体没有删除。要删除未使用的媒体，请使用工具>检查媒体。
+			\end{shaded}
+			
+			\begin{shaded}
+				Anki的自动备份也备份集合包。只需双击恢复你的集合到备份。
+			\end{shaded}
+			
+			
+			\subsection{记忆库包}
+			记忆库包包含一个记忆库（和可能有任何子记忆库）。他们有一个以.apkg结尾的文件名，但文件名不同于collection.apkg。当你导入一个记忆库包，Anki会添加内容到你的集合，而不是重写你的集合。
+			
+			如果在记忆库包有一些笔记是以前导入的，它将与最近的修改时间保持版本。因此，如果你下载更新的记忆库，已在更新版本的编辑，也将在你的集合中进行，但在你的集合中进行编辑后如果您重新导入一个不变的记忆库，这个变化将在你的集合中保持。
+			
+			如果你选择不包括安排信息，它会认为你与其他人共享记忆库，并将删除标记和依附词的标签以便它们将有一个干净的副本。
+			
+			\chapter{管理文件和你的集合}\label{}
+			
+			\section{检查你的集合}
+			偶尔检查你的集合文件的问题是好主意。你可以通过工具>检查数据库菜单项。检查数据库，确保文件没有损坏，重建部分的内部结构，并优化文件。
+			
+			当你检查数据库时，你的标签列表也将被重建。当你删除单独的记忆库或卡片，Anki不更新使用过的标签列表，因为这样做是低效的。如果你想清除从列表中不再使用旧的标签，检查你的数据库就是做的方法。
+			
+			请注意，Anki每2周1次会自动优化你的集合。此优化确保集合执行良好，但自动优化时它不检查错误或重建标签列表。
+			
+			\section{文件路径}
+			
+			在Windows和OSX，Anki存储所有的文件在一个Anki的文件夹，位于Documents文件夹。在其他操作系统中，文件默认存储在~ /Documents/ Anki。
+			
+			在Anki的文件夹，配置水平和描述水平的喜好都存储在一个名为prefs.db的文件夹。
+			这也有为每个配置文件设有一个单独的文件夹。文件夹包括：
+			
+			\begin{itemize}
+				\itemsep1pt\parskip0pt\parsep0pt
+				\item 你的笔记、记忆库、卡片等在一个名为collection.anki2的文件夹
+				\item 在collection.media文件夹的音频和图像
+				\item 一个备份文件夹
+				\item 一些系统文件
+			\end{itemize}
+			
+			\begin{shaded}
+				当Anki是打开状态是你不应该复制或移动你的集合。这样做可能会导致你的集合损坏。请不要移动或修改文件夹中的其他文件。
+			\end{shaded}
+			
+			\begin{shaded}
+				在UNIX系统上，Anki有意用~ /Documents/Anki而不是一个隐藏的文件夹。存储在该文件夹中的大部分数据是重要的用户数据，而不是容易恢复的选项，如果一个用户因为备份文件而忽略了它，这将是一个灾难。也有越来越多的Linux用户不熟悉隐藏文件夹。如果您是高级用户，则可以在下一节中指定具有命令行参数的自定义文件夹。
+			\end{shaded}
+
+		
+		\section{启动选项}
+		
+		如果你在一台电脑上做了一个破坏性的变化，在另一台电脑上有一个完好的拷贝，你可能希望开始使用Anki不同步为了使用完全同步选项而不先下载更改。同样的，如果你在Anki上遇到问题，你可能会想（或可能指示）禁用插件暂时看一看可能会引起问题。你可以做这些事情通过按住Shift键在启动Anki。
+		
+		在启动过程中可以指定自定义文件夹位置。这是一个先进的功能，主要是用于便携式设备，我们建议你在大多数情况下使用默认位置。
+		
+		指定备用文件夹的语法如下：
+		
+		\begin{shaded}\begin{verbatim}
+			anki -b /path/to/anki/folder
+			\end{verbatim}\end{shaded}
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item 如果您有多个配置文件，则可以通过 -P <名称> 加载特定的配置文件。
+			\item 改变界面的语言，使用-L＜ISO 639-1/ISO语言代码>，如“-L ja”日本。
+		\end{itemize}
+		
+		如果你想使用一个自定义的文件夹位置，你可以修改Anki的快捷方式。在Windows上，右键单击快捷方式，选择属性，选择快捷方式选项卡，在程序路径后添加“\verb|-b \路径\to\数据\文件夹|”，这应该给你一些东西
+		
+		\begin{shaded}\begin{verbatim}
+			"C:\Program Files\Anki\anki.exe" -b "C:\AnkiDataFolder"
+			\end{verbatim}\end{shaded}
+		
+		你也可以使用这个技术在不同的语言中与-l选项很容易使用Anki。
+		
+		\begin{shaded}
+			在Windows中，你应该使用一个反斜杠（\verb|\|）不是一个正斜杠（\/）。
+		\end{shaded}
+		
+		在Mac上，当点击Anki的图标时没有简单的方法来改变行为，但开始Anki的终端自定义文件夹是可能的：
+		
+		\begin{shaded}\begin{verbatim}
+			open /Applications/Anki.app --args -b ~/myankifolder
+			\end{verbatim}\end{shaded}
+		
+		
+		\begin{shaded}
+			如果你想永久改变界面的语言，删除Documents/Anki/prefs.db 和初始启动屏幕将再次显示。这样做后，你将需要添加你再次使用的任何配置文件。只要你使用像以前的相同的配置文件名称，Anki会从之前的文件夹拿起文件。
+		\end{shaded}
+		
+		\section{DropBox 和文件同步}
+		
+		我们不建议你直接与一个第三方的同步服务同步你的Anki文件夹，当文件被同步使用时，它可以导致数据库损坏。
+		
+		如果你只想同步你的媒体，你可以链接到外部服务，如Dropbox。更多信息请参阅
+		\url{http://www.dropboxwiki.com/tips-and-tricks/sync-other-folders}
+		
+		如果你想让你的集合最好同步，它是强烈建议你创建一个脚本，从你的同步文件夹到本地文件夹复制你的文件，展开Anki，然后当Anki是关闭时复制文件。当它们是开放时这将确保文件永远不会同步。
+		
+		\section{网络文件系统}
+		
+		我们强烈建议你有Anki在本地硬盘存储你的文件，如网络文件系统会导致数据库损坏。如果网络文件系统是你唯一的选择，建议定期使用工具>检查数据库以检测是否损坏。
+		
+		\section{从闪存驱动器运行}
+		
+		Anki可以安装在一个闪存驱动器并作为一个便携式的应用运行：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item 复制 \verb|\Program Files\Anki| 文件夹到闪存驱动器，所以你有一个文件夹如 \verb|G:\Anki|.
+			\item 随着以下文字创建一个文本文件称为\verb|G:\anki.bat|：
+		\end{itemize}
+		
+		\begin{shaded}\begin{verbatim}
+			\anki\anki.exe -b \ankidata
+			\end{verbatim}\end{shaded}
+		
+		如果要阻止命令提示窗口继续打开，则可以使用：
+		
+		\begin{shaded}\begin{verbatim}
+			start /b \anki\anki.exe -b \ankidata
+			\end{verbatim}\end{shaded}
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item 双击anki.bat应该开始Anki的用户数据存储在 \verb|G:\ankidata|.
+		\end{itemize}
+		
+		
+		\begin{shaded}
+			如果你的闪存驱动器格式化为FAT32，ankiweb的媒体同步可能不工作。请格式化驱动器为NTFS，确保正确的媒体同步。
+		\end{shaded}
+		
+		\section{备份}
+		每一次你的集合是关闭的（当关闭Anki，转换配置文件，或同步你的记忆库时），Anki导出你的集合到备份文件夹。默认情况下，Anki可以存储多达30个备份；你可以在\url{#preferences}偏好设置调整这个。
+		
+		自动备份不保护磁盘或计算机故障，不扩展到你的媒体。为了保持你的集合安全，请考虑手动备份。
+		
+		要手动备份最简单的方法是备份你的整个Anki文件夹。请务必确保首先关闭Anki，如果Anki开放时运行备份可能损坏。
+		
+		从备份中恢复，简单的关闭Anki，打开Documents/Anki/<配置文件名>/backups，然后双击最近的备份以便导入。这将覆盖你的整个集合与备份副本。如果你只需要导入一部分备份（例如，你搞砸的一个单一的记忆库），你可以这样做，通过创建一个新的\url{#profiles}配置文件，并导入备份到那里，然后导出你要恢复记忆库并将其导入到其他配置文件。
+		
+		Anki也记录删除笔记到一个文本文件在你的配置文件夹称为deleted.txt。这些笔记是文本格式，可以通过读取文件>导入，但请注意导入功能只支持以前的单个笔记类型，因此，如果你已从不同的笔记类型删除笔记，你需要首先将文件拆分为每个文件类型的单独文件。
+		
+		\section{无法访问硬盘}
+		
+		如果Anki不能在\url{#files}Anki文件夹进行文件编写，将会显示一个消息启动说Anki无法写入硬盘，和Anki将关闭。如果你不确定如何修复权限，请联系你周围了解电脑的人可以帮助你。
+		
+		\section{临时文件夹的权限}
+		
+		Anki使用系统的临时文件夹来存储临时数据。如果该文件夹的权限通过一个流氓应用程序或疯的防病毒应用程序的默认设置已更改，Anki将不能正常工作。
+		
+		如果你在Windows7机上，一般的步骤来解决问题如下。因为这有点复杂，如果你不确定，请询问有Windows知识的一些人。
+		
+		\begin{enumerate}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item 框中输入%temp%（包括百分比），然后回车。
+			\item 找到上一个文件夹，并找到临时文件夹。右键单击它，并选择属性。
+			\item 在“安全”选项卡中，单击“高级”。
+			\item 点击所有者标签。如果未列出所有者，请单击按钮以获取所有权。
+			\item 在“权限”选项卡上，确保你已完全控制。默认情况下在W7安装控制实际是从\verb|C:\users\你的用户名|继承。
+		\end{enumerate}
+		
+		\section{损坏集合}
+		
+		Anki使用一种文件格式是强大的程序，可以使电脑崩溃，但是当Anki是开启状态时如果文件被修改它仍有可能使你的集合成为错误，存储在一个网络驱动器，或被漏洞损坏。              当你运行工具$>$检查数据库，如果Anki检测到文件已损坏你将收到一个消息。恢复的最好方法是从最近的自动备份中恢复，但是如果备份太旧，则可以尝试修复损坏。
+		
+		在Linux中，确保sqlite3程序安装。在Mac上，应该已经安装。在Windows中，下载\url{http://www.sqlite.org/sqlite-3_6_23.zip}
+		
+		下一步，创建你的collection.anki2文件备份，以防下面的步骤出现错误。
+		
+		\textbf{Linux/OSX}
+		
+		打开一个终端，更改你的集合文件夹所在的位置，并输入：
+		
+		\begin{shaded}\begin{verbatim}
+			sqlite3 collection.anki2 .dump > dump.txt
+			\end{verbatim}\end{shaded}
+		
+		在文本编辑器中打开生成的dump.txt文件，看最后一行。如果它读取“rollback”，将其更改为“commit”
+		
+		然后在终端中运行以下内容：
+		
+		\begin{shaded}\begin{verbatim}
+			cat dump.txt | sqlite3 temp.file
+			\end{verbatim}\end{shaded}
+		
+		确保你使用的temp.file -不要把collection.anki2放右边，否则你将有个空白的文件。完成后，继续进行最后一步。
+		
+		\textbf{Windows}
+		
+		复制\texttt{sqlite3.exe}程序和你的记忆库到你的桌面。然后去\textbf{开始$>$运行}和输入\texttt{cmd.exe}。              如果你在最近的窗口，命令提示符可能不会在你的桌面上启动。如果你没有看到命令提示符显示在桌面上，请键入以下内容，用你的登录名替换\textbf{管理员}。
+		
+		\begin{shaded}\begin{verbatim}
+			cd C:\Users\Administrator\Desktop
+			\end{verbatim}\end{shaded}
+		
+		然后输入：
+		
+		\begin{shaded}\begin{verbatim}
+			sqlite3 collection.anki2 .dump > dump.txt
+			\end{verbatim}\end{shaded}
+		
+		在文本编辑器中打开生成的dump.txt文件，看最后一行。如果它读取“rollback”，将其更改为“commit”
+		
+		然后在终端中运行以下内容：
+		
+		\begin{shaded}\begin{verbatim}
+			type dump.txt | sqlite3 temp.file
+			\end{verbatim}\end{shaded}
+		
+		确保你使用的temp.file -不要把collection.anki2放右边，否则你将有个空白的文件。完成后，继续进行最后一步。
+		
+		\textbf{最后一步}
+		
+		检查一下，你没有收到一个错误消息，并且temp.file不是空的。程序优化了过程中的集合，所以新文件比旧文件小一些是正常的。
+		
+		当你确认文件是空的，复制过来collection.anki2，确保你仍然有原来的版本备份。然后开始Anki，点击工具>检查数据库，确保集合已成功恢复。
+		
+		\chapter{图形和统计}\label{}
+		
+		\section{卡片信息}
+		
+		在浏览时，通过点击工具栏中的信息按钮，可以显示有关卡片的信息。大多数显示的信息应该是明显的。几个笔记：
+		
+		\begin{description}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item[位置] 只在卡片是新的时候显示，它显示的卡片顺序将相对于其他新卡片出现。该位置可以在浏览器中更改。
+			\item[时间间隔] 从一个复习到下一个延迟。时间的缩写；“0s, 1m, 3h, 4d, 5mo, 6y”指的是秒，分钟，小时，天，月，年。
+			\item[容易] 当你用“一般”按钮回答一张复习卡片时，这个间隔会增加。               
+		\end{description}
+		
+		\section{统计}
+		
+		通过点击主窗口的右上方的图表的图标，或按Shift + S访问统计窗口。统计窗口将显示当前选定的记忆库和任何记忆库以下的统计。如果你点击左边的“集合”，统计将显示你的整个集合。
+		
+		默认情况下，Anki会向你展示上月的统计。你可以在底部将此更改为一年范围或记忆库寿命范围。（顶部的“今天”部分当然不受此选择的影响。）
+		
+		单击“保存图像”将统计图像保存到桌面上的文件中，以便与其他人共享统计数据。
+		
+		
+		\begin{shaded}
+			当你删除笔记，它们复习的历史保持在Anki上。当查看特定记忆库的统计数据时这将不被包括（如Anki已经没有办法知道，记忆库被删除的卡片属于哪个记忆库），但当你查看整个集合统计时将被包括。
+		\end{shaded}
+		
+		\section{卡片类型}
+		统计窗口使用一些你可能不熟悉的术语：
+		\begin{description}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item[成熟] 成熟卡片是有21天或更大间隔的卡片。
+			\item[年轻] 年轻的卡片有一个间隔少于21天，但不在学习中。
+			\item[学习] 学习卡片是一个仍然在学习模式的卡片（使用任何步骤可以定义在记忆库的选择）。
+			\item[重新学习] 重新学习卡片是一个你在复习模式有失误，从而返回到学习模式被重新学习的卡片。
+			\item[未看] 未看的卡片已被添加到你的集合，但尚未进入学习模式。未看的卡片有时被称为“新”卡片，尤其是当它们在“新”队列中第一次被显示时。               
+		\end{description}
+		
+		\section{今天}
+		
+		在统计窗口的顶部是一个简短的列表的文本统计有关你今天已经完成的复习。一个“复习”在这方面是\textbf{一个回答卡片}，所以如果它需要被多次看到，一张卡片可能算作多个复习，一个学习卡片可以算作一个“复习”。几个统计数据，其含义可能不会立即明显：
+		
+		\begin{description}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item[再次计算] 这是你失误的复习数（即再次按下）。正确的百分比之后列出的是你\textbf{没有}失误的卡数除以你学习的卡片总数。
+			\item[学习, 复习, 重新学习, 过滤] 复习数量有学习卡片、复习卡片、重新学习卡片或在未到期的过滤记忆库学习。               
+		\end{description}
+		
+		目前的统计数字不是你学习进步的一个很好的整体指标，每个人都有不好的时期和好的时期，看到你在某一天得到较低的正确的百分比不应该被引起关注。其余的统计，这需要考虑较长的时间，如果你想在你的表现的基础上尝试改变你的学习习惯或时间设置，将提供更多有用的信息。
+		
+		“今天”的统计数据不受窗口底部选择的时间周期的影响。
+		\section{图形}
+		
+		\begin{description}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item[预测] 这张图显示了一个估计的复习数量，如果你没有学习新的卡片和失误的卡片，将在未来的某一天到期。如果你每天学习所有的卡片，那么条形图的柱状和左轴显示了每天到期的卡片数量，而当你不学习的时候，线和右轴显示了当天到期的卡片数量。请注意，预测图不计算当前过期的复习，所以如果你有大量的积累，过期的卡片将不会显示。
+			\item[评论计数] 这张图显示你过去学习过多少张卡片。该类目可能对应天，周或数月，这取决于你在屏幕底部选择的时间段。不同颜色的条形显示你回答的每一天是\url{#cardtypedefinitions}成熟，年轻，重新学习，或学习的卡片有多少。也有一组单独的卡片当它们未到期时在过滤/填充记忆库回答。该图形的线和右轴显示了每个评论的类型随着时间的推移累积的累计总数（所以在0天，它会在图上显示整个时间周期的数目）。
+			\item[复习时间] 这张图的工作原理和评论计数完全一样，除了它处理的是你在每张卡片上所花的时间数量，而不是卡片的数量。
+			\item[间隔] 此图显示给定间隔的卡片数量（两个复习之间的延迟）。线和右轴告诉你卡片的百分比有一个时间间隔小于或等于该点以下的时间。这个图形的时间范围与其他图形相比有不同的效果：不是改变哪些卡片或被包含的学习期间，它限制间隔显示有多远（所以14个月的时间间隔不显示在所有1年图上）。
+			\item[每小时的分析] 此图表显示你在给定时间内已通过的总复习的百分比（即，没有再次按下）。更大，更黑的柱状和左轴显示的正确；更窄，更淡的柱状和右轴显示你在那个时候作出的复习数量（所以你知道如何使结果有意义）。
+			\item[回答按钮] 这张图显示当你研究学习/新的，年轻的，\url{#cardtypedefinitions}成熟的卡片时你选择再次、困难、一般或简单按钮多少次。Anki也显示每种卡片正确复习的百分比。
+			\item[卡片类型] 这个饼图显示你的记忆库或集合的百分比由成熟的，未看的，年轻的/学习和暂停卡。如果你想计算一个更精确的百分比，关键显示每个部分的确切数量的卡片，和侧边的卡片的总数。               
+		\end{description}
+		
+		\section{手动分析}
+		
+		如果你对从你的统计数据获取信息比Anki提供的信息感兴趣，你有几种选择。
+		
+		一个是\url{#add-ons}编写一个附加程序，将另一个图表或更多细节添加到统计窗口中。Ankiweb已经有几个这类插件，你可以看看了解它如何工作。
+		
+		一个更强大和更复杂的选择是直接从Anki的数据库和它在外部程序分析提取复习记录信息。Anki使用一个数据库格式称为SQLite。有许多可用于与SQLite数据库工作的工具；从最简单的一种称为\url{http://sqlitebrowser.org/}SQLite浏览器开始，这将让你看看数据库以及导出csv版本表导入到另一个程序。
+		
+		统计最重要的表是'\textbf{revlog}'表，它为你进行的每个复习存储一个条目。该列如下：
+		
+		\begin{description}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item[id] 进行复习的时间，是从UTC时间1970年1月1日凌晨通过的毫秒数计算的。（这有时被称为\textbf{Unix纪元时间}，尤其是以直接秒替代毫秒。）
+			\item[cid] 被复习的卡片的ID。你可以看一下这个值，在“\textbf{卡片}”表的ID字段来获取关于卡片的更多信息，但请注意，卡片可以改变revlog输入记录与你查找它之间的时间。这也是卡片的创建时间的毫秒级时间戳。
+			\item[usn] 此列用于跟踪复习的同步状态，并没有提供有用的信息进行分析。
+			\item[容易] 在复习结束时按下哪个按钮（1为重来，4为容易）。
+			\item[ivl] 复习后，卡片被推到一个新的时间间隔。正确的为天数，否定的为秒数（用于学习卡片）。
+			\item[lastIvl] 复习前卡片的间隔时间。首次推出的卡片有最后一个间隔等于再次延迟。
+			\item[因素] 在千分率中的卡片有新的容易因素（千分）。如果容易因素是2500，下次你按下“一般”按钮时卡片的间隔将乘以2.5。
+			\item[时间] 在选择“容易”按钮之前，你花在这个问题和回答两侧卡片的时间（毫秒）。
+			\item[类型] 学习卡片为0，复习卡片为1、重新学习卡片为2，“临时学习”卡片为3（卡片未到期时则在过滤记忆库中正在学习）。               
+		\end{description}
+		
+		\chapter{媒体 }\label{}
+		
+		Anki用你的一个文件夹下的集合的笔记存储声音和图像。有关文件夹位置的更多信息，请参见\url{#files">文件位置部分。当你在Anki中添加媒体，用<a href="#editor}编辑器中的曲别针图标或将它粘贴到一个领域，Anki将从它原来的位置进入媒体文件夹复制它。这可以很容易备份您的集合的媒体或移动它到另一台计算机。
+		
+		您可以使用工具$>$检查媒体菜单选项扫描你的笔记和媒体文件夹。它将在未使用任何笔记的媒体文件夹中生成文件报告，但从媒体文件夹中丢失媒体引用的笔记。它不扫描问题或回答模板，这就是为什么你不能在模板中放置媒体引用到字段。如果每一张卡片需要静态图像或声音，它的名字以\_开头（例如，\textbf{“\_dog .jpg”}）告诉Anki在检查媒体时忽略它。如果你使用未使用的媒体检查删除媒体，Anki会移动到你的操作系统的垃圾文件夹，这样如果你不小心删除不应该被删除的媒体，你就可以恢复它。
+		
+		Anki为了支持声音和视频使用一个叫mplayer的程序。支持多种文件格式，但不是所有这些格式将在Ankiweb和移动客户端运作。MP3和MP4视频似乎是最普遍的支持。
+		
+		\chapter{LaTeX支持}
+		
+		LaTeX是一种功能强大的排版系统，它非常适合输入数学公式、化学公式、音乐符号等.。Anki提供了LaTeX一些支持，让你的笔记进入LaTeX代码。当你复习卡片，Anki要求LaTeX替代并显示生成的图像。
+		
+		\section{安装和假设知识}
+		
+		Anki的LaTeX支持不转换线索：假定你知道如何使用LaTeX，和你已经安装了它。如果你没有LaTeX的经验，请查阅互联网上的许多指南之一。如果你有标记的麻烦，请在询问一个LaTeX论坛。
+		
+		安装LaTeX，在Windows使用MiKTeX；在OSX使用MiKTeX，在Linux使用你的发行版的软件包管理器。Dvipng也必须安装。
+		
+		
+		\begin{shaded}
+			在Windows中，MikTek的维护窗口去设置，并确保“在操作中安装丢失的包”设置为“No”，不需要“先问我”。如果仍有问题，一个用户报告显示，Anki作为一个管理员运行直到所有的包获得帮助。
+		\end{shaded}
+		
+		\begin{shaded}
+			在OSX中， LaTeX只在 MacTex 和 BasicTex测试。如果你使用 BasicTex，你需要安装dvipng分开，用下面的命令：
+		\end{shaded}
+		
+		\begin{shaded}\begin{verbatim}
+			sudo tlmgr update --self; sudo tlmgr install dvipng
+			\end{verbatim}\end{shaded}
+		命令可能不在路径上，那么你可能需要提供完整的路径，例如 \verb|/usr/local/texlive/2014basic/bin/x86_64-darwin/tlmgr|。
+		
+		
+		\begin{shaded}
+			如果你不使用上述 \LaTeX 包，你将需要使用“编辑 \LaTeX”附加到指定 \LaTeX 和dvipng完整的路径。
+		\end{shaded}
+		
+		\section{网络/移动的LaTeX}
+		
+		当你复习一张有LaTeX的卡片，Anki将为LaTeX生成图像并将图像放入你集合的媒体文件夹中以备将来使用。如果图像已经存在，网络和移动客户端将显示这些图像，但不能生成自己的图像。
+		
+		你可以在其他客户端学习之前，为了避免复习所有卡片至少一次，Anki可以为你生成大量的图像。要生成所有图像，请到工具>检查媒体。在那之后，同步应上传生成的媒体到Ankiweb和其他客户端。
+		
+		\section{举例}
+		
+		最普遍的方式输入 LaTeX 内容是围绕它[latex][/latex]标签。在\url{#editor}编辑器部分有一个快捷键。
+		
+		例如，在Anki卡片正面输入以下的内容：
+		
+		\begin{shaded}\begin{verbatim}
+			Does [latex]\begin{math}\sum_{k = 1}^{\infty}\frac{1}{k}\end{math}[/latex] converge?
+			\end{verbatim}\end{shaded}
+		
+		当卡片被观察会产生这个：
+		
+		\includegraphics{figures/convergence-question.png}
+		
+		上面示例中的公式称为\textbf{文本公式，因为它在非数学文本中正确显示。与此相反，下面的示例展示一个显示公式}：
+		
+		\begin{shaded}\begin{verbatim}
+			Does the sum below converge?
+			
+			[latex]\begin{displaymath}\sum_{k = 1}^{\infty}\frac{1}{k}\end{displaymath}[/latex]
+			\end{verbatim}\end{shaded}
+		
+		\includegraphics{figures/convergence-question-2.png}
+		
+		\textbf{文本公式和显示公式}是LaTeX表达式中最常见的类型，因此Anki提供了它们的简化版本。形式表达：
+		
+		\begin{shaded}\begin{verbatim}
+			[latex]\begin{math}...\end{math}[/latex]
+			\end{verbatim}\end{shaded}
+		
+		可以缩短为
+		
+		\begin{shaded}\begin{verbatim}
+			[$]...[/$]
+			\end{verbatim}\end{shaded}
+		
+		形式的表达
+		
+		\begin{shaded}\begin{verbatim}
+			[latex]\begin{displaymath}...\end{displaymath}[/latex]
+			\end{verbatim}\end{shaded}
+		
+		可以缩短为
+		
+		\begin{shaded}\begin{verbatim}
+			[$$]...[/$$]
+			\end{verbatim}\end{shaded}
+		
+		例如，两个 LaTeX片段显示之前是等价的
+		
+		\begin{shaded}\begin{verbatim}
+			Does [$]\sum_{k = 1}^{\infty}\frac{1}{k}[/$] converge?
+			\end{verbatim}\end{shaded}
+		
+		和
+		
+		\begin{shaded}\begin{verbatim}
+			Does the sum below converge?
+			
+			[$$]\sum_{k = 1}^{\infty}\frac{1}{k}[/$$]
+			\end{verbatim}\end{shaded}
+		
+		分别。
+		
+		\section{LaTeX包}
+		
+		Anki允许你定制LaTeX 序言所以你可以导入自定义软件包为化学、音乐等。例如，想象你在网上找到一个加入的例子文件：
+		
+		\begin{shaded}\begin{verbatim}
+			\documentclass[a4paper,12pt]{report}
+			\usepackage{chemtex}
+			\begin{document}
+			
+			\initial
+			\begin{figure}[h]\centering
+			\parbox{.3\textwidth}{\ethene{H}{H$_3$C}{CH$_3$}{Br}}
+			\hfil
+			\parbox{.3\textwidth}{\cbranch{H}{S}{H}{S}{C}{S}{}{S}{H}
+			\xi=-200 \cright{}{Q}{C}{D}{O}{S}{OH}}
+			\hfil
+			\parbox{.3\textwidth}{\hetisix{Q}{Q}{Q}{Q}{Q}{Q}{O}{Q}{O}
+			\xi=-171 \fuseup{Q}{Q}{Q}{Q}{D}{Q}{D}{Q}{D}}
+			\caption{Chemie mit {\tt CHEMTEX}\label{a1}}
+			\end{figure}
+			
+			\end{document}
+			\end{verbatim}\end{shaded}
+		
+		首先，为了安装包遵循包的文档和 MiKTeX/MacTex。要检查包是否工作，你需要将上面的代码放入一个latex 文件并测试你可以从命令行编译它。一旦你确认包是可用的并且可以工作，我们可以用Anki整合它。
+		
+		使用封装的Anki，点击主窗口的“添加”，然后单击“笔记类型选择按钮。单击“管理”按钮，然后选择要使用的笔记类型，然后单击“选项”。LaTeX的头部和尾部会显示。头部会看起来像什么：
+		
+		\begin{shaded}\begin{verbatim}
+			\documentclass[12pt]{article}
+			\special{papersize=3in,5in}
+			\usepackage{amssymb,amsmath}
+			\pagestyle{empty}
+			\setlength{\parindent}{0in}
+			\begin{document}
+			\end{verbatim}\end{shaded}
+		
+		使用加入，你会在前面的例子中添加使用包线路，所以它看起来像：
+		
+		\begin{shaded}\begin{verbatim}
+			\documentclass[12pt]{article}
+			\special{papersize=3in,5in}
+			\usepackage{amssymb,amsmath}
+			\usepackage{chemtex}
+			\pagestyle{empty}
+			\setlength{\parindent}{0in}
+			\begin{document}
+			\end{verbatim}\end{shaded}
+		
+		在那之后，你应该能够包括线路像以下你的Anki卡片：
+		
+		\begin{shaded}\begin{verbatim}
+			[latex]\ethene{H}{H$_3$C}{CH$_3$}{Br}[/latex]
+			\end{verbatim}\end{shaded}
+		
+		\section{LaTeX冲突}
+		
+		在编写数学方程式时，在LaTeX码中弹出{{ and }}并不少见。确保你的LaTeX方程与Anki的替代品领域的不冲突，改变分离器的东西是可能的。
+		例如，如果你有一个模板：
+		
+		\begin{shaded}\begin{verbatim}
+			{{latex field}}
+			\end{verbatim}\end{shaded}
+		
+		把它改成以下将使 LaTeX不太可能发生冲突：
+		
+		\begin{shaded}\begin{verbatim}
+			{{=<% %>=}}
+			<%latex field%>
+			\end{verbatim}\end{shaded}
+		
+		虽然在LaTeX中这个经常发生，在你需要包括卡上的{{ }} ，无论是否使用LaTeX的任何情况下这里提出的解决方案将工作。
+		
+		当使用测验删除，你不能改变双括号用来标记测验删除；相反，你可以在任何双闭括号和不表明最后的测验之间放一个空间，所以
+		
+		\begin{shaded}\begin{verbatim}
+			{{c1::[$]\frac{foo}{\frac{bar}{baz}}[/$] blah blah blah.}}
+			\end{verbatim}\end{shaded}
+		
+		不会工作，但
+		
+		\begin{shaded}\begin{verbatim}
+			{{c1::[$]\frac{foo}{\frac{bar}{baz} }[/$] blah blah blah.}}
+			\end{verbatim}\end{shaded}
+		
+		将会（和 LaTeX忽略空间的数学模式，所以你的方程将呈现相同的）。
+		
+		\section{不安全命令}
+		
+		Anki禁止某些命令像从正在使用的卡片或模板中的 \verb|\input| or \verb|\def|，因为它们可能允许恶意共享记忆库损害你的系统。（为了安全起见，这些命令甚至禁止评论，所以如果你得到这个错误，但是不要认为你已经使用了一个，请仔细检查你的头部，模板和卡片的任何评论。）如果你需要使用这些命令，请将它们添加到系统包并导入包正如上一节中描述的。
+		
+		\chapter{杂录}\label{}
+		
+		\section{菜单快捷方式}
+		在Windows / Linux你可以按住ALT键并按一个突出字母激活特定的菜单。
+		OS X不支持此功能，但它允许你指定快捷方式到特定的菜单项。更多信息请见\url{http://lifehacker.com/343328/create-a-keyboard-shortcut-for-any-menu-action-in-any-program}
+		
+		\section{调试控制台}
+		
+		有时你可能会要求使用调试控制台更改设置或检查某些内容。除非要求在“调试控制台”输入文本，否则你可能不需要这个。高级用户可能喜欢阅读有关插件的更多信息，链接如下。
+		
+		当要求输入文本到“调试控制台”，请启动Anki，并在主窗口中，按Ctrl +：（即控制键和冒号键），或在Mac上，Command+：（命令键和冒号键在同一时间）。当你这样做时，就会弹出一个新窗口。
+		
+		在弹出的窗口中，请粘贴你被要求粘贴在顶部部分的文本。当你这样做，请按Ctrl +Return（Mac上Command+Return），和一些文本应该出现在底部。如果你被要求粘贴结果输出，请从底部区域复制，并将其粘贴到支持部分。
+		
+		如果你按Ctrl + Shift + Ctrl +Return而不是Ctrl+Return，Anki将打印结果而不是做你要求它做的事。如果你有意想不到的错误，请确保你没有按住Shift键。
+		
+		\chapter{插件}\label{}
+		
+		Anki的功能是可以扩展的插件。插件可以提供特定语言的额外支持、对进度的额外控制等功能。  
+		
+		要浏览可用插件的列表，请选择工具>插件>浏览和安装菜单项。你还可以使用工具>插件来检查安装了哪些插件。
+		
+		
+		一些插件有选项或只有通过编辑它们自定义。要编辑插件，到工具>插件> [插件名称] >编辑。请小心，当编辑-特殊字符和空格是很重要的，所以如果你看到：
+		\begin{shaded}\begin{verbatim}
+			line1
+			line2
+			line3
+			\end{verbatim}\end{shaded}
+		
+		
+		和你无意中改变它为以下内容，当Anki重新启动时Anki会抛出一个错误：
+		\begin{shaded}\begin{verbatim}
+			line1
+			line2
+			line3
+			\end{verbatim}\end{shaded}
+		许多插件的作者包括他们在插件中的电子邮件地址，所以如果你需要与作者联系，编辑插件和看文件的顶部可能会有帮助。
+		
+		如果你下载了一个不能正常工作的插件，或者你在编辑一个插件时无意中出错了，你可以使用菜单中的“删除”选项来删除它。
+		
+		要学习如何写自己的插件，请参阅\url{addons.html}插件书写指南。
+		
+		\chapter{贡献}\label{}
+		
+		\section{公开共享记忆库}
+		与公众分享记忆库，\url{#syncing}同步它们到AnkiWeb，然后登录Ankiweb点击“共享”菜单旁边你希望分享的记忆库。
+		
+		如果你以前分享一个记忆库（包括与Anki以前的版本），你可以通过如上点击“分享”更新。请确保在你的帐户上记忆库的名称完全匹配共享记忆库列表显示的名字，否则你将最终会创造一个新的共享记忆库而不是更新旧的。更新共享记忆库不会重置下载计数或比率。你可以删除你使用共享页面上的“删除”按钮上传的共享记忆库。
+		
+		
+		\begin{shaded}
+			更新一个记忆库的时候，Ankiweb如以前预计记忆库应在同一位置。如果你分享一个记忆库时，它被称为“韩语动词”为例，然后将它改名为“韩语：：韩语的动词”重新分享，将无法更新现有的副本。
+		\end{shaded}
+		
+		\section{分享个人记忆库}
+		
+		如果你想与有限的一群人分享记忆库（如一个学习小组或班级）而不是公众，你可以通过在AnkiWeb之外分享它们。
+		
+		要共享一个个人记忆库，到文件菜单，并选择导出。选择一个单一的记忆库（而不是“所有记忆库”），并关闭“包含学习进度信息”。这将产生一个你可以与他人分享的.apkg文件。
+		
+		你可以通过电子邮件给人们分享.apkg文件，把它放在一个网站或共享文件夹，或使用一个免费的文件共享服务像Dropbox或谷歌驱动器然后发送人们一个链接。
+		无论是电脑版和手机客户端只需点击或敲击它可以很容易地导入一个apkg文件。然而Ankiweb没有导入apkg文件的能力，所以你的记忆库的收件人将需要电脑版或移动设备上的Anki。
+		
+		当一个用户导入.apkg文件时，已经存在在他们的集合中的卡片将被忽略，任何新卡片将被添加。只要使用相同的笔记类型，修改后的卡片也会更新。为了防止数据丢失，已在新的apkg文件删除的卡片将不会在用户的集合中删除，所以出于任何原因如果你需要从用户的记忆库删除卡片，你将需要和他们联系一下。
+		
+		\section{共享插件}
+		
+		请参阅上面的插件文档。
+		
+		\section{应用翻译}
+		
+		翻译可以直接从\url{https://translations.launchpad.net/anki/trunk}翻译网站上做。
+		
+		启动台将在你连接的国家的基础上猜测你可以翻译哪种语言。如果你想翻译的语言没有出现，注册一个账号，并在你的个人资料，点击\textbf{！}旁边的首选语言的你想翻译的语言。
+		
+		在文本中有一些特殊的标记需要注意，并且在翻译时要小心：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item 字符串类似的\texttt{卡片: \%d}或 \texttt{错误: \%s}意味着\%d / \%s部分将被替换为其他值。字符在翻译时必须保持一致，所以翻译可能看起来像\texttt{カード: \%d}.
+			\item 这同样适用于文本如\texttt{\%(a)d of \%(b)d}-它将被翻译成 \texttt{\%(a)d von \%(b)d}。如果你需要在你的语言反转A和B，这是好的，只要文本保持不变。
+			\item 菜单项具有\& 指示哪个字符是快捷键，如\texttt{\& File}。在使用罗马文本的语言中，你可以把\& 放在一个不同的字符上面例如\texttt{\& Datei}；其他语言可能有不同的习俗。日本为例包括后来的罗马字符，像\texttt{ファイル (\& F)}
+			\item 一些字符串有复数的支持，以便 "0 cards", "1 card", "5 cards" 可以适当地表示在你的语言。在这些情况下，您需要输入2或3种不同的形式。
+		\end{itemize}
+		
+		有时会不清楚字符串是指什么，你可能想看到上下文。下面要翻译的每一个字符串，你会看到这样的线路：
+		
+		\begin{shaded}\begin{verbatim}
+			Located in ../dtop/aqt/deckbrowser.py:299
+			\end{verbatim}\end{shaded}
+		
+		如果你去掉第一个"..\/dtop"部分，你会留下一些东西，像"aqt/deckbrowser.py:299"。然后你可以访问\url{https://github.com/dae/anki/}，找到相同的文件名，并点击它。该文件将在左边显示行号，并通过匹配的行号，您可能能够更好地了解字符串是指什么。
+		如果在上面的示例中看到字符串的\textbf{形式}，字符串通常会很明显。然而，如果你确实需要了解上下文，事情就更复杂一点了，因为这些文件是从接口描述中自动生成的。请去\url{https://github.com/dae/anki/tree/master/designer}上找到相同的文件名，并单击。在这种情况下，我们不能依赖行号，所以请使用浏览器的查找选项来查找文件中的字符串。被发现的文本周围的线路可以给它的含义提示。
+		
+		如果你找到一个字符串，你不确定如何翻译，或者想和同母语的人开始讨论翻译东西的最好方式，请在Anki论坛启动一个线程。
+		
+		在一个新的Anki发行被自动包含在下一版本之前，做任何翻译至少几个小时。全新的语言需要手动添加，所以如果这适用于你的翻译请与我们联系。如果你想看到你的名字在屏幕上作为一个贡献者，请删除Damian一行。
+		
+		如果你想尝试你的翻译没有等待一个新的版本，你可以从翻译网站导出一个 .mo文件。如果你移动.mo文件到Anki的安装文件夹，用相同的语言代码（在本地文件夹）覆盖现有.mo文件，当下次启动时，Anki将显示新的翻译。
+		
+		\section{翻译手册}
+		
+		如果你是一个技术的用户，你可能想要翻译手册的\url{https://raw.github.com/dae/ankidocs/master/manual.txt}源文件，并自己用ASCII文件编译它。你也可以在未来使用GitHub跟踪手册更改。
+		
+		如果这听起来复杂，一个更简单的方法是访问此页面，并使用文件$>$保存，手动保存到磁盘。然后，你可以导入到Microsoft Word或类似的软件，并翻译成这样。
+		
+		当你快乐的翻译时，你可以把它放在你的网站上，我可以链接到它，或者我可以在Anki的网站上主持翻译的文件（但如果你打算进行频繁的更新，前者是更好的选择）。如果你愿意，你可以在你完成之前发布它，我们可以在下面的进度列表中链接它。
+		
+		另一种选择是把你的翻译放到一个维基上，让其他用户可以有助于它。有许多网站如\url{http://www.wikia.com}Wikia将允许你轻松地创建自己的免费维基。（英文版曾用维基；我们发现，我们有太多无用的贡献，不得不花太多的时间纠正它们，但你的情况可能不同。）
+		
+		下面的翻译正在进行中：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item Spanish
+			\item Chinese \url{http://ankisrs.net/docs/manual.pl.html}Polish
+		\end{itemize}
+		
+		如果你想帮助这些翻译之一，请在TenderApp联系我们，我们将你与目前正在工作的用户联系。
+		
+		\section{贡献代码}
+		
+		Anki的源代码在 \url{http://github.com/dae}是可用的
+		如果你有错误修正或相信你的改变会使很多人受益，请看一看许可证文件，如果你同意，在Damien的电子邮件或GitHub提交请求。
+		
+		\chapter{常见问题}\label{}
+		
+		\section{我还未学习很久，而现在离下次复习的间隔太大了！}
+		
+		当你每天使用 Anki 时，每张回答正确的卡片都获得了更大的复习间隔。假设每次 \textbf{good}将间隔翻了一倍，下次复习需要陆续等待 5 天，10 天，20 天，40天，如此下去。
+		
+		当人们在没有学习的几个星期或几个月后回到他们的记忆库上时，他们常常惊讶于他们的长度间隔已经成长。这是因为Anki认为实际的时间卡片是看不见的，不只是时间被安排。因此，如果卡片被预定了5天，但你一个月没有学习，下一个间隔将更接近60天超过10天。
+		
+		这是一件好事。如果你在一个月的等待之后成功地记住了一张卡片，那么在更长的等待之后，你会再次记住它。当你在一个延迟后学习时同样的原则也使得SRS在正常使用时有效运用。如果你能在一个月的等待之后很容易地回答它-你就会倒退，那么你在未来的10天内安排一张卡片也没什么意义。
+		
+		重置记忆库是一个更糟糕的解决方案。经过长时间的缺勤后返回到记忆库，你可能忘记了许多卡片，但很可能你没有忘记它们。重置整个记忆库意味着你必须浪费时间学习你已经知道的材料。
+		
+		现在你可能会发现你可以回忆过期的卡片，但不充裕，当它们在的时候没有被复习。为了解决这个问题，Anki对待的延迟不同这取决于你的答案。如果你发现一张卡片容易，最后一个间隔加上全部的延迟相加，然后用来计算下一个间隔。当你回答一般的时候，只有一半的延迟被使用.。当你努力回答时，只有四分之一的延迟被使用。所以，如果一张卡是在5天到期，它的回答迟到了20天，下一次你最终大约是：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item 困难: (5 + 20/4) * 1.2 = 12 天
+			\item  一般: (5 + 20/2) * 2.5 = 37.5 天
+			\item 简单: (5 + 20) * 3.25 = 81.25 天
+		\end{itemize}
+		
+		（这些因素实际上取决于你在记忆库上的表现）
+		
+		如果你发现卡片困难，下一个间隔是相当保守的，是小于最后等待（25天）。如果你发现卡片一般，下一个间隔只有大约50\%高。容易增加间隔像往常一样积极。
+		
+		所以经过一段时间的缺勤后，当你返回Anki时建议你正常学习。但如果你绝对必须重置记忆库，你可以在浏览器选择重置卡片，并使用编辑>重置。
+		
+		\section{我可以做多项选择题吗？}
+		
+		因为一些原因多项选择题是一个很差的复习工具。他们之所以经常在学术环境中使用是因为它们很容易被标记，并且允许学习的人展示他们识别正确答案的能力，即使他们自己不能做出来。
+		
+		此外，好的多项选择题，有精心挑选的“分心”的答案与类似正确答案。计算机可以寻找相似的拼写的词，但它对于更复杂的题是不能够选择好的干扰。
+		
+		如果你正在为一个考试学习，你有一个多项选择题样品考试如下：
+		
+		\begin{shaded}\begin{verbatim}
+			Q: What animal has a really long neck?
+			
+			A: 1. A monkey. 2. A giraffe. 3. A donkey. 4. A snail.
+			\end{verbatim}\end{shaded}
+		
+		那么，问题应该改写在Anki如下：
+		
+		\begin{shaded}\begin{verbatim}
+			Q: What animal has a really long neck?
+			
+			A: A giraffe.
+			\end{verbatim}\end{shaded}
+		
+		或者你可以添加你自己的选择：
+		
+		\begin{shaded}\begin{verbatim}
+			Q: What animal has a really long neck? (dog/cat/giraffe/penguin)
+			
+			A: A giraffe.
+			\end{verbatim}\end{shaded}
+		
+		\section{我可以链接卡片？添加依赖关系？我应该如何处理同义词？}
+		
+		Anki支持一个笔记的卡片之间的链接，但不是在不相关的卡片之间。想象一下你在学习日语，目的是既能识别又能再现日语。你可以输入“ookii”，意思是“大”，并告诉Anki产生两个卡片-ookii→big 和 big→ookii。
+		
+		在上述情况下Anki可以把相关卡片的复习分隔开，让他们不要出现一前一后（在文档的顶部见\url{#siblings}相关卡片链接）。
+		
+		有些人想在任意卡片之间扩展这个链接。他们希望能够告诉Anki“给我展示这张卡片后，给我看那张卡片”，或“不要展示那张卡片，直到我足够了解这张卡片”。这在理论上听起来也许是个好主意，但实际上并不实际。
+		
+		首先，与上面的相关卡片不同，你必须自己定义所有的关系。进入新的笔记到Anki会成为一个复杂的过程，你会通过搜索其余的记忆库和分配新老材料之间的关系。
+		
+		其次，记住Anki是使用一种算法来确定再次显示你的材料的最佳时间。增加卡片显示的限制，使卡片显示比他们预期的更早或更晚，使间隔重复系统不那么有效，导致更多不必要的工作，或忘记卡片。
+		
+		使用Anki的最有效的方法是使你看到每一个笔记独立于其他笔记。如果你能确定它们之间的区别，你就不会再试图加入类似的词语了。同义词很少可以完全互换--它们往往有细微差别，如果一个同义词被另一个同义词替换，句子就变得奇怪了。
+		
+		继续之前日本的例子，想象一下你想学的单词"dekai"，这也大致可以翻译为"big"，但更多的是一种口语化的表达。如果你还想复习两个方向，你可以用英语提示"big (更休闲)"这个词。你的语言学习进展得越快，定义类似单词之间的差异就越是一种负担，这就是为什么要求你制作特定单词的卡片最好留到学习的早期阶段。有了坚实的基础词汇，走向以识别为基础的学习更有意义，因为我们都有一个比我们主动的词汇更大的被动词汇。
+		
+		为了确保较难的材料在容易的材料之后被引入，一些现有的工具是可用的。新的卡片是默认它们被添加到记忆库的顺序，所以只要学习材料或你使用的信息来源是你的水平的适当等级，材料应按容易的顺序出现。
+		
+		\section{我可以给我的笔记任意数量的字段吗？}
+		
+		笔记的设计代表了\textbf{密切}相关的信息，并使它很容易重组出现在卡片上的信息。在语言学习的语境中，笔记是用来表示短语翻译对等、短语翻译阅读三元组等。所有这些关系是1:1 -一个给定的短语只有一个阅读和翻译。（1）
+		
+		由于他们能够将相关信息捆绑在一起，一些人试图用笔记来在他们的记忆库上捆绑不太密切相关的信息。例如，如果他们遇到两个句子的单词 "completely"：
+		
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item He was completely confused.
+			\item That was completely uncalled for.
+		\end{itemize}
+		
+		然后，他们把这两个句子放在同一个笔记里，在理论基础上，因为他们有一个词，他们是相关的。但是，如果用户遇到另一个例子句怎么办？
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item The book confused her.
+		\end{itemize}
+		
+		那句话与先前的句子都有 "confused" 一词。因此，它应该在"confused"的笔记？还是"completely"的笔记？或者两者都有？
+		
+		与上面提到的短语翻译对等不同的是，如果你说句子是相关的，如果他们分享一个字，那么句子有很多：许多关系。也就是说，句子A可能与句子B和C有关，句子B可能与A、D有关等。因为关系是复杂的和重叠的，笔记不是代表它们的好方法。
+		
+		似乎有两个主要的原因，人们试图用笔记来表示这种关系：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item “因为保持所有的信息在一个地方是整洁的”。这也许是事实，但实际上你并没有省多少空间。如果你想看到包含"completely" 这个单词的所有例句，每个句子都有不同的笔记，你所要做的就是寻找"completely" 。
+			\item “因为我想让Anki分开共享相同单词的卡片复习”。这是有关以前的常见问题解答的问题。定义卡片之间的链接是耗时的，如果它是自动完成的，每一个共享单词的卡片与其他共享单词的卡片分离，这将在计算之间禁止，很可能会导致一个什么都不能显示的情况，因为它都与其他东西有关。是的，这是不理想的两个句子包含同一个字对方显示后是不理想的，但如果你按随机顺序添加新卡片，这样的情况是不可能的，它的缺点是试图阻止这样的情况不值得的。即使这样的解决方案被引入，它也不会阻止你在现实世界中遇到这些词。
+		\end{itemize}
+		
+		（1）不同的人可以用不同的方式翻译同一个短语，不同的方言可以读同一个词不同，但这与讨论不相关。
+		
+		\section{我可以搭建自己的 AnkiWeb 吗？}
+		
+		抱歉，目前我们只提供官方的 AnkiWeb 服务。
+		
+		\section{为什么 Android 版是免费的，而 iOS 版不是？}
+		
+		编写 Anki 桌面版，AnkiWeb 和 Anki 移动版目前是我的全职工作，因此我需要取得收入的途径。既然桌面版和 Web 版已经免费提供给大家，我目前只能依赖销售 iOS App 获得经济收入。
+		
+		AnkiDroid 则是由一群分散在世界各地的志愿者编写完成。鉴于他们的工作建立在我免费提供的桌面版的基础上（并且依赖 AnkiWeb 以保持牌组同步），他们最终决定免费提供 AnkiDroid 给大家。
+		
+		\section{Anki 使用的间隔重复算法是怎样的？}
+		
+		Anki 最初采用的是 SuperMemo 的 SM5 算法。然而 Anki 默认需要在回答卡片之前确定下次复习的间隔，这与 SM5 算法有一些根本性的冲突。目前采用的 SM2 算法与后续的新版算法间的关键区别是：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item SM2 算法基于你在一张卡片上的表现决定下次复习这张卡片的时间
+			\item SM3+ 算法基于你在一张卡片上的表现决定下次复习这张及类似卡片的时间
+		\end{itemize}
+		
+		后者通过综合考虑一组卡片——而不单单是一张卡片——的表现，计算得出更准确的复习间隔。当你的学习较为规律，并且牌组中卡片的难度较为相似时，这类算法的效果更好。然而一旦不一致被引入这个平衡（不同难度的卡片，并非每天在固定时间学习），SM3+ 更容易作出错误的复习间隔时间猜测，从而导致部分卡片出现得过于频繁或荒于复习。
+		
+		
+		除此之外，由于 SM3+ 会动态调整“优化因子”表，选择“困难 (Hard)”有时会得到比“简单 (Easy)”还长的复习间隔。因为 SuperMemo 中隐藏了下次复习时间，所以用户们并不知情。
+		
+		在调研过这几个算法后，Anki 的作者决定使用 SM2 算法。因为 SM3+ 算法在复习间隔估计上些许优化，无法抵消错误估计带来的风险。SM2 算法的结果更加可预测，对终端用户更为直观，而 SM3+ 算法则隐藏了所有的细节并要求用户对其绝对地信任（即使系统可能会犯错）。
+		
+		Anki 的实际算法基于 SM2，但在以下方面略有不同：
+		
+		\begin{itemize}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item SM2定义1天到6天的初始间隔。用Anki，你完全控制了初始学习步骤的长度。Anki知道你能够记住它之前，有必要看一张新卡片若干次，那些最初的“失败”并不意味着你需要在几天内多次被展示失败的卡片来惩罚你。在学习阶段的表现并不反映在保留阶段的表现。
+			\item Anki使用4个选择回答复习卡片，不是6。只有一个\textbf{失败}的选择，而不是3。这样做的原因是，失败包括少量的总复习，可以充分通过简单地改变积极的答案从而调整卡片的易用性。
+			\item 回答卡片后比预计将计入下一区间的计算，所以你学习卡片得到提升，你回答晚了但仍然记得。
+			\item 像SM2，默认情况下，Anki的失误按钮重置卡片间隔。但用户可以选择使卡片后退一些步骤，而不是完全复位。此外，你可以选择在不同的一天复习失误的成熟卡片，而不是同一天。
+			\item \textbf{容易记住不仅增加了容易因素，而且增加了额外的红利到当前间隔的计算。因此，回答很容易记住}的比标准SM2算法更积极一点。
+			\item 卡片在学习中连续失误不会导致进一步降低卡片的容易程度。标准SM算法的一个常见的抱怨是重复失败的卡片导致卡片在“低间隔地狱”。在Anki中初始采集过程不影响卡片的容易程度。
+		\end{itemize}
+		
+		若想查看 SM2 算法的详细描述，您可以访问
+		\url{http://www.supermemo.com/english/ol/sm2.htm}
+		您还可以查看 Anki 源代码中的 \textbf{sched.py}文件了解排程部分的代码。以下是一个简单的总结
+		（请参阅 \url{#deckoptions}记忆库选项 小节中提到的用 \textbf{斜体}标出的选项）。
+		
+		如果您选择
+		
+		\begin{description}
+			\itemsep1pt\parskip0pt\parsep0pt
+			\item[再来一次] 该卡片是放在学习模式，减少了20个百分点（即20是从\textbf{容易的值减去，这是单位的百分点），当前的时间间隔乘以新时间间隔}值（当卡片退出再次学习模式这个间隔将被使用）。
+			\item[困难] 该卡的容易性降低15个百分点，当前间隔乘以1.2。
+			\item[一般] 当前间隔乘以当前容易程度。容易程度不变。                  
+			\item[容易] 当前间隔乘以当前多倍容易的\textbf{容易红利}和容易增加15个百分点。                
+		\end{description}
+		
+		对于困难，一般和容易，下一个间隔是额外乘以\textbf{间隔调节器}。做这些计算之前，如果该卡片正在被延迟复习，卡片过期的天数将被添加到当前的间隔。
+		
+		卡片可以采取有一些限制的调度值。容易将不会低于130\%；SuperMemo的研究已经表明，容易在130\%以下往往会导致卡片变成比有用的和恼人的用户到期的更频繁。间隔永远不会超出\textbf{最大间隔}值。最后，所有新的间隔（除再次）将始终至少比以前的间隔长一天。
+		
+		\begin{shaded}
+			当你选择一个容易按钮，Anki也适用于少量的随机的“模糊”防止同时推出卡片，然后从粘在一起并总是会在同一天复习的卡片给出相同的比率。这种模糊并不出现在间隔按钮上，所以如果你注意到你的选择和你的卡片之间的间隔会略有差异，这可能就是原因。
+		\end{shaded}
+		
+		
+		\chapter{资源}\label{}
+		
+		您可以访问 SuperMemo 的网站上获取更多关于间隔重复和记忆的优秀资源：\url{http://www.supermemo.com/}
+
+
+\end{document}
